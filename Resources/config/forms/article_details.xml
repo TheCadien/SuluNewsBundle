@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://schemas.sulu.io/template/template"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>article_details</key>
+
+    <properties>
+
+        <property name="header" type="single_media_selection">
+            <meta>
+                <title>app.image</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
+        </property>
+
+        <property name="title" type="text_line" mandatory="true" colspan="6">
+            <meta>
+                <title>sulu_admin.title</title>
+            </meta>
+        </property>
+
+        <property name="published_at" type="datetime" colspan="6">
+            <meta>
+                <title>app.published_at</title>
+            </meta>
+        </property>
+
+        <property name="teaser" type="text_area">
+            <meta>
+                <title>app.teaser</title>
+            </meta>
+        </property>
+
+        <property name="content" type="text_editor">
+            <meta>
+                <title>app.content</title>
+            </meta>
+        </property>
+
+        <property name="tags" type="tag_selection">
+            <meta>
+                <title>app.tags</title>
+            </meta>
+        </property>
+    </properties>
+</form>
