@@ -2,13 +2,14 @@
 namespace App\Bundle\ArticleBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
+use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\VirtualProperty;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\ManyToOne;
-use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
+use Sulu\Bundle\TagBundle\Tag\TagInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Bundle\ArticleBundle\Repository\ArticleRepository")
@@ -78,11 +79,26 @@ class Article
     private $published_at;
 
     /**
+     * @var Collection|TagInterface[]
+     *
+     * @ManyToMany(targetEntity="Sulu\Bundle\TagBundle\Tag\TagInterface")
+     * @JoinTable(name="article_tags",
+     *      joinColumns={@JoinColumn(name="article_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="idTags", referencedColumnName="id")}
+     *      )
+     *
+     * @Accessor(getter="getTagNameArray")
+     */
+    protected $tags;
+
+
+    /**
      * Article constructor.
      */
     public function __construct()
     {
         $this->enabled  = false;
+        $this->tags = new ArrayCollection();
 
     }
 
@@ -218,6 +234,48 @@ class Article
     public function setHeader($header): void
     {
         $this->header = $header;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addTag(TagInterface $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeTag(TagInterface $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTagNameArray()
+    {
+        $tags = [];
+
+        if (!is_null($this->getTags())) {
+            foreach ($this->getTags() as $tag) {
+                $tags[] = $tag->getName();
+            }
+        }
+
+        return $tags;
     }
 
 

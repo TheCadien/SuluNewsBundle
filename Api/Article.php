@@ -16,7 +16,9 @@ use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;
 use App\Bundle\ArticleBundle\Entity\Article as ArticleEntity;
+use Sulu\Bundle\ContactBundle\Api\Contact;
 use Sulu\Bundle\MediaBundle\Api\Media;
+use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Rest\ApiWrapper;
 
 
@@ -109,7 +111,7 @@ class Article extends ApiWrapper
      * @SerializedName("enabled")
      * @Groups({"fullArticle"})
      */
-    public function isEnabeld()
+    public function isEnabeld(): bool
     {
         return $this->entity->isEnabled();
     }
@@ -136,6 +138,42 @@ class Article extends ApiWrapper
     {
         $this->header = $header;
     }
+    /**
+     * Add tag.
+     *
+     * @param TagInterface $tag
+     *
+     * @return Article
+     */
+    public function addTag(TagInterface $tag)
+    {
+        $this->entity->addTag($tag);
+
+        return $this;
+    }
+
+    /**
+     * Remove tag.
+     *
+     * @param TagInterface $tag
+     */
+    public function removeTag(TagInterface $tag): void
+    {
+        $this->entity->removeTag($tag);
+    }
+    /**
+     * Get tags.
+     *
+     * @return array
+     *
+     * @VirtualProperty
+     * @SerializedName("tags")
+     * @Groups({"fullArticle"})
+     */
+    public function getTags(): array
+    {
+        return $this->entity->getTagNameArray();
+    }
 
     /**
      * Get the contacts avatar and return the array of different formats.
@@ -155,24 +193,5 @@ class Article extends ApiWrapper
                 'thumbnails' => $this->header->getFormats(),
             ];
         }
-    }
-
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return [
-            'id' => $this->getLastName(),
-            'firstName' => $this->getFirstName(),
-            'middleName' => $this->getMiddleName(),
-            'lastName' => $this->getLastName(),
-            'title' => $this->getTitle(),
-            'position' => $this->getPosition(),
-            'birthday' => $this->getBirthday(),
-            'created' => $this->getCreated(),
-            'changed' => $this->getChanged(),
-        ];
     }
 }
