@@ -7,6 +7,8 @@ namespace App\Bundle\ArticleBundle\Service\Article;
 use App\Bundle\ArticleBundle\Entity\Article;
 use App\Bundle\ArticleBundle\Entity\Factory\ArticleFactory;
 use App\Bundle\ArticleBundle\Repository\ArticleRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 
 class ArticleService
 {
@@ -22,6 +24,7 @@ class ArticleService
     /**
      * ArticleService constructor.
      * @param ArticleRepository $articleRepository
+     * @param ArticleFactory $factory
      */
     public function __construct(ArticleRepository $articleRepository,ArticleFactory $factory)
     {
@@ -32,8 +35,8 @@ class ArticleService
     /**
      * @param array $data
      * @return Article
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function saveNewArticle(array$data) : Article
     {
@@ -51,8 +54,8 @@ class ArticleService
      * @param $data
      * @param Article $article
      * @return Article
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function updateArticle($data,Article $article) : Article
     {

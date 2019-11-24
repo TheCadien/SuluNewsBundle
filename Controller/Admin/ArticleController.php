@@ -26,6 +26,9 @@ class ArticleController extends RestController implements ClassResourceInterface
      */
     private $repository;
 
+    /**
+     * @var ArticleService
+     */
     private $articleService;
 
     /**
@@ -99,7 +102,6 @@ class ArticleController extends RestController implements ClassResourceInterface
      */
     public function postAction(Request $request): Response
     {
-
         $article = $this->articleService->saveNewArticle($request->request->all());
 
         $apiEntity = $this->generateApiArticleEntity($article,$this->getLocale($request));
