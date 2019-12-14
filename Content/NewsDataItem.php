@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace App\Bundle\ArticleBundle\Content;
+namespace App\Bundle\NewsBundle\Content;
 
 
-use App\Bundle\ArticleBundle\Entity\Article;
+use App\Bundle\NewsBundle\Entity\News;
 use JMS\Serializer\Annotation as Serializer;
 use Sulu\Component\SmartContent\ItemInterface;
 
-class ArticleDataItem implements ItemInterface
+class NewsDataItem implements ItemInterface
 {
     /**
-     * @var Article
+     * @var News
      *
      * @Serializer\Exclude
      */
     private $entity;
 
     /**
-     * ArticleDataItem constructor.
-     * @param Article $entity
+     * NewsDataItem constructor.
+     * @param News $entity
      */
-    public function __construct(Article $entity)
+    public function __construct(News $entity)
     {
         $this->entity = $entity;
     }
@@ -52,7 +52,7 @@ class ArticleDataItem implements ItemInterface
     }
 
     /**
-     * @return Article|mixed
+     * @return News|mixed
      */
     public function getResource()
     {

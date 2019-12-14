@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\ArticleBundle\Api;
+namespace App\Bundle\NewsBundle\Api;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;
-use App\Bundle\ArticleBundle\Entity\Article as ArticleEntity;
+use App\Bundle\NewsBundle\Entity\News as NewsEntity;
 use Sulu\Bundle\ContactBundle\Api\Contact;
 use Sulu\Bundle\MediaBundle\Api\Media;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
@@ -23,13 +23,13 @@ use Sulu\Component\Rest\ApiWrapper;
 
 
 /**
- * The Article class which will be exported to the API.
+ * The News class which will be exported to the API.
  *
  * @ExclusionPolicy("all")
  */
-class Article extends ApiWrapper
+class News extends ApiWrapper
 {
-    const TYPE = 'article';
+    const TYPE = 'news';
 
 
     /**
@@ -38,11 +38,11 @@ class Article extends ApiWrapper
     private $header = null;
 
     /**
-     * @param ArticleEntity $contact
+     * @param NewsEntity $contact
      */
-    public function __construct(ArticleEntity $contact, $locale)
+    public function __construct(NewsEntity $contact, $locale)
     {
-        /** @var ArticleEntity entity */
+        /** @var NewsEntity entity */
         $this->entity = $contact;
         $this->locale = $locale;
     }
@@ -54,7 +54,7 @@ class Article extends ApiWrapper
      *
      * @VirtualProperty
      * @SerializedName("id")
-     * @Groups({"fullArticle"})
+     * @Groups({"fullNews"})
      */
     public function getId()
     {
@@ -76,7 +76,7 @@ class Article extends ApiWrapper
      *
      * @VirtualProperty
      * @SerializedName("title")
-     * @Groups({"fullArticle"})
+     * @Groups({"fullNews"})
      */
     public function getTitle()
     {
@@ -87,7 +87,7 @@ class Article extends ApiWrapper
      *
      * @VirtualProperty
      * @SerializedName("teaser")
-     * @Groups({"fullArticle"})
+     * @Groups({"fullNews"})
      */
     public function getTeaser()
     {
@@ -98,7 +98,7 @@ class Article extends ApiWrapper
      *
      * @VirtualProperty
      * @SerializedName("content")
-     * @Groups({"fullArticle"})
+     * @Groups({"fullNews"})
      */
     public function getContent()
     {
@@ -109,7 +109,7 @@ class Article extends ApiWrapper
      *
      * @VirtualProperty
      * @SerializedName("enabled")
-     * @Groups({"fullArticle"})
+     * @Groups({"fullNews"})
      */
     public function isEnabeld(): bool
     {
@@ -120,7 +120,7 @@ class Article extends ApiWrapper
      *
      * @VirtualProperty
      * @SerializedName("published_at")
-     * @Groups({"fullArticle"})
+     * @Groups({"fullNews"})
      */
     public function getPublishedAt()
     {
@@ -143,7 +143,7 @@ class Article extends ApiWrapper
      *
      * @param TagInterface $tag
      *
-     * @return Article
+     * @return News
      */
     public function addTag(TagInterface $tag)
     {
@@ -168,7 +168,7 @@ class Article extends ApiWrapper
      *
      * @VirtualProperty
      * @SerializedName("tags")
-     * @Groups({"fullArticle"})
+     * @Groups({"fullNews"})
      */
     public function getTags(): array
     {
@@ -182,7 +182,7 @@ class Article extends ApiWrapper
      *
      * @VirtualProperty
      * @SerializedName("header")
-     * @Groups({"fullArticle"})
+     * @Groups({"fullNews"})
      */
     public function getHeader(): array
     {

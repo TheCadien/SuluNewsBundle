@@ -1,21 +1,6 @@
 <?php
 
-/*
- * This file is part of Sulu.
- *
- * (c) Sulu GmbH
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-namespace App\Bundle\ArticleBundle\DependencyInjection;
-
-use Sulu\Bundle\ContactBundle\Entity\Account;
-use Sulu\Bundle\ContactBundle\Entity\AccountRepository;
-use Sulu\Bundle\ContactBundle\Entity\Contact;
-use Sulu\Bundle\ContactBundle\Entity\ContactRepository;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+namespace App\Bundle\NewsBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -29,7 +14,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder('article_bundle');
+        $treeBuilder = new TreeBuilder('news_bundle');
         $rootNode = $treeBuilder->getRootNode();
 
         return $treeBuilder;

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Bundle\ArticleBundle\Controller;
+namespace App\Bundle\NewsBundle\Controller;
 
-use App\Bundle\ArticleBundle\Repository\ArticleRepository;
+use App\Bundle\NewsBundle\Repository\NewsRepository;
+use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Bundle\WebsiteBundle\Resolver\TemplateAttributeResolverInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,11 +13,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class ArticleWebsiteController
- * @package App\Bundle\ArticleBundle\Controller
+ * Class NewsWebsiteController
+ * @package App\Bundle\NewsBundle\Controller
  */
-class ArticleWebsiteController extends AbstractController
+class NewsWebsiteController extends AbstractController
 {
+    /**
+     * @var MediaManagerInterface
+     */
+    private $mediaManager;
+
+    public function __construct(MediaManagerInterface $mediaManager)
+    {
+        $this->mediaManager = $mediaManager;
+    }
 
     /**
      * @param int $id
@@ -25,18 +35,21 @@ class ArticleWebsiteController extends AbstractController
      */
     public function indexAction(int $id, Request $request): Response
     {
-        $article = $this->get(ArticleRepository::class)->findById($id);
-        if (!$article) {
+        $news = $this->get(NewsRepository::class)->findById($id);
+        if (!$news) {
             throw new NotFoundHttpException();
         }
 
+        $media = $this->mediaManager->getById($news->getHeader()->getId(),'de');
+        $news->setHeader($media);
+
         return $this->render(
-            'articles/index.html.twig',
+            'news/index.html.twig',
             $this->get(TemplateAttributeResolverInterface::class)->resolve(
                 [
-                    'article' => $article,
+                    'news' => $news,
                     'success' => $request->query->get('success'),
-                    'content' => ['title' => $article->getTitle()],
+                    'content' => ['title' => $news->getTitle()],
                 ]
             )
         );
@@ -50,7 +63,7 @@ class ArticleWebsiteController extends AbstractController
         return array_merge(
             parent::getSubscribedServices(),
             [
-                ArticleRepository::class,
+                NewsRepository::class,
                 TemplateAttributeResolverInterface::class,
             ]
         );

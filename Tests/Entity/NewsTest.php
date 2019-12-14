@@ -4,8 +4,8 @@ namespace Tchibo\ApiBundle\Tests\DataTransferObject;
 
 
 
-use App\Bundle\ArticleBundle\Entity\Article;
-use App\Bundle\ArticleBundle\Tests\Traits\NewsTrait;
+use App\Bundle\NewsBundle\Entity\News;
+use App\Bundle\NewsBundle\Tests\Traits\NewsTrait;
 use PHPUnit\Framework\TestCase;
 
 class NewsTest extends TestCase
@@ -17,7 +17,7 @@ class NewsTest extends TestCase
      */
     public function testObjectGetterAndSetter()
     {
-        /** @var Article $news */
+        /** @var News $news */
         $news = $this->generateEmptyNews();
 
         $this->assertNull($news->getId());

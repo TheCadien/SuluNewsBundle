@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Bundle\ArticleBundle\Admin;
+namespace App\Bundle\NewsBundle\Admin;
 
-use App\Bundle\ArticleBundle\Entity\Article;
+use App\Bundle\NewsBundle\Entity\News;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
@@ -16,19 +16,19 @@ use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
-class ArticleAdmin extends Admin
+class NewsAdmin extends Admin
 {
-    const ARTICLE_SECURITY_CONTEXT = 'sulu.article';
+    const NEWS_SECURITY_CONTEXT = 'sulu.news';
 
-    const IMAGE_LIST_KEY = 'articles';
+    const NEWS_LIST_KEY = 'news';
 
-    const IMAGE_FORM_KEY = 'article_details';
+    const NEWS_FORM_KEY = 'news_details';
 
-    const IMAGE_LIST_VIEW = 'app.articles_list';
+    const NEWS_LIST_VIEW = 'app.news_list';
 
-    const IMAGE_ADD_FORM_VIEW = 'app.article_add_form';
+    const NEWS_ADD_FORM_VIEW = 'app.news_add_form';
 
-    const IMAGE_EDIT_FORM_VIEW = 'app.article_edit_form';
+    const NEWS_EDIT_FORM_VIEW = 'app.news_edit_form';
 
     /**
      * @var ViewBuilderFactoryInterface
@@ -44,6 +44,12 @@ class ArticleAdmin extends Admin
      */
     private $securityChecker;
 
+    /**
+     * ArticleAdmin constructor.
+     * @param ViewBuilderFactoryInterface $viewBuilderFactory
+     * @param WebspaceManagerInterface $webspaceManager
+     * @param SecurityCheckerInterface $securityChecker
+     */
     public function __construct(
         ViewBuilderFactoryInterface $viewBuilderFactory,
         WebspaceManagerInterface $webspaceManager,
@@ -60,15 +66,15 @@ class ArticleAdmin extends Admin
      */
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
-        if ($this->securityChecker->hasPermission(static::ARTICLE_SECURITY_CONTEXT, PermissionTypes::VIEW)) {
-            $module = new NavigationItem('app.article');
+        if ($this->securityChecker->hasPermission(static::NEWS_SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+            $module = new NavigationItem('app.news');
             $module->setPosition(20);
             $module->setIcon('su-newspaper');
 
             // Configure a NavigationItem with a View
-            $events = new NavigationItem('app.article');
+            $events = new NavigationItem('app.news');
             $events->setPosition(10);
-            $events->setView(static::IMAGE_LIST_VIEW);
+            $events->setView(static::NEWS_LIST_VIEW);
 
             $module->addChild($events);
 
@@ -83,40 +89,40 @@ class ArticleAdmin extends Admin
     {
         $locales = $this->webspaceManager->getAllLocales();
 
-        // Configure article List View
+        // Configure news List View
         $listToolbarActions = [new ToolbarAction('sulu_admin.add'), new ToolbarAction('sulu_admin.delete')];
-        $listView = $this->viewBuilderFactory->createListViewBuilder(self::IMAGE_LIST_VIEW, '/articles/:locale')
-            ->setResourceKey(Article::RESOURCE_KEY)
-            ->setListKey(self::IMAGE_LIST_KEY)
-            ->setTitle('app.article')
+        $listView = $this->viewBuilderFactory->createListViewBuilder(self::NEWS_LIST_VIEW, '/news/:locale')
+            ->setResourceKey(News::RESOURCE_KEY)
+            ->setListKey(self::NEWS_LIST_KEY)
+            ->setTitle('app.news')
             ->addListAdapters(['table'])
             ->addLocales($locales)
             ->setDefaultLocale($locales[0])
-            ->setAddView(static::IMAGE_ADD_FORM_VIEW)
-            ->setEditView(static::IMAGE_EDIT_FORM_VIEW)
+            ->setAddView(static::NEWS_ADD_FORM_VIEW)
+            ->setEditView(static::NEWS_EDIT_FORM_VIEW)
             ->addToolbarActions($listToolbarActions);
         $viewCollection->add($listView);
 
 
-        $addFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(self::IMAGE_ADD_FORM_VIEW, '/articles/:locale/add')
-            ->setResourceKey(Article::RESOURCE_KEY)
-            ->setBackView(static::IMAGE_LIST_VIEW)
+        $addFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(self::NEWS_ADD_FORM_VIEW, '/news/:locale/add')
+            ->setResourceKey(News::RESOURCE_KEY)
+            ->setBackView(static::NEWS_LIST_VIEW)
             ->addLocales($locales);
         $viewCollection->add($addFormView);
 
-        $addDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(self::IMAGE_ADD_FORM_VIEW . '.details', '/details')
-            ->setResourceKey(Article::RESOURCE_KEY)
-            ->setFormKey(self::IMAGE_FORM_KEY)
+        $addDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(self::NEWS_ADD_FORM_VIEW . '.details', '/details')
+            ->setResourceKey(News::RESOURCE_KEY)
+            ->setFormKey(self::NEWS_FORM_KEY)
             ->setTabTitle('sulu_admin.details')
-            ->setEditView(static::IMAGE_EDIT_FORM_VIEW)
+            ->setEditView(static::NEWS_EDIT_FORM_VIEW)
             ->addToolbarActions([new ToolbarAction('sulu_admin.save')])
-            ->setParent(static::IMAGE_ADD_FORM_VIEW);
+            ->setParent(static::NEWS_ADD_FORM_VIEW);
         $viewCollection->add($addDetailsFormView);
 
         // Configure news Edit View
-        $editFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::IMAGE_EDIT_FORM_VIEW, '/articles/:locale/:id')
-            ->setResourceKey(Article::RESOURCE_KEY)
-            ->setBackView(static::IMAGE_LIST_VIEW)
+        $editFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::NEWS_EDIT_FORM_VIEW, '/news/:locale/:id')
+            ->setResourceKey(News::RESOURCE_KEY)
+            ->setBackView(static::NEWS_LIST_VIEW)
             ->setTitleProperty('title')
             ->addLocales($locales);
         $viewCollection->add($editFormView);
@@ -125,18 +131,18 @@ class ArticleAdmin extends Admin
             new ToolbarAction('sulu_admin.save'),
             new ToolbarAction('sulu_admin.delete'),
             new TogglerToolbarAction(
-                'app.enable_article',
+                'app.enable_news',
                 'enabled',
                 'enable',
                 'disable'
             ),
         ];
-        $editDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(static::IMAGE_EDIT_FORM_VIEW . '.details', '/details')
-            ->setResourceKey(Article::RESOURCE_KEY)
-            ->setFormKey(self::IMAGE_FORM_KEY)
+        $editDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.details', '/details')
+            ->setResourceKey(News::RESOURCE_KEY)
+            ->setFormKey(self::NEWS_FORM_KEY)
             ->setTabTitle('sulu_admin.details')
             ->addToolbarActions($formToolbarActions)
-            ->setParent(static::IMAGE_EDIT_FORM_VIEW);
+            ->setParent(static::NEWS_EDIT_FORM_VIEW);
         $viewCollection->add($editDetailsFormView);
     }
 
@@ -147,8 +153,8 @@ class ArticleAdmin extends Admin
     {
         return [
             'Sulu' => [
-                'Article' => [
-                    static::ARTICLE_SECURITY_CONTEXT => [
+                'News' => [
+                    static::NEWS_SECURITY_CONTEXT => [
                         PermissionTypes::VIEW,
                         PermissionTypes::ADD,
                         PermissionTypes::EDIT,
@@ -161,6 +167,6 @@ class ArticleAdmin extends Admin
 
     public function getConfigKey(): ?string
     {
-        return 'sulu_article';
+        return 'sulu_news';
     }
 }

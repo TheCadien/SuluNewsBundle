@@ -3,7 +3,7 @@
       xmlns="http://schemas.sulu.io/template/template"
       xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
 >
-    <key>article_details</key>
+    <key>news_details</key>
 
     <properties>
 
@@ -13,6 +13,7 @@
             </meta>
             <params>
                 <param name="types" value="image"/>
+                <param name="image_size" value="800x400" />
             </params>
         </property>
 
@@ -22,7 +23,7 @@
             </meta>
         </property>
 
-        <property name="published_at" type="datetime" colspan="6">
+        <property name="published_at" type="datetime" mandatory="true" colspan="6">
             <meta>
                 <title>app.published_at</title>
             </meta>

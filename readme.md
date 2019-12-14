@@ -14,11 +14,8 @@ Clone the Bundle in your Project.
  
 ###ini Bundle in the bundles.php
 ```php
-    App\Bundle\ArticleBundle\ArticleBundle::class => ['all' => true],
+    App\Bundle\NewsBundle\NewsBundle::class => ['all' => true],
 ```
-
-###Init Servies
- copy content of `Resources/services.yml`  to `/config/services.yaml`
 
 ###Update schema
 ```shell script
@@ -29,8 +26,8 @@ bin/console do:sch:up --force
 ###Define Website Route in `routes_website.yaml`
 ```yaml
 app.article:
-   path: /article/{id}
-   controller: App\Bundle\ArticleBundle\Controller\ArticleWebsiteController::indexAction
+   path: /news/{id}
+   controller: App\Bundle\NewsBundle\Controller\NewsWebsiteController::indexAction
 ```
    
 
@@ -39,7 +36,7 @@ app.article:
 ```yaml
 app_articles:
   type: rest
-  resource: App\Bundle\ArticleBundle\Controller\Admin\ArticleController
+  resource: App\Bundle\NewsBundle\Controller\Admin\NewsController
   prefix: /admin/api
   name_prefix: app.
   options:

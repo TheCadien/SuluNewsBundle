@@ -1,16 +1,16 @@
 <?php
 
 
-namespace App\Bundle\ArticleBundle\Entity\Factory;
+namespace App\Bundle\NewsBundle\Entity\Factory;
 
 
-use App\Bundle\ArticleBundle\Entity\Article;
+use App\Bundle\NewsBundle\Entity\News;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
 use Sulu\Bundle\TagBundle\Tag\TagManagerInterface;
 use Sulu\Component\Persistence\RelationTrait;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
 
-class ArticleFactory
+class NewsFactory
 {
     use RelationTrait;
     
@@ -25,7 +25,7 @@ class ArticleFactory
     private $tagManager;
 
     /**
-     * ArticleFactory constructor.
+     * NewsFactory constructor.
      * @param MediaRepositoryInterface $mediaRepository
      * @param TagManagerInterface $tagManager
      */
@@ -41,76 +41,76 @@ class ArticleFactory
 
 
     /**
-     * @return Article
+     * @return News
      * @throws \Exception
      */
-    public function generateNewArticleFromRequest(array $data): Article
+    public function generateNewNewsFromRequest(array $data): News
     {
-        $article = new Article();
+        $news = new News();
 
         if ($this->getProperty($data, 'title')) {
-            $article->setTitle($this->getProperty($data, 'title'));
+            $news->setTitle($this->getProperty($data, 'title'));
         }
 
         if ($this->getProperty($data, 'teaser')) {
-            $article->setTeaser($this->getProperty($data, 'teaser'));
+            $news->setTeaser($this->getProperty($data, 'teaser'));
         }
 
         if ($this->getProperty($data, 'header')) {
-            $article->setHeader($this->generateMedia($data['header']));
+            $news->setHeader($this->generateMedia($data['header']));
         }
 
         if ($this->getProperty($data, 'published_at')) {
-            $article->setPublishedAt(new \DateTime($this->getProperty($data, 'published_at')));
+            $news->setPublishedAt(new \DateTime($this->getProperty($data, 'published_at')));
         }
 
         if ($this->getProperty($data, 'content')) {
-            $article->setContent($this->getProperty($data, 'content'));
+            $news->setContent($this->getProperty($data, 'content'));
         }
 
         if ($tags = $this->getProperty($data, 'tags')) {
-            $this->processTags($article, $tags);
+            $this->processTags($news, $tags);
         }
 
-        $article->setDate(new \DateTime());
+        $news->setDate(new \DateTime());
 
-        return $article;
+        return $news;
     }
 
     /**
      * @param array $data
-     * @param Article $article
-     * @return Article
+     * @param News $news
+     * @return News
      * @throws EntityNotFoundException
      * @throws \Exception
      */
-    public function updateArticleFromRequest(array $data, Article $article): Article
+    public function updateNewsFromRequest(array $data, News $news): News
     {
         if ($this->getProperty($data, 'title')) {
-            $article->setTitle($this->getProperty($data, 'title'));
+            $news->setTitle($this->getProperty($data, 'title'));
         }
 
         if ($this->getProperty($data, 'teaser')) {
-            $article->setTeaser($this->getProperty($data, 'teaser'));
+            $news->setTeaser($this->getProperty($data, 'teaser'));
         }
 
         if ($this->getProperty($data, 'header')) {
-            $article->setHeader($this->generateMedia($data['header']));
+            $news->setHeader($this->generateMedia($data['header']));
         }
 
         if ($this->getProperty($data, 'published_at')) {
-            $article->setPublishedAt(new \DateTime($this->getProperty($data, 'published_at')));
+            $news->setPublishedAt(new \DateTime($this->getProperty($data, 'published_at')));
         }
 
         if ($this->getProperty($data, 'content')) {
-            $article->setContent($this->getProperty($data, 'content'));
+            $news->setContent($this->getProperty($data, 'content'));
         }
 
         if ($tags = $this->getProperty($data, 'tags')) {
-            $this->processTags($article, $tags);
+            $this->processTags($news, $tags);
         }
 
-        return $article;
+        return $news;
     }
 
     /**
@@ -151,29 +151,29 @@ class ArticleFactory
     }
 
     /**
-     * @param Article $article
+     * @param News $news
      * @param $tags
      * @return bool
      */
-    public function processTags(Article $article, $tags)
+    public function processTags(News $news, $tags)
     {
         $get = function($tag) {
             return $tag->getId();
         };
 
-        $delete = function($tag) use ($article) {
-            return $article->removeTag($tag);
+        $delete = function($tag) use ($news) {
+            return $news->removeTag($tag);
         };
 
         $update = function() {
             return true;
         };
 
-        $add = function($tag) use ($article) {
-            return $this->addTag($article, $tag);
+        $add = function($tag) use ($news) {
+            return $this->addTag($news, $tag);
         };
 
-        $entities = $article->getTags();
+        $entities = $news->getTags();
 
         $result = $this->processSubEntities(
             $entities,
@@ -189,16 +189,16 @@ class ArticleFactory
     /**
      * Adds a new tag to the given contact and persist it with the given object manager.
      *
-     * @param Article $article
+     * @param News $news
      * @param $data
      *
      * @return bool True if there was no error, otherwise false
      */
-    protected function addTag(Article $article, $data)
+    protected function addTag(News $news, $data)
     {
         $success = true;
         $resolvedTag = $this->getTagManager()->findOrCreateByName($data);
-        $article->addTag($resolvedTag);
+        $news->addTag($resolvedTag);
 
         return $success;
     }

@@ -1,61 +1,75 @@
 <?php
-namespace App\Bundle\ArticleBundle\Repository;
+namespace App\Bundle\NewsBundle\Repository;
 
-use App\Bundle\ArticleBundle\Entity\Article;
+use App\Bundle\NewsBundle\Entity\News;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 
+
 /**
- * Class ArticleRepository
- * @package App\Bundle\ArticleBundle\Repository
+ * Class NewsRepository
+ * @package App\Bundle\NewsBundle\Repository
  */
-class ArticleRepository extends ServiceEntityRepository implements DataProviderRepositoryInterface
+class NewsRepository extends ServiceEntityRepository implements DataProviderRepositoryInterface
 {
 
     /**
-     * ArticleRepository constructor.
+     * NewsRepository constructor.
      * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Article::class);
+        parent::__construct($registry, News::class);
     }
 
     /**
-     * @param Article $article
+     * @param News $news
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(Article $article): void
+    public function save(News $news): void
     {
-        $this->getEntityManager()->persist($article);
+        $this->getEntityManager()->persist($news);
         $this->getEntityManager()->flush();
     }
 
-    public function getPublishedArticles()
+    /**
+     * @return array
+     */
+    public function getPublishedNewss() : array
     {
-        $articles = $this->findBy(['enabled' => 1]);
-        if (!$articles) {
-            return null;
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select( 'a' )
+            ->from( 'News',  'a' )
+            ->where('a.enabled = 1')
+            ->andWhere('a.published_at <= :date')
+            ->setParameter('date',date('Y-m-d H:i:s'))
+            ->orderBy('a.published_at', 'DESC');
+
+        $news = $qb->getQuery()->getResult();
+
+
+        if (!$news) {
+            return [];
         }
 
-        return $articles;
+        return $news;
     }
 
     /**
      * @param int $id
      * @param string $locale
-     * @return Article|null
+     * @return News|null
      */
-    public function findById(int $id): ?Article
+    public function findById(int $id): ?News
     {
-        $article = $this->find($id);
-        if (!$article) {
+        $news = $this->find($id);
+        if (!$news) {
             return null;
         }
 
-        return $article;
+        return $news;
     }
 
     /**
