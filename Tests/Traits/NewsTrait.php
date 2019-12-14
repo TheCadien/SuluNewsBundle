@@ -1,7 +1,7 @@
 <?php
-namespace App\Bundle\ArticleBundle\Tests\Traits;
+namespace App\Bundle\NewsBundle\Tests\Traits;
 
-use App\Bundle\ArticleBundle\Entity\Article;
+use App\Bundle\NewsBundle\Entity\News;
 
 
 /**
@@ -11,10 +11,10 @@ use App\Bundle\ArticleBundle\Entity\Article;
 trait NewsTrait
 {
     /**
-     * @return Article
+     * @return News
      */
-    public function generateEmptyNews() : Article
+    public function generateEmptyNews() : News
     {
-        return new Article();
+        return new News();
     }
 }

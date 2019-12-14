@@ -1,18 +1,7 @@
 <?php
+namespace App\Bundle\NewsBundle\DependencyInjection;
 
-/*
- * This file is part of Sulu.
- *
- * (c) Sulu GmbH
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-namespace App\Bundle\ArticleBundle\DependencyInjection;
-
-use App\Bundle\ArticleBundle\Admin\ArticleAdmin;
-use Sulu\Bundle\ContactBundle\Admin\ContactAdmin;
+use App\Bundle\NewsBundle\Admin\NewsAdmin;
 use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -25,7 +14,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class ArticleExtension extends Extension implements PrependExtensionInterface
+class NewsExtension extends Extension implements PrependExtensionInterface
 {
     use PersistenceExtensionTrait;
 
@@ -42,16 +31,16 @@ class ArticleExtension extends Extension implements PrependExtensionInterface
                 [
                     'indexes' => [
                         'contact' => [
-                            'name' => 'Article',
+                            'name' => 'News',
                             'icon' => 'su-newspaper',
                             'view' => [
-                                'name' => ArticleAdmin::IMAGE_EDIT_FORM_VIEW,
+                                'name' => NewsAdmin::NEWS_EDIT_FORM_VIEW,
                                 'result_to_view' => [
                                     'id' => 'id',
                                     'locale' => 'locale',
                                 ],
                             ],
-                            'security_context' => ArticleAdmin::ARTICLE_SECURITY_CONTEXT,
+                            'security_context' => NewsAdmin::NEWS_SECURITY_CONTEXT,
                         ]
                     ],
                 ]

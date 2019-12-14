@@ -1,5 +1,5 @@
 <?php
-namespace App\Bundle\ArticleBundle\Entity;
+namespace App\Bundle\NewsBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,13 +10,12 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
-
 /**
- * @ORM\Entity(repositoryClass="App\Bundle\ArticleBundle\Repository\ArticleRepository")
+ * @ORM\Entity(repositoryClass="App\Bundle\NewsBundle\Repository\NewsRepository")
  */
-class Article
+class News
 {
-    const RESOURCE_KEY = 'articles';
+    const RESOURCE_KEY = 'news';
 
     /**
      * @var int|null
@@ -35,6 +34,21 @@ class Article
     private $header;
 
     /**
+     * @Groups({"partialMedia"})
+     * @ORM\ManyToOne(targetEntity="Sulu\Component\Security\Authentication\UserInterface")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    private $creator;
+
+
+    /**
+     * @Groups({"partialMedia"})
+     * @ORM\ManyToOne(targetEntity="Sulu\Component\Security\Authentication\UserInterface")
+     * @ORM\JoinColumn(name="changer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    private $changer;
+
+    /**
      * @var bool
      *
      * @ORM\Column(type="boolean", nullable=false)
@@ -45,7 +59,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", length=255 , nullable=false)
      */
     private $title;
 
@@ -82,8 +96,8 @@ class Article
      * @var Collection|TagInterface[]
      *
      * @ManyToMany(targetEntity="Sulu\Bundle\TagBundle\Tag\TagInterface")
-     * @JoinTable(name="article_tags",
-     *      joinColumns={@JoinColumn(name="article_id", referencedColumnName="id")},
+     * @JoinTable(name="news_tags",
+     *      joinColumns={@JoinColumn(name="news_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="idTags", referencedColumnName="id")}
      *      )
      *
@@ -93,7 +107,7 @@ class Article
 
 
     /**
-     * Article constructor.
+     * News constructor.
      */
     public function __construct()
     {
@@ -198,12 +212,6 @@ class Article
         $this->published_at = $published_at;
     }
 
-
-    static function createEmptyArticle() : Article
-    {
-        //return new Article();
-    }
-
     /**
      * @return string
      */
@@ -276,6 +284,38 @@ class Article
         }
 
         return $tags;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param mixed $creator
+     */
+    public function setCreator($creator): void
+    {
+        $this->creator = $creator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChanger()
+    {
+        return $this->changer;
+    }
+
+    /**
+     * @param mixed $changer
+     */
+    public function setChanger($changer): void
+    {
+        $this->changer = $changer;
     }
 
 

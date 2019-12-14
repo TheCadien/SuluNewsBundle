@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Bundle\ArticleBundle\Admin;
+namespace App\Bundle\NewsBundle\Admin;
 
 
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;

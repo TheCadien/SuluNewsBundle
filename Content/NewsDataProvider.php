@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Bundle\ArticleBundle\Content;
+namespace App\Bundle\NewsBundle\Content;
 
 use Sulu\Component\SmartContent\Orm\BaseDataProvider;
 
-class ArticleDataProvider extends BaseDataProvider
+class NewsDataProvider extends BaseDataProvider
 {
     public function getConfiguration()
     {
@@ -16,7 +16,7 @@ class ArticleDataProvider extends BaseDataProvider
                 ->enablePagination()
                 ->enableSorting(
                     [
-                        ['column' => 'article_translation.title', 'title' => 'sulu_admin.title'],
+                        ['column' => 'news_translation.title', 'title' => 'sulu_admin.title'],
                     ]
                 )
                 ->getConfiguration();
@@ -29,7 +29,7 @@ class ArticleDataProvider extends BaseDataProvider
     {
         return array_map(
             function ($item) {
-                return new ArticleDataItem($item);
+                return new NewsDataItem($item);
             },
             $data
         );

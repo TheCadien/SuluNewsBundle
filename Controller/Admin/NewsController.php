@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Bundle\ArticleBundle\Controller\Admin;
+namespace App\Bundle\NewsBundle\Controller\Admin;
 
-use App\Bundle\ArticleBundle\Admin\DoctrineListRepresentationFactory;
-use App\Bundle\ArticleBundle\Entity\Article;
-use App\Bundle\ArticleBundle\Api\Article as ArticleApi;
-use App\Bundle\ArticleBundle\Repository\ArticleRepository;
-use App\Bundle\ArticleBundle\Service\Article\ArticleService;
+use App\Bundle\NewsBundle\Admin\DoctrineListRepresentationFactory;
+use App\Bundle\NewsBundle\Entity\News;
+use App\Bundle\NewsBundle\Api\News as NewsApi;
+use App\Bundle\NewsBundle\Repository\NewsRepository;
+use App\Bundle\NewsBundle\Service\News\NewsService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -19,17 +19,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ArticleController extends RestController implements ClassResourceInterface
+class NewsController extends RestController implements ClassResourceInterface
 {
     /**
-     * @var ArticleRepository
+     * @var NewsRepository
      */
     private $repository;
 
     /**
-     * @var ArticleService
+     * @var NewsService
      */
-    private $articleService;
+    private $newsService;
 
     /**
      * @var DoctrineListRepresentationFactory
@@ -43,30 +43,31 @@ class ArticleController extends RestController implements ClassResourceInterface
     // serialization groups for contact
     protected static $contactSerializationGroups = [
         'partialMedia',
-        'fullArticle'
+        'fullNews'
     ];
 
     public function __construct(
-        ArticleRepository $repository,
-        ArticleService $articleService,
+        NewsRepository $repository,
+        NewsService $newsService,
         DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
         MediaManagerInterface $mediaManager
     ) {
         $this->repository = $repository;
-        $this->articleService = $articleService;
+        $this->newsService = $newsService;
         $this->doctrineListRepresentationFactory = $doctrineListRepresentationFactory;
         $this->mediaManager = $mediaManager;
     }
 
     /**
      * @param Request $request
+
      * @return Response
      */
     public function cgetAction(Request $request): Response
     {
         $locale = $request->query->get('locale');
         $listRepresentation = $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
-            Article::RESOURCE_KEY,
+            News::RESOURCE_KEY,
             [],
             ['locale' => $locale]
         );
@@ -81,13 +82,13 @@ class ArticleController extends RestController implements ClassResourceInterface
      */
     public function getAction(int $id, Request $request): Response
     {
-        /** @var Article $entity */
-        $entity = $this->load($id, $request);
+        /** @var News $entity */
+        $entity = $this->repository->findById($id);
         if (!$entity) {
             throw new NotFoundHttpException();
         }
 
-        $apiEntity = $this->generateApiArticleEntity($entity,$this->getLocale($request));
+        $apiEntity = $this->generateApiNewsEntity($entity,$this->getLocale($request));
 
         $view = $this->generateViewContent($apiEntity);
 
@@ -102,9 +103,9 @@ class ArticleController extends RestController implements ClassResourceInterface
      */
     public function postAction(Request $request): Response
     {
-        $article = $this->articleService->saveNewArticle($request->request->all());
+        $news = $this->newsService->saveNewNews($request->request->all());
 
-        $apiEntity = $this->generateApiArticleEntity($article,$this->getLocale($request));
+        $apiEntity = $this->generateApiNewsEntity($news,$this->getLocale($request));
 
         $view = $this->generateViewContent($apiEntity);
 
@@ -112,27 +113,27 @@ class ArticleController extends RestController implements ClassResourceInterface
     }
 
     /**
-     * @Rest\Post("/articles/{id}")
+     * @Rest\Post("/news/{id}")
      */
     public function postTriggerAction(int $id, Request $request): Response
     {
-        $article = $this->repository->findById($id);
-        if (!$article) {
+        $news = $this->repository->findById($id);
+        if (!$news) {
             throw new NotFoundHttpException();
         }
 
         switch ($request->query->get('action')) {
             case 'enable':
-                $article->setEnabled(true);
+                $news->setEnabled(true);
                 break;
             case 'disable':
-                $article->setEnabled(false);
+                $news->setEnabled(false);
                 break;
         }
 
-        $this->repository->save($article);
+        $this->repository->save($news);
 
-        $apiEntity = $this->generateApiArticleEntity($article,$this->getLocale($request));
+        $apiEntity = $this->generateApiNewsEntity($news,$this->getLocale($request));
         $view = $this->generateViewContent($apiEntity);
 
         return $this->handleView($view);
@@ -147,12 +148,12 @@ class ArticleController extends RestController implements ClassResourceInterface
      */
     public function putAction(int $id, Request $request): Response
     {
-        $entity = $this->load($id, $request);
+        $entity = $this->repository->findById($id);
         if (!$entity) {
             throw new NotFoundHttpException();
         }
-        $updatedEntity = $this->articleService->updateArticle($request->request->all(),$entity);
-        $apiEntity = $this->generateApiArticleEntity($updatedEntity,$this->getLocale($request));
+        $updatedEntity = $this->newsService->updateNews($request->request->all(),$entity);
+        $apiEntity = $this->generateApiNewsEntity($updatedEntity,$this->getLocale($request));
         $view = $this->generateViewContent($apiEntity);
 
         return $this->handleView($view);
@@ -166,43 +167,21 @@ class ArticleController extends RestController implements ClassResourceInterface
      */
     public function deleteAction(int $id): Response
     {
-        $this->remove($id);
+        $this->repository->remove($id);
 
         return $this->handleView($this->view());
     }
 
-    /**
-     * @param int $id
-     *
-     * TODO ! Remove in repo
-     * @param Request $request
-     * @return Article|null
-     */
-    protected function load(int $id, Request $request): ?Article
-    {
-        return $this->repository->findById($id);
-    }
+
 
     /**
-     * @param int $id
-     *
-     * TODO ! Remove in repo
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    protected function remove(int $id): void
-    {
-        $this->repository->remove($id);
-    }
-
-    /**
-     * @param Article $entity
+     * @param News $entity
      * @param string $locale
-     * @return ArticleApi
+     * @return NewsApi
      */
-    protected function generateApiArticleEntity(Article $entity,string $locale): ArticleApi
+    protected function generateApiNewsEntity(News $entity, string $locale): NewsApi
     {
-        $apiEntity = new ArticleApi($entity,$locale);
+        $apiEntity = new NewsApi($entity,$locale);
         if($entity->getHeader()){
             $apiEntity->setAvatar($this->mediaManager->getById($entity->getHeader()->getId(), 'de'));
         }
@@ -211,10 +190,10 @@ class ArticleController extends RestController implements ClassResourceInterface
     }
 
     /**
-     * @param ArticleApi $entity
+     * @param NewsApi $entity
      * @return View
      */
-    protected function generateViewContent(ArticleApi $entity): View
+    protected function generateViewContent(NewsApi $entity): View
     {
         $view = $this->view($entity);
         $context = new Context();

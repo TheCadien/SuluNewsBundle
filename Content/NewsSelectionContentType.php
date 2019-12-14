@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Bundle\ArticleBundle\Content;
+namespace App\Bundle\NewsBundle\Content;
 
-use App\Bundle\ArticleBundle\Entity\Article;
-use App\Bundle\ArticleBundle\Repository\ArticleRepository;
+use App\Bundle\NewsBundle\Entity\News;
+use App\Bundle\NewsBundle\Repository\NewsRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\SimpleContentType;
 
-class ArticleSelectionContentType extends SimpleContentType
+class NewsSelectionContentType extends SimpleContentType
 {
     /**
-     * @var ArticleRepository
+     * @var NewsRepository
      */
     private $eventRepository;
 
-    public function __construct(ArticleRepository $eventRepository)
+    public function __construct(NewsRepository $eventRepository)
     {
-        parent::__construct('article_selection');
+        parent::__construct('news_selection');
 
         $this->eventRepository = $eventRepository;
     }
 
     /**
-     * @return Article[]
+     * @return News[]
      */
     public function getContentData(PropertyInterface $property): array
     {
