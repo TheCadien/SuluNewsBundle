@@ -13,11 +13,13 @@ use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Component\Rest\AbstractRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class NewsController extends AbstractRestController implements ClassResourceInterface
 {
@@ -46,16 +48,30 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         'fullNews'
     ];
 
+    /**
+     * NewsController constructor.
+     * @param ViewHandlerInterface $viewHandler
+     * @param TokenStorageInterface $tokenStorage
+     * @param NewsRepository $repository
+     * @param NewsService $newsService
+     * @param DoctrineListRepresentationFactory $doctrineListRepresentationFactory
+     * @param MediaManagerInterface $mediaManager
+     */
     public function __construct(
+        ViewHandlerInterface $viewHandler,
+        TokenStorageInterface $tokenStorage,
         NewsRepository $repository,
         NewsService $newsService,
         DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
         MediaManagerInterface $mediaManager
     ) {
+        parent::__construct($viewHandler, $tokenStorage);
+
         $this->repository = $repository;
         $this->newsService = $newsService;
         $this->doctrineListRepresentationFactory = $doctrineListRepresentationFactory;
         $this->mediaManager = $mediaManager;
+
     }
 
     /**
