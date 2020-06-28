@@ -37,7 +37,7 @@ class NewsRepository extends ServiceEntityRepository implements DataProviderRepo
     /**
      * @return array
      */
-    public function getPublishedNewss() : array
+    public function getPublishedNews() : array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select( 'a' )
