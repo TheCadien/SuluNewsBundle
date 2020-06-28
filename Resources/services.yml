@@ -31,26 +31,26 @@ services:
     tags: ['controller.service_arguments']
 
 
-  App\Bundle\ArticleBundle\Content\ArticleSelectionContentType:
+  App\Bundle\NewsBundle\Content\ArticleSelectionContentType:
     tags: [{name: 'sulu.content.type', alias: 'article_selection'}]
 
-  App\Bundle\ArticleBundle\Content\ArticleDataProvider:
+  App\Bundle\NewsBundle\Content\ArticleDataProvider:
     tags: [{name: 'sulu.smart_content.data_provider', alias: 'articles'}]
     bind:
-      $repository: '@App\Bundle\ArticleBundle\Repository\ArticleRepository'
+      $repository: '@App\Bundle\NewsBundle\Repository\ArticleRepository'
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
 
   # following service definitions will be removed in the website context of sulu
-  App\Bundle\ArticleBundle\Admin\:
-    resource: '../src/Bundle/ArticleBundle/Admin'
-    tags: [{name: 'sulu.context', context: 'admin'}]
+  App\Bundle\NewsBundle\Admin\:
+    resource: '../src/Bundle/NewsBundle/Admin'
+    tags: ['controller.service_arguments',{name: 'sulu.context', context: 'admin'}]
 
-  App\Bundle\ArticleBundle\Controller\Admin\:
-    resource: '../src/Bundle/ArticleBundle/Controller/Admin'
-    tags: [{name: 'sulu.context', context: 'admin'}]
+  App\Bundle\NewsBundle\Controller\Admin\:
+    resource: '../src/Bundle/NewsBundle/Controller/Admin'
+    tags: ['controller.service_arguments',{name: 'sulu.context', context: 'admin'}]
 
-  App\Bundle\ArticleBundle\Repository\:
-    resource: '../src/Bundle/ArticleBundle/Repository'
+  App\Bundle\NewsBundle\Repository\:
+    resource: '../src/Bundle/NewsBundle/Repository'
     public: true
