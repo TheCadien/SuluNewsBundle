@@ -38,7 +38,7 @@ bin/console do:sch:up --force
 
 ###Define Website Route in `routes_website.yaml`
 ```yaml
-app.article:
+app.news:
    path: /news/{id}
    controller: App\Bundle\NewsBundle\Controller\NewsWebsiteController::indexAction
 ```
@@ -47,7 +47,7 @@ app.article:
    
 ###Define the Admin Api Route in `routes_admin.yaml`
 ```yaml
-app_articles:
+app_news:
   type: rest
   resource: App\Bundle\NewsBundle\Controller\Admin\NewsController
   prefix: /admin/api
