@@ -11,13 +11,8 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle\Controller\Admin;
+namespace TheCadien\Bundle\SuluNewsBundle\Controller\Admin;
 
-use App\Bundle\NewsBundle\Admin\DoctrineListRepresentationFactory;
-use App\Bundle\NewsBundle\Api\News as NewsApi;
-use App\Bundle\NewsBundle\Entity\News;
-use App\Bundle\NewsBundle\Repository\NewsRepository;
-use App\Bundle\NewsBundle\Service\News\NewsService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -29,6 +24,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use TheCadien\Bundle\SuluNewsBundle\Admin\DoctrineListRepresentationFactory;
+use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
+use TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService;
 
 class NewsController extends AbstractRestController implements ClassResourceInterface
 {

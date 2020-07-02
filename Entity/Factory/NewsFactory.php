@@ -11,13 +11,13 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle\Entity\Factory;
+namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
-use App\Bundle\NewsBundle\Entity\News;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
 use Sulu\Bundle\TagBundle\Tag\TagManagerInterface;
 use Sulu\Component\Persistence\RelationTrait;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsFactory
 {

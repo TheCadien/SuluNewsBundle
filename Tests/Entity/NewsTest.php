@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tchibo\ApiBundle\Tests\DataTransferObject;
 
-use App\Bundle\NewsBundle\Entity\News;
-use App\Bundle\NewsBundle\Tests\Traits\NewsTrait;
 use PHPUnit\Framework\TestCase;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Tests\Traits\NewsTrait;
 
 class NewsTest extends TestCase
 {

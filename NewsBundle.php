@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle;
+namespace TheCadien\Bundle\SuluNewsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

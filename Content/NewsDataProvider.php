@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle\Content;
+namespace TheCadien\Bundle\SuluNewsBundle\Content;
 
 use Sulu\Component\SmartContent\Orm\BaseDataProvider;
 

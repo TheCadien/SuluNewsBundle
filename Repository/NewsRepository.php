@@ -11,12 +11,12 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle\Repository;
+namespace TheCadien\Bundle\SuluNewsBundle\Repository;
 
-use App\Bundle\NewsBundle\Entity\News;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 /**
  * Class NewsRepository.
