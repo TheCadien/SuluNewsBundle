@@ -27,7 +27,7 @@ Clone the Bundle in your Project.
  
 ###ini Bundle in the bundles.php
 ```php
-    App\Bundle\NewsBundle\NewsBundle::class => ['all' => true],
+    TheCadien\Bundle\SuluNewsBundle\NewsBundle::class => ['all' => true],
 ```
 
 ###Update schema
@@ -40,7 +40,7 @@ bin/console do:sch:up --force
 ```yaml
 app.news:
    path: /news/{id}
-   controller: App\Bundle\NewsBundle\Controller\NewsWebsiteController::indexAction
+   controller: TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController::indexAction
 ```
    
 
@@ -49,7 +49,7 @@ app.news:
 ```yaml
 app_news:
   type: rest
-  resource: App\Bundle\NewsBundle\Controller\Admin\NewsController
+  resource: TheCadien\Bundle\SuluNewsBundle\Controller\Admin\NewsController
   prefix: /admin/api
   name_prefix: app.
   options:

@@ -11,11 +11,11 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle\Service\News;
+namespace TheCadien\Bundle\SuluNewsBundle\Service\News;
 
-use App\Bundle\NewsBundle\Entity\Factory\NewsFactory;
-use App\Bundle\NewsBundle\Entity\News;
-use App\Bundle\NewsBundle\Repository\NewsRepository;
+use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

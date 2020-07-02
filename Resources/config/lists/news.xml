@@ -16,22 +16,22 @@
     <properties>
         <property name="id" visibility="no" translation="sulu_admin.id">
             <field-name>id</field-name>
-            <entity-name>App\Bundle\NewsBundle\Entity\News</entity-name>
+            <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 
         <property name="title" visibility="always" searchability="yes" translation="sulu_admin.title">
             <field-name>title</field-name>
-            <entity-name>App\Bundle\NewsBundle\Entity\News</entity-name>
+            <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 
         <property name="teaser" visibility="always" searchability="yes" translation="app.teaser">
             <field-name>teaser</field-name>
-            <entity-name>App\Bundle\NewsBundle\Entity\News</entity-name>
+            <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 
         <property name="published_at" visibility="yes" searchability="yes" translation="app.published_at">
             <field-name>published_at</field-name>
-            <entity-name>App\Bundle\NewsBundle\Entity\News</entity-name>
+            <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 
 
@@ -52,7 +52,7 @@
 
         <property name="enabled" visibility="no" translation="app.enabled" type="bool">
             <field-name>enabled</field-name>
-            <entity-name>App\Bundle\NewsBundle\Entity\News</entity-name>
+            <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 
 

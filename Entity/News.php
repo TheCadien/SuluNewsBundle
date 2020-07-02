@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle\Entity;
+namespace TheCadien\Bundle\SuluNewsBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -24,7 +24,7 @@ use JMS\Serializer\Annotation\Groups;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 
 /**
- * @ORM\Entity(repositoryClass="App\Bundle\NewsBundle\Repository\NewsRepository")
+ * @ORM\Entity(repositoryClass="TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository")
  */
 class News
 {

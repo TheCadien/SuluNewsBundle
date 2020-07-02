@@ -11,9 +11,9 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle\Admin;
+namespace TheCadien\Bundle\SuluNewsBundle\Admin;
 
-use App\Bundle\NewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;

@@ -11,9 +11,9 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle\Controller;
+namespace TheCadien\Bundle\SuluNewsBundle\Controller;
 
-use App\Bundle\NewsBundle\Repository\NewsRepository;
+use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Bundle\WebsiteBundle\Resolver\TemplateAttributeResolverInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

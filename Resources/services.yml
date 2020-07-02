@@ -31,26 +31,26 @@ services:
     tags: ['controller.service_arguments']
 
 
-  App\Bundle\NewsBundle\Content\ArticleSelectionContentType:
+  TheCadien\Bundle\SuluNewsBundle\Content\ArticleSelectionContentType:
     tags: [{name: 'sulu.content.type', alias: 'article_selection'}]
 
-  App\Bundle\NewsBundle\Content\ArticleDataProvider:
+  TheCadien\Bundle\SuluNewsBundle\Content\ArticleDataProvider:
     tags: [{name: 'sulu.smart_content.data_provider', alias: 'articles'}]
     bind:
-      $repository: '@App\Bundle\NewsBundle\Repository\ArticleRepository'
+      $repository: '@TheCadien\Bundle\SuluNewsBundle\Repository\ArticleRepository'
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
 
   # following service definitions will be removed in the website context of sulu
-  App\Bundle\NewsBundle\Admin\:
+  TheCadien\Bundle\SuluNewsBundle\Admin\:
     resource: '../src/Bundle/NewsBundle/Admin'
     tags: ['controller.service_arguments',{name: 'sulu.context', context: 'admin'}]
 
-  App\Bundle\NewsBundle\Controller\Admin\:
+  TheCadien\Bundle\SuluNewsBundle\Controller\Admin\:
     resource: '../src/Bundle/NewsBundle/Controller/Admin'
     tags: ['controller.service_arguments',{name: 'sulu.context', context: 'admin'}]
 
-  App\Bundle\NewsBundle\Repository\:
+  TheCadien\Bundle\SuluNewsBundle\Repository\:
     resource: '../src/Bundle/NewsBundle/Repository'
     public: true

@@ -11,10 +11,10 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace App\Bundle\NewsBundle\Content;
+namespace TheCadien\Bundle\SuluNewsBundle\Content;
 
-use App\Bundle\NewsBundle\Entity\News;
-use App\Bundle\NewsBundle\Repository\NewsRepository;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\SimpleContentType;
 
