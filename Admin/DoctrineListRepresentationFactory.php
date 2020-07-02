@@ -2,14 +2,22 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Bundle\NewsBundle\Admin;
 
-
+use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\Rest\RestHelperInterface;
-use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 
 class DoctrineListRepresentationFactory
 {
@@ -37,7 +45,6 @@ class DoctrineListRepresentationFactory
         $this->listBuilderFactory = $listBuilderFactory;
         $this->fieldDescriptorFactory = $fieldDescriptorFactory;
     }
-
 
     /**
      * @param mixed[] $filters

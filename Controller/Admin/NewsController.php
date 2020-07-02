@@ -2,11 +2,20 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Bundle\NewsBundle\Controller\Admin;
 
 use App\Bundle\NewsBundle\Admin\DoctrineListRepresentationFactory;
-use App\Bundle\NewsBundle\Entity\News;
 use App\Bundle\NewsBundle\Api\News as NewsApi;
+use App\Bundle\NewsBundle\Entity\News;
 use App\Bundle\NewsBundle\Repository\NewsRepository;
 use App\Bundle\NewsBundle\Service\News\NewsService;
 use FOS\RestBundle\Context\Context;
@@ -45,17 +54,11 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     // serialization groups for contact
     protected static $contactSerializationGroups = [
         'partialMedia',
-        'fullNews'
+        'fullNews',
     ];
 
     /**
      * NewsController constructor.
-     * @param ViewHandlerInterface $viewHandler
-     * @param TokenStorageInterface $tokenStorage
-     * @param NewsRepository $repository
-     * @param NewsService $newsService
-     * @param DoctrineListRepresentationFactory $doctrineListRepresentationFactory
-     * @param MediaManagerInterface $mediaManager
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -71,14 +74,8 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         $this->newsService = $newsService;
         $this->doctrineListRepresentationFactory = $doctrineListRepresentationFactory;
         $this->mediaManager = $mediaManager;
-
     }
 
-    /**
-     * @param Request $request
-
-     * @return Response
-     */
     public function cgetAction(Request $request): Response
     {
         $locale = $request->query->get('locale');
@@ -91,11 +88,6 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         return $this->handleView($this->view($listRepresentation));
     }
 
-    /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     */
     public function getAction(int $id, Request $request): Response
     {
         /** @var News $entity */
@@ -104,7 +96,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
             throw new NotFoundHttpException();
         }
 
-        $apiEntity = $this->generateApiNewsEntity($entity,$this->getLocale($request));
+        $apiEntity = $this->generateApiNewsEntity($entity, $this->getLocale($request));
 
         $view = $this->generateViewContent($apiEntity);
 
@@ -112,8 +104,6 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     }
 
     /**
-     * @param Request $request
-     * @return Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -121,7 +111,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     {
         $news = $this->newsService->saveNewNews($request->request->all());
 
-        $apiEntity = $this->generateApiNewsEntity($news,$this->getLocale($request));
+        $apiEntity = $this->generateApiNewsEntity($news, $this->getLocale($request));
 
         $view = $this->generateViewContent($apiEntity);
 
@@ -149,16 +139,13 @@ class NewsController extends AbstractRestController implements ClassResourceInte
 
         $this->repository->save($news);
 
-        $apiEntity = $this->generateApiNewsEntity($news,$this->getLocale($request));
+        $apiEntity = $this->generateApiNewsEntity($news, $this->getLocale($request));
         $view = $this->generateViewContent($apiEntity);
 
         return $this->handleView($view);
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -168,16 +155,14 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         if (!$entity) {
             throw new NotFoundHttpException();
         }
-        $updatedEntity = $this->newsService->updateNews($request->request->all(),$entity);
-        $apiEntity = $this->generateApiNewsEntity($updatedEntity,$this->getLocale($request));
+        $updatedEntity = $this->newsService->updateNews($request->request->all(), $entity);
+        $apiEntity = $this->generateApiNewsEntity($updatedEntity, $this->getLocale($request));
         $view = $this->generateViewContent($apiEntity);
 
         return $this->handleView($view);
     }
 
     /**
-     * @param int $id
-     * @return Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -188,33 +173,22 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         return $this->handleView($this->view());
     }
 
-
-
-    /**
-     * @param News $entity
-     * @param string $locale
-     * @return NewsApi
-     */
     protected function generateApiNewsEntity(News $entity, string $locale): NewsApi
     {
-        $apiEntity = new NewsApi($entity,$locale);
-        if($entity->getHeader()){
+        $apiEntity = new NewsApi($entity, $locale);
+        if ($entity->getHeader()) {
             $apiEntity->setAvatar($this->mediaManager->getById($entity->getHeader()->getId(), 'de'));
         }
 
         return $apiEntity;
     }
 
-    /**
-     * @param NewsApi $entity
-     * @return View
-     */
     protected function generateViewContent(NewsApi $entity): View
     {
         $view = $this->view($entity);
         $context = new Context();
         $context->setGroups(static::$contactSerializationGroups);
+
         return $view->setContext($context);
     }
-
 }

@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Bundle\NewsBundle\Admin;
 
 use App\Bundle\NewsBundle\Entity\News;
@@ -46,24 +55,17 @@ class NewsAdmin extends Admin
 
     /**
      * ArticleAdmin constructor.
-     * @param ViewBuilderFactoryInterface $viewBuilderFactory
-     * @param WebspaceManagerInterface $webspaceManager
-     * @param SecurityCheckerInterface $securityChecker
      */
     public function __construct(
         ViewBuilderFactoryInterface $viewBuilderFactory,
         WebspaceManagerInterface $webspaceManager,
         SecurityCheckerInterface $securityChecker
-    )
-    {
+    ) {
         $this->viewBuilderFactory = $viewBuilderFactory;
         $this->webspaceManager = $webspaceManager;
         $this->securityChecker = $securityChecker;
     }
 
-    /**
-     * @param NavigationItemCollection $navigationItemCollection
-     */
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
         if ($this->securityChecker->hasPermission(static::NEWS_SECURITY_CONTEXT, PermissionTypes::VIEW)) {
@@ -82,9 +84,6 @@ class NewsAdmin extends Admin
         }
     }
 
-    /**
-     * @param ViewCollection $viewCollection
-     */
     public function configureViews(ViewCollection $viewCollection): void
     {
         $locales = $this->webspaceManager->getAllLocales();
@@ -102,7 +101,6 @@ class NewsAdmin extends Admin
             ->setEditView(static::NEWS_EDIT_FORM_VIEW)
             ->addToolbarActions($listToolbarActions);
         $viewCollection->add($listView);
-
 
         $addFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(self::NEWS_ADD_FORM_VIEW, '/news/:locale/add')
             ->setResourceKey(News::RESOURCE_KEY)

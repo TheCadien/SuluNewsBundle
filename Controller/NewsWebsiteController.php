@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Bundle\NewsBundle\Controller;
 
 use App\Bundle\NewsBundle\Repository\NewsRepository;
@@ -13,8 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class NewsWebsiteController
- * @package App\Bundle\NewsBundle\Controller
+ * Class NewsWebsiteController.
  */
 class NewsWebsiteController extends AbstractController
 {
@@ -28,11 +36,6 @@ class NewsWebsiteController extends AbstractController
         $this->mediaManager = $mediaManager;
     }
 
-    /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     */
     public function indexAction(int $id, Request $request): Response
     {
         $news = $this->get(NewsRepository::class)->findById($id);
@@ -40,7 +43,7 @@ class NewsWebsiteController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $media = $this->mediaManager->getById($news->getHeader()->getId(),'de');
+        $media = $this->mediaManager->getById($news->getHeader()->getId(), 'de');
         $news->setHeader($media);
 
         return $this->render(
@@ -55,9 +58,6 @@ class NewsWebsiteController extends AbstractController
         );
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedServices(): array
     {
         return array_merge(

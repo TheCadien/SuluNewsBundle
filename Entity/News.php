@@ -1,15 +1,28 @@
 <?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Bundle\NewsBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Groups;
-use Doctrine\ORM\Mapping\JoinColumn;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
+
 /**
  * @ORM\Entity(repositoryClass="App\Bundle\NewsBundle\Repository\NewsRepository")
  */
@@ -40,7 +53,6 @@ class News
      */
     private $creator;
 
-
     /**
      * @Groups({"partialMedia"})
      * @ORM\ManyToOne(targetEntity="Sulu\Component\Security\Authentication\UserInterface")
@@ -54,7 +66,6 @@ class News
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $enabled;
-
 
     /**
      * @var string
@@ -76,7 +87,6 @@ class News
      * @ORM\Column(type="text", nullable=false)
      */
     private $content;
-
 
     /**
      * @var \DateTime
@@ -105,44 +115,30 @@ class News
      */
     protected $tags;
 
-
     /**
      * News constructor.
      */
     public function __construct()
     {
-        $this->enabled  = false;
+        $this->enabled = false;
         $this->tags = new ArrayCollection();
-
     }
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param int|null $id
-     */
     public function setId(?int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    /**
-     * @param bool $enabled
-     */
     public function setEnabled(bool $enabled): void
     {
         $this->enabled = $enabled;
@@ -156,9 +152,6 @@ class News
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
@@ -172,9 +165,6 @@ class News
         return $this->content;
     }
 
-    /**
-     * @param string $content
-     */
     public function setContent(string $content): void
     {
         $this->content = $content;
@@ -188,9 +178,6 @@ class News
         return $this->date;
     }
 
-    /**
-     * @param \DateTime $date
-     */
     public function setDate(\DateTime $date): void
     {
         $this->date = $date;
@@ -204,25 +191,16 @@ class News
         return $this->published_at;
     }
 
-    /**
-     * @param \DateTime $published_at
-     */
     public function setPublishedAt(\DateTime $published_at): void
     {
         $this->published_at = $published_at;
     }
 
-    /**
-     * @return string
-     */
     public function getTeaser(): string
     {
         return $this->teaser;
     }
 
-    /**
-     * @param string $teaser
-     */
     public function setTeaser(string $teaser): void
     {
         $this->teaser = $teaser;
@@ -244,9 +222,6 @@ class News
         $this->header = $header;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addTag(TagInterface $tag)
     {
         $this->tags[] = $tag;
@@ -254,30 +229,21 @@ class News
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function removeTag(TagInterface $tag)
     {
         $this->tags->removeElement($tag);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTags()
     {
         return $this->tags;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTagNameArray()
     {
         $tags = [];
 
-        if (!is_null($this->getTags())) {
+        if (null !== $this->getTags()) {
             foreach ($this->getTags() as $tag) {
                 $tags[] = $tag->getName();
             }
@@ -317,6 +283,4 @@ class News
     {
         $this->changer = $changer;
     }
-
-
 }

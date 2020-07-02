@@ -1,17 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Bundle\NewsBundle\Api;
 
+use App\Bundle\NewsBundle\Entity\News as NewsEntity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;
-use App\Bundle\NewsBundle\Entity\News as NewsEntity;
-use Sulu\Bundle\ContactBundle\Api\Contact;
 use Sulu\Bundle\MediaBundle\Api\Media;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Rest\ApiWrapper;
-
 
 /**
  * The News class which will be exported to the API.
@@ -22,18 +31,14 @@ class News extends ApiWrapper
 {
     const TYPE = 'news';
 
-
     /**
      * @var Media
      */
     private $header = null;
 
-    /**
-     * @param NewsEntity $contact
-     */
     public function __construct(NewsEntity $contact, $locale)
     {
-        /** @var NewsEntity entity */
+        /* @var NewsEntity entity */
         $this->entity = $contact;
         $this->locale = $locale;
     }
@@ -54,6 +59,7 @@ class News extends ApiWrapper
 
     /**
      * @param $title
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -64,7 +70,6 @@ class News extends ApiWrapper
     }
 
     /**
-     *
      * @VirtualProperty
      * @SerializedName("title")
      * @Groups({"fullNews"})
@@ -75,7 +80,6 @@ class News extends ApiWrapper
     }
 
     /**
-     *
      * @VirtualProperty
      * @SerializedName("teaser")
      * @Groups({"fullNews"})
@@ -86,7 +90,6 @@ class News extends ApiWrapper
     }
 
     /**
-     *
      * @VirtualProperty
      * @SerializedName("content")
      * @Groups({"fullNews"})
@@ -97,7 +100,6 @@ class News extends ApiWrapper
     }
 
     /**
-     *
      * @VirtualProperty
      * @SerializedName("enabled")
      * @Groups({"fullNews"})
@@ -108,7 +110,6 @@ class News extends ApiWrapper
     }
 
     /**
-     *
      * @VirtualProperty
      * @SerializedName("published_at")
      * @Groups({"fullNews"})
@@ -118,21 +119,16 @@ class News extends ApiWrapper
         return $this->entity->getPublishedAt();
     }
 
-
-
     /**
      * Sets the avatar (media-api object).
-     *
-     * @param Media $header
      */
     public function setAvatar(Media $header)
     {
         $this->header = $header;
     }
+
     /**
      * Add tag.
-     *
-     * @param TagInterface $tag
      *
      * @return News
      */
@@ -145,17 +141,14 @@ class News extends ApiWrapper
 
     /**
      * Remove tag.
-     *
-     * @param TagInterface $tag
      */
     public function removeTag(TagInterface $tag): void
     {
         $this->entity->removeTag($tag);
     }
+
     /**
      * Get tags.
-     *
-     * @return array
      *
      * @VirtualProperty
      * @SerializedName("tags")
@@ -168,8 +161,6 @@ class News extends ApiWrapper
 
     /**
      * Get the contacts avatar and return the array of different formats.
-     *
-     * @return array
      *
      * @VirtualProperty
      * @SerializedName("header")

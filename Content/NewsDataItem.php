@@ -2,8 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Bundle\NewsBundle\Content;
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
+namespace App\Bundle\NewsBundle\Content;
 
 use App\Bundle\NewsBundle\Entity\News;
 use JMS\Serializer\Annotation as Serializer;
@@ -20,7 +28,6 @@ class NewsDataItem implements ItemInterface
 
     /**
      * NewsDataItem constructor.
-     * @param News $entity
      */
     public function __construct(News $entity)
     {

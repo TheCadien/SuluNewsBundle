@@ -1,16 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace App\Bundle\NewsBundle\Service\News;
 
-
-use App\Bundle\NewsBundle\Entity\News;
 use App\Bundle\NewsBundle\Entity\Factory\NewsFactory;
+use App\Bundle\NewsBundle\Entity\News;
 use App\Bundle\NewsBundle\Repository\NewsRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-
 
 class NewsService
 {
@@ -30,42 +38,33 @@ class NewsService
 
     /**
      * ArticleService constructor.
-     * @param NewsRepository $articleRepository
-     * @param NewsFactory $factory
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         NewsRepository $articleRepository,
         NewsFactory $factory,
         TokenStorageInterface $tokenStorage
-    )
-    {
+    ) {
         $this->articleRepository = $articleRepository;
         $this->factory = $factory;
-        if($tokenStorage->getToken()){
+        if ($tokenStorage->getToken()) {
             $this->loginUser = $tokenStorage->getToken()->getUser();
         }
-
     }
 
     /**
-     * @param array $data
-     * @return News
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function saveNewNews(array$data) : News
+    public function saveNewNews(array $data): News
     {
         try {
             $article = $this->factory->generateNewNewsFromRequest($data);
         } catch (\Exception $e) {
-
         }
 
-        /** @var News $article */
+        /* @var News $article */
         $article->setCreator($this->loginUser);
         $article->setChanger($this->loginUser);
-
 
         $this->articleRepository->save($article);
 
@@ -74,17 +73,15 @@ class NewsService
 
     /**
      * @param $data
-     * @param News $article
-     * @return News
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function updateNews($data, News $article) : News
+    public function updateNews($data, News $article): News
     {
         try {
-            $article = $this->factory->updateNewsFromRequest($data,$article);
+            $article = $this->factory->updateNewsFromRequest($data, $article);
         } catch (\Exception $e) {
-
         }
         $article->setChanger($this->loginUser);
 
@@ -92,7 +89,4 @@ class NewsService
 
         return $article;
     }
-
-
-
 }
