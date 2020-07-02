@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Content;
 
-use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use JMS\Serializer\Annotation as Serializer;
 use Sulu\Component\SmartContent\ItemInterface;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsDataItem implements ItemInterface
 {

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Api;
 
-use TheCadien\Bundle\SuluNewsBundle\Entity\News as NewsEntity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\SerializedName;
@@ -21,6 +20,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 use Sulu\Bundle\MediaBundle\Api\Media;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Rest\ApiWrapper;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News as NewsEntity;
 
 /**
  * The News class which will be exported to the API.

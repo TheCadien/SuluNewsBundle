@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Content;
 
-use TheCadien\Bundle\SuluNewsBundle\Entity\News;
-use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\SimpleContentType;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 class NewsSelectionContentType extends SimpleContentType
 {

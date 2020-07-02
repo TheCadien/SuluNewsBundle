@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Service\News;
 
-use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
-use TheCadien\Bundle\SuluNewsBundle\Entity\News;
-use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 class NewsService
 {

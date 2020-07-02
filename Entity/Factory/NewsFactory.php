@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
-use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
 use Sulu\Bundle\TagBundle\Tag\TagManagerInterface;
 use Sulu\Component\Persistence\RelationTrait;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsFactory
 {

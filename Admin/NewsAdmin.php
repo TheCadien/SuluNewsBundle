@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Admin;
 
-use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
@@ -24,6 +23,7 @@ use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsAdmin extends Admin
 {

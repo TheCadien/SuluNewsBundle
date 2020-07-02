@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Controller;
 
-use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Bundle\WebsiteBundle\Resolver\TemplateAttributeResolverInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 /**
  * Class NewsWebsiteController.

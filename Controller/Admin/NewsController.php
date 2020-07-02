@@ -13,11 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Controller\Admin;
 
-use TheCadien\Bundle\SuluNewsBundle\Admin\DoctrineListRepresentationFactory;
-use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
-use TheCadien\Bundle\SuluNewsBundle\Entity\News;
-use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
-use TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -29,6 +24,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use TheCadien\Bundle\SuluNewsBundle\Admin\DoctrineListRepresentationFactory;
+use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
+use TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService;
 
 class NewsController extends AbstractRestController implements ClassResourceInterface
 {
