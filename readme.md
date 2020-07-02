@@ -6,6 +6,9 @@
     <a href="https://github.com/sulu/sulu/releases" target="_blank">
         <img src="https://img.shields.io/github/v/tag/thecadien/sulunewsbundle?style=flat-square" alt="GitHub tag (latest SemVer)">
     </a>
+    <a href="https://github.com/TheCadien/SuluNewsBundle/actions" target="_blank">
+        <img src="https://img.shields.io/github/workflow/status/thecadien/sulunewsbundle/PHP?style=flat-square" alt="workflows">
+    </a>    
 </p>
 
 ##Requirements
