@@ -1,8 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace App\Bundle\NewsBundle\Entity\Factory;
-
 
 use App\Bundle\NewsBundle\Entity\News;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
@@ -13,7 +22,7 @@ use Sulu\Component\Rest\Exception\EntityNotFoundException;
 class NewsFactory
 {
     use RelationTrait;
-    
+
     /**
      * @var MediaRepositoryInterface
      */
@@ -26,22 +35,16 @@ class NewsFactory
 
     /**
      * NewsFactory constructor.
-     * @param MediaRepositoryInterface $mediaRepository
-     * @param TagManagerInterface $tagManager
      */
     public function __construct(
         MediaRepositoryInterface $mediaRepository,
         TagManagerInterface $tagManager
-    )
-    {
+    ) {
         $this->mediaRepository = $mediaRepository;
         $this->tagManager = $tagManager;
     }
 
-
-
     /**
-     * @return News
      * @throws \Exception
      */
     public function generateNewNewsFromRequest(array $data): News
@@ -78,9 +81,6 @@ class NewsFactory
     }
 
     /**
-     * @param array $data
-     * @param News $news
-     * @return News
      * @throws EntityNotFoundException
      * @throws \Exception
      */
@@ -115,13 +115,15 @@ class NewsFactory
 
     /**
      * @param $header
-     * @return \Sulu\Bundle\MediaBundle\Entity\Media|null
+     *
      * @throws EntityNotFoundException
+     *
+     * @return \Sulu\Bundle\MediaBundle\Entity\Media|null
      */
     private function generateMedia($header)
     {
         $mediaEntity = null;
-        if (is_array($header) && $this->getProperty($header, 'id')) {
+        if (\is_array($header) && $this->getProperty($header, 'id')) {
             $mediaId = $this->getProperty($header, 'id');
             $mediaEntity = $this->mediaRepository->findMediaById($mediaId);
 
@@ -129,6 +131,7 @@ class NewsFactory
                 throw new EntityNotFoundException($this->mediaRepository->getClassName(), $mediaId);
             }
         }
+
         return $mediaEntity;
     }
 
@@ -143,7 +146,7 @@ class NewsFactory
      */
     private function getProperty($data, $key, $default = null)
     {
-        if (array_key_exists($key, $data)) {
+        if (\array_key_exists($key, $data)) {
             return $data[$key];
         }
 
@@ -151,25 +154,25 @@ class NewsFactory
     }
 
     /**
-     * @param News $news
      * @param $tags
+     *
      * @return bool
      */
     public function processTags(News $news, $tags)
     {
-        $get = function($tag) {
+        $get = function ($tag) {
             return $tag->getId();
         };
 
-        $delete = function($tag) use ($news) {
+        $delete = function ($tag) use ($news) {
             return $news->removeTag($tag);
         };
 
-        $update = function() {
+        $update = function () {
             return true;
         };
 
-        $add = function($tag) use ($news) {
+        $add = function ($tag) use ($news) {
             return $this->addTag($news, $tag);
         };
 
@@ -183,13 +186,13 @@ class NewsFactory
             $update,
             $delete
         );
+
         return $result;
     }
 
     /**
      * Adds a new tag to the given contact and persist it with the given object manager.
      *
-     * @param News $news
      * @param $data
      *
      * @return bool True if there was no error, otherwise false

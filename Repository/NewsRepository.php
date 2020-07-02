@@ -1,4 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of TheCadien/SuluNewsBundle.
+ *
+ * (c) Oliver Kossin
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Bundle\NewsBundle\Repository;
 
 use App\Bundle\NewsBundle\Entity\News;
@@ -6,17 +18,13 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 
-
 /**
- * Class NewsRepository
- * @package App\Bundle\NewsBundle\Repository
+ * Class NewsRepository.
  */
 class NewsRepository extends ServiceEntityRepository implements DataProviderRepositoryInterface
 {
-
     /**
      * NewsRepository constructor.
-     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -24,7 +32,6 @@ class NewsRepository extends ServiceEntityRepository implements DataProviderRepo
     }
 
     /**
-     * @param News $news
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -34,21 +41,17 @@ class NewsRepository extends ServiceEntityRepository implements DataProviderRepo
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * @return array
-     */
-    public function getPublishedNews() : array
+    public function getPublishedNews(): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select( 'a' )
-            ->from( 'News',  'a' )
+        $qb->select('a')
+            ->from('News', 'a')
             ->where('a.enabled = 1')
             ->andWhere('a.published_at <= :date')
-            ->setParameter('date',date('Y-m-d H:i:s'))
+            ->setParameter('date', date('Y-m-d H:i:s'))
             ->orderBy('a.published_at', 'DESC');
 
         $news = $qb->getQuery()->getResult();
-
 
         if (!$news) {
             return [];
@@ -57,11 +60,6 @@ class NewsRepository extends ServiceEntityRepository implements DataProviderRepo
         return $news;
     }
 
-    /**
-     * @param int $id
-     * @param string $locale
-     * @return News|null
-     */
     public function findById(int $id): ?News
     {
         $news = $this->find($id);
@@ -91,7 +89,6 @@ class NewsRepository extends ServiceEntityRepository implements DataProviderRepo
     }
 
     /**
-     * @param int $id
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
