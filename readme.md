@@ -1,3 +1,13 @@
+
+<p align="center">
+    <a href="https://github.com/sulu/sulu/blob/master/LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/thecadien/sulunewsbundle?style=flat-square" alt="GitHub license">
+    </a>
+    <a href="https://github.com/sulu/sulu/releases" target="_blank">
+        <img src="https://img.shields.io/github/v/tag/thecadien/sulunewsbundle?style=flat-square" alt="GitHub tag (latest SemVer)">
+    </a>
+</p>
+
 ##Requirements
 
 * PHP 7.3
