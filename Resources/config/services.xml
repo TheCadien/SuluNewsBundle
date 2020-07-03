@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <service id="sulu_news.admin" class="TheCadien\Bundle\SuluNewsBundle\Admin\NewsAdmin">
+            <argument type="service" id="sulu_admin.view_builder_factory"/>
+            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
+            <argument type="service" id="sulu_security.security_checker"/>
+
+            <tag name="sulu.admin"/>
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <service id="sulu_news.rest.controller" class="TheCadien\Bundle\SuluNewsBundle\Controller\Admin\NewsController">
+            <argument type="service" id="fos_rest.view_handler.default"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="sulu_news.repository"/>
+            <argument type="service" id="sulu_news.service"/>
+            <argument type="service" id="sulu_news.list.praesentation"/>
+            <argument type="service" id="sulu_media.media_manager"/>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+
+        <service id="sulu_news.repository" public="true"
+                 class="TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository">
+            <argument type="service" id="doctrine"/>
+        </service>
+
+
+        <service id="sulu_news.list.praesentation" public="true"
+                 class="TheCadien\Bundle\SuluNewsBundle\Admin\DoctrineListRepresentationFactory">
+            <argument type="service" id="sulu_core.rest_helper"/>
+            <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
+            <argument type="service" id="sulu_core.list_builder.field_descriptor_factory"/>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <service id="sulu_news.factory" public="true"
+                 class="TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory">
+            <argument type="service" id="sulu.repository.media"/>
+            <argument type="service" id="sulu_tag.tag_manager"/>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <service id="sulu_news.service" public="true" class="TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService">
+            <argument type="service" id="sulu_news.repository"/>
+            <argument type="service" id="sulu_news.factory"/>
+            <argument type="service" id="security.token_storage"/>
+
+            <tag name="sulu.context" context="admin"/>
+        </service>
+    </services>
+</container>
