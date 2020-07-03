@@ -13,7 +13,7 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <service id="sulu_news.rest.controller" class="TheCadien\Bundle\SuluNewsBundle\Controller\Admin\NewsController">
+        <service id="sulu_news.rest.controller" class="TheCadien\Bundle\SuluNewsBundle\Controller\Admin\NewsController" public="true">
             <argument type="service" id="fos_rest.view_handler.default"/>
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="sulu_news.repository"/>
