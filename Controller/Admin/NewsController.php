@@ -191,4 +191,9 @@ class NewsController extends AbstractRestController implements ClassResourceInte
 
         return $view->setContext($context);
     }
+
+    public static function getPriority(): int
+    {
+        return 0;
+    }
 }

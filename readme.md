@@ -46,23 +46,32 @@ composer require thecadien/sulu-news-bundle
 bin/console do:sch:up --force
 ```
 
+## Bundle Config
 
-###Define Website Route in `routes_website.yaml`
+Define key routes in `config/packages/sulu_admin.yml` 
+
+```yaml
+sulu_admin:
+    #.....#
+    resources:
+        news:
+            routes:
+                list: app.get_news
+                detail: app.get_news
+```
+
+Define Website Route in `routes_website.yaml`
 ```yaml
 app.news:
    path: /news/{id}
    controller: TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController::indexAction
 ```
-   
-
-   
-###Define the Admin Api Route in `routes_admin.yaml`
+    
+Define the Admin Api Route in `routes_admin.yaml`
 ```yaml
 app_news:
   type: rest
-  resource: TheCadien\Bundle\SuluNewsBundle\Controller\Admin\NewsController
+  resource: sulu_news.rest.controller
   prefix: /admin/api
   name_prefix: app.
-  options:
-    expose: true
 ```
