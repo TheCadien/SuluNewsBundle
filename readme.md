@@ -19,16 +19,27 @@
 
 ##Installation
 
-Clone the Bundle in your Project.
-`
-/src/Bundle/
-`
- 
- 
-###ini Bundle in the bundles.php
-```php
-    TheCadien\Bundle\SuluNewsBundle\NewsBundle::class => ['all' => true],
+### Install the bundle 
+
+Execute the following [composer](https://getcomposer.org/) command to add the bundle to the dependencies of your 
+project:
+
+```bash
+
+composer require thecadien/sulu-news-bundle
+
 ```
+
+### Enable the bundle 
+ 
+ Enable the bundle by adding it to the list of registered bundles in the `config/bundles.php` file of your project:
+ 
+ ```php
+ return [
+     /* ... */
+     TheCadien\Bundle\SuluNewsBundle\NewsBundle::class => ['all' => true],
+ ];
+ ```
 
 ###Update schema
 ```shell script
