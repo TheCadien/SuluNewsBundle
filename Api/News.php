@@ -175,5 +175,6 @@ class News extends ApiWrapper
                 'thumbnails' => $this->header->getFormats(),
             ];
         }
+        return [];
     }
 }

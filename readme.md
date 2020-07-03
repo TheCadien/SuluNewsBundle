@@ -71,9 +71,7 @@ Define the Admin Api Route in `routes_admin.yaml`
 ```yaml
 app_news:
   type: rest
-  resource: TheCadien\Bundle\SuluNewsBundle\Controller\Admin\NewsController
+  resource: sulu_news.rest.controller
   prefix: /admin/api
   name_prefix: app.
-  options:
-    expose: true
 ```
