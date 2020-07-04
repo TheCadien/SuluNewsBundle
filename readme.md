@@ -9,6 +9,9 @@
     <a href="https://github.com/TheCadien/SuluNewsBundle/actions" target="_blank">
         <img src="https://img.shields.io/github/workflow/status/thecadien/sulunewsbundle/PHP?style=flat-square" alt="workflows">
     </a>    
+    <a href="https://github.com/sulu/sulu/releases" target="_blank">
+        <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.0-52b6ca.svg" alt="Sulu compatibility">
+    </a>    
 </p>
 
 ##Requirements
