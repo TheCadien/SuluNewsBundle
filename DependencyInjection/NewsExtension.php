@@ -76,7 +76,7 @@ class NewsExtension extends Extension implements PrependExtensionInterface
 
         $container->loadFromExtension('framework', [
             'default_locale' => 'en',
-            'translator' => ['paths' => [__DIR__ .'/../Resources/config/translations/']],
+            'translator' => ['paths' => [__DIR__ . '/../Resources/config/translations/']],
             // ...
         ]);
     }
