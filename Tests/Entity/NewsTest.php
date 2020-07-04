@@ -33,7 +33,7 @@ class NewsTest extends TestCase
         $this->assertNull($news->getContent());
         $this->assertNull($news->getTitle());
         $this->assertNull($news->getPublishedAt());
-        $this->assertNull($news->getDate());
+        $this->assertNull($news->getCreated());
         $this->assertFalse($news->isEnabled());
     }
 }

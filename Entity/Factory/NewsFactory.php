@@ -75,7 +75,7 @@ class NewsFactory
             $this->processTags($news, $tags);
         }
 
-        $news->setDate(new \DateTime());
+        $news->setCreated(new \DateTime());
 
         return $news;
     }
@@ -109,6 +109,8 @@ class NewsFactory
         if ($tags = $this->getProperty($data, 'tags')) {
             $this->processTags($news, $tags);
         }
+
+        $news->setChanged(new \DateTime());
 
         return $news;
     }
