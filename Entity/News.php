@@ -292,20 +292,13 @@ class News implements NewsInterface, AuditableInterface
         $this->changer = $changer;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getChanged(): \DateTime
     {
         return $this->changed;
     }
 
-    /**
-     * @param \DateTime $changed
-     */
     public function setChanged(\DateTime $changed): void
     {
         $this->changed = $changed;
     }
-
 }
