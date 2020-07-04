@@ -70,9 +70,23 @@ class NewsExtension extends Extension implements PrependExtensionInterface
                             __DIR__ . '/../Resources/config/forms',
                         ],
                     ],
+                    'resources' => [
+                        'news' => [
+                            'routes' => [
+                                'list' => 'app.get_news',
+                                'detail' => 'app.get_news',
+                            ],
+                        ],
+                    ],
                 ]
             );
         }
+
+        $container->loadFromExtension('framework', [
+            'default_locale' => 'en',
+            'translator' => ['paths' => [__DIR__ . '/../Resources/config/translations/']],
+            // ...
+        ]);
     }
 
     /**

@@ -2,17 +2,6 @@
 <list xmlns="http://schemas.sulu.io/list-builder/list">
     <key>news</key>
 
-    <!--<joins name="creator">
-        <join>
-            <entity-name>%sulu.model.user.class%</entity-name>
-            <field-name>%sulu.model.tag.class%.creator</field-name>
-        </join>
-        <join>
-            <entity-name>%sulu.model.contact.class%</entity-name>
-            <field-name>%sulu.model.user.class%.contact</field-name>
-        </join>
-    </joins>-->
-
     <properties>
         <property name="id" visibility="no" translation="sulu_admin.id">
             <field-name>id</field-name>
@@ -24,37 +13,20 @@
             <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 
-        <property name="teaser" visibility="always" searchability="yes" translation="app.teaser">
+        <property name="teaser" visibility="always" searchability="yes" translation="sulu.news.teaser">
             <field-name>teaser</field-name>
             <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 
-        <property name="published_at" visibility="yes" searchability="yes" translation="app.published_at">
+        <property name="published_at" visibility="yes" searchability="yes" translation="sulu.news.published_at">
             <field-name>published_at</field-name>
             <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
-
-
-        <!--<concatenation-property name="creator" translation="sulu_admin.creator" visibility="no">
-            <field>
-                <field-name>firstName</field-name>
-                <entity-name>%sulu.model.contact.class%</entity-name>
-
-                <joins ref="creator"/>
-            </field>
-            <field>
-                <field-name>lastName</field-name>
-                <entity-name>%sulu.model.contact.class%</entity-name>
-
-                <joins ref="creator"/>
-            </field>
-        </concatenation-property>-->
 
         <property name="enabled" visibility="no" translation="app.enabled" type="bool">
             <field-name>enabled</field-name>
             <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
-
 
     </properties>
 </list>

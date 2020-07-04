@@ -1,0 +1,10 @@
+{
+    "sulu.news": "News",
+    "sulu.news.image": "Bild",
+    "sulu.news.published_at": "Veröffentlicht am",
+    "sulu.news.teaser": "Teaser",
+    "sulu.news.tags": "Tags",
+    "sulu.news.content": "Content",
+    "sulu_audience_targeting.target_groups": "Zielgruppen",
+    "sulu.news.enable_news": "Verfügbar"
+}
