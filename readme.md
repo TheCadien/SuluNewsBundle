@@ -51,18 +51,6 @@ bin/console do:sch:up --force
 
 ## Bundle Config
 
-Define key routes in `config/packages/sulu_admin.yml` 
-
-```yaml
-sulu_admin:
-    #.....#
-    resources:
-        news:
-            routes:
-                list: app.get_news
-                detail: app.get_news
-```
-
 Define Website Route in `routes_website.yaml`
 ```yaml
 app.news:
