@@ -15,6 +15,8 @@ namespace TheCadien\Bundle\SuluNewsBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 /**
  * This is the class that validates and merges configuration from your app/config files.
@@ -28,6 +30,21 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('news_bundle');
         $rootNode = $treeBuilder->getRootNode();
+        $treeBuilder->getRootNode()
+            ->children()
+                ->arrayNode('objects')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('news')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('model')->defaultValue(News::class)->end()
+                                ->scalarNode('repository')->defaultValue(NewsRepository::class)->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }

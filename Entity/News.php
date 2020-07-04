@@ -22,11 +22,12 @@ use Doctrine\ORM\Mapping\ManyToMany;
 use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Groups;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
+use Sulu\Component\Persistence\Model\AuditableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository")
  */
-class News
+class News implements NewsInterface, AuditableInterface
 {
     const RESOURCE_KEY = 'news';
 
@@ -101,6 +102,20 @@ class News
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $published_at;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $changed;
 
     /**
      * @var Collection|TagInterface[]
@@ -282,5 +297,21 @@ class News
     public function setChanger($changer): void
     {
         $this->changer = $changer;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCreated()
+    {
+        // TODO: Implement getCreated() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getChanged()
+    {
+        // TODO: Implement getChanged() method.
     }
 }
