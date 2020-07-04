@@ -69,12 +69,12 @@ class NewsAdmin extends Admin
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
         if ($this->securityChecker->hasPermission(static::NEWS_SECURITY_CONTEXT, PermissionTypes::VIEW)) {
-            $module = new NavigationItem('app.news');
+            $module = new NavigationItem('sulu.news');
             $module->setPosition(20);
             $module->setIcon('su-newspaper');
 
             // Configure a NavigationItem with a View
-            $events = new NavigationItem('app.news');
+            $events = new NavigationItem('sulu.news');
             $events->setPosition(10);
             $events->setView(static::NEWS_LIST_VIEW);
 
@@ -93,7 +93,7 @@ class NewsAdmin extends Admin
         $listView = $this->viewBuilderFactory->createListViewBuilder(self::NEWS_LIST_VIEW, '/news/:locale')
             ->setResourceKey(News::RESOURCE_KEY)
             ->setListKey(self::NEWS_LIST_KEY)
-            ->setTitle('app.news')
+            ->setTitle('sulu.news')
             ->addListAdapters(['table'])
             ->addLocales($locales)
             ->setDefaultLocale($locales[0])
@@ -129,7 +129,7 @@ class NewsAdmin extends Admin
             new ToolbarAction('sulu_admin.save'),
             new ToolbarAction('sulu_admin.delete'),
             new TogglerToolbarAction(
-                'app.enable_news',
+                'sulu.news.enable_news',
                 'enabled',
                 'enable',
                 'disable'

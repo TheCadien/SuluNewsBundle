@@ -9,7 +9,7 @@
 
         <property name="header" type="single_media_selection">
             <meta>
-                <title>app.image</title>
+                <title>sulu.news.image</title>
             </meta>
             <params>
                 <param name="types" value="image"/>
@@ -25,25 +25,25 @@
 
         <property name="published_at" type="datetime" mandatory="true" colspan="6">
             <meta>
-                <title>app.published_at</title>
+                <title>sulu.news.published_at</title>
             </meta>
         </property>
 
         <property name="teaser" type="text_area">
             <meta>
-                <title>app.teaser</title>
+                <title>sulu.news.teaser</title>
             </meta>
         </property>
 
         <property name="content" type="text_editor">
             <meta>
-                <title>app.content</title>
+                <title>sulu.news.content</title>
             </meta>
         </property>
 
         <property name="tags" type="tag_selection">
             <meta>
-                <title>app.tags</title>
+                <title>sulu.news.tags</title>
             </meta>
         </property>
     </properties>
