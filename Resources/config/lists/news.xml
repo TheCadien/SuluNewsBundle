@@ -2,7 +2,48 @@
 <list xmlns="http://schemas.sulu.io/list-builder/list">
     <key>news</key>
 
+    <joins name="changer">
+        <join>
+            <entity-name>%sulu.model.user.class%</entity-name>
+            <field-name>%sulu.model.news.class%.changer</field-name>
+        </join>
+        <join>
+            <entity-name>%sulu.model.contact.class%</entity-name>
+            <field-name>%sulu.model.user.class%.contact</field-name>
+        </join>
+    </joins>
+
+    <joins name="creator">
+        <join>
+            <entity-name>%sulu.model.user.class%</entity-name>
+            <field-name>%sulu.model.news.class%.creator</field-name>
+        </join>
+        <join>
+            <entity-name>%sulu.model.contact.class%</entity-name>
+            <field-name>%sulu.model.user.class%.contact</field-name>
+        </join>
+    </joins>
+
     <properties>
+
+        <property
+                name="header"
+                visibility="always"
+                translation="sulu.news.header"
+                type="thumbnails"
+                sortable="false"
+        >
+            <field-name>id</field-name>
+            <entity-name>SuluMediaBundle:Media</entity-name>
+
+            <joins>
+                <join>
+                    <entity-name>SuluMediaBundle:Media</entity-name>
+                    <field-name>%sulu.model.news.class%.header</field-name>
+                </join>
+            </joins>
+        </property>
+
         <property name="id" visibility="no" translation="sulu_admin.id">
             <field-name>id</field-name>
             <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
@@ -23,10 +64,79 @@
             <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 
-        <property name="enabled" visibility="no" translation="app.enabled" type="bool">
+
+        <concatenation-property name="creator" translation="sulu_admin.creator" visibility="yes">
+            <field>
+                <field-name>firstName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+
+                <joins ref="creator"/>
+            </field>
+            <field>
+                <field-name>lastName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+
+                <joins ref="creator"/>
+            </field>
+
+            <filter type="selection">
+                <params>
+                    <param name="displayProperty" value="fullName" />
+                    <param name="resourceKey" value="contacts" />
+                </params>
+            </filter>
+        </concatenation-property>
+
+        <property
+                name="created"
+                visibility="yes"
+                translation="sulu_admin.created"
+                type="datetime"
+        >
+            <field-name>date</field-name>
+            <entity-name>%sulu.model.news.class%</entity-name>
+
+            <filter type="datetime" />
+        </property>
+
+        <concatenation-property name="changer" translation="sulu_admin.changer" visibility="no">
+            <field>
+                <field-name>firstName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+
+                <joins ref="changer"/>
+            </field>
+            <field>
+                <field-name>lastName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+
+                <joins ref="changer"/>
+            </field>
+
+            <filter type="selection">
+                <params>
+                    <param name="displayProperty" value="fullName" />
+                    <param name="resourceKey" value="contacts" />
+                </params>
+            </filter>
+        </concatenation-property>
+
+        <property
+                name="changed"
+                visibility="no"
+                type="datetime"
+                translation="sulu_admin.changed"
+        >
+            <field-name>changed</field-name>
+            <entity-name>%sulu.model.news.class%</entity-name>
+
+            <filter type="datetime" />
+        </property>
+
+
+        <property name="enabled" visibility="no" translation="sulu.news.enable_news" type="bool">
             <field-name>enabled</field-name>
             <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
-
     </properties>
 </list>

@@ -13,8 +13,22 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle;
 
+use Sulu\Bundle\PersistenceBundle\PersistenceBundleTrait;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use TheCadien\Bundle\SuluNewsBundle\Entity\NewsInterface;
 
 class NewsBundle extends Bundle
 {
+    use PersistenceBundleTrait;
+
+    public function build(ContainerBuilder $container)
+    {
+        $this->buildPersistence(
+            [
+                NewsInterface::class => 'sulu.model.news.class',
+            ],
+            $container
+        );
+    }
 }

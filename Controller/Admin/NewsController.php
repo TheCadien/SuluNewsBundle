@@ -52,7 +52,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     private $mediaManager;
 
     // serialization groups for contact
-    protected static $contactSerializationGroups = [
+    protected static $oneNewsSerializationGroups = [
         'partialMedia',
         'fullNews',
     ];
@@ -187,7 +187,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     {
         $view = $this->view($entity);
         $context = new Context();
-        $context->setGroups(static::$contactSerializationGroups);
+        $context->setGroups(static::$oneNewsSerializationGroups);
 
         return $view->setContext($context);
     }

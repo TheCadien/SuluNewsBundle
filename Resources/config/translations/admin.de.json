@@ -1,6 +1,7 @@
 {
     "sulu.news": "News",
     "sulu.news.image": "Bild",
+    "sulu.news.header": "News Header",
     "sulu.news.published_at": "Veröffentlicht am",
     "sulu.news.teaser": "Teaser",
     "sulu.news.tags": "Tags",
