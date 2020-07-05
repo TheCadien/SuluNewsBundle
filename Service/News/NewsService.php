@@ -20,12 +20,12 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
-class NewsService
+class NewsService implements NewsServiceInterface
 {
     /**
      * @var NewsRepository
      */
-    private $articleRepository;
+    private $newsRepository;
     /**
      * @var NewsFactory
      */
@@ -40,11 +40,11 @@ class NewsService
      * ArticleService constructor.
      */
     public function __construct(
-        NewsRepository $articleRepository,
+        NewsRepository $newsRepository,
         NewsFactory $factory,
         TokenStorageInterface $tokenStorage
     ) {
-        $this->articleRepository = $articleRepository;
+        $this->newsRepository = $newsRepository;
         $this->factory = $factory;
         if ($tokenStorage->getToken()) {
             $this->loginUser = $tokenStorage->getToken()->getUser();
@@ -58,17 +58,17 @@ class NewsService
     public function saveNewNews(array $data): News
     {
         try {
-            $article = $this->factory->generateNewNewsFromRequest($data);
+            $news = $this->factory->generateNewNewsFromRequest($data);
         } catch (\Exception $e) {
         }
 
-        /* @var News $article */
-        $article->setCreator($this->loginUser);
-        $article->setChanger($this->loginUser);
+        /* @var News $news */
+        $news->setCreator($this->loginUser);
+        $news->setChanger($this->loginUser);
 
-        $this->articleRepository->save($article);
+        $this->newsRepository->save($news);
 
-        return $article;
+        return $news;
     }
 
     /**
@@ -77,16 +77,16 @@ class NewsService
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function updateNews($data, News $article): News
+    public function updateNews($data, News $news): News
     {
         try {
-            $article = $this->factory->updateNewsFromRequest($data, $article);
+            $news = $this->factory->updateNewsFromRequest($data, $news);
         } catch (\Exception $e) {
         }
-        $article->setChanger($this->loginUser);
+        $news->setChanger($this->loginUser);
 
-        $this->articleRepository->save($article);
+        $this->newsRepository->save($news);
 
-        return $article;
+        return $news;
     }
 }
