@@ -93,7 +93,7 @@
                 translation="sulu_admin.created"
                 type="datetime"
         >
-            <field-name>date</field-name>
+            <field-name>created</field-name>
             <entity-name>%sulu.model.news.class%</entity-name>
 
             <filter type="datetime" />

@@ -94,13 +94,6 @@ class News implements NewsInterface, AuditableInterface
      *
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private $date;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=false)
-     */
     private $published_at;
 
     /**
@@ -188,14 +181,14 @@ class News implements NewsInterface, AuditableInterface
     /**
      * @return \DateTime
      */
-    public function getDate(): ?\DateTime
+    public function getCreated(): ?\DateTime
     {
-        return $this->date;
+        return $this->created;
     }
 
-    public function setDate(\DateTime $date): void
+    public function setCreated(\DateTime $created): void
     {
-        $this->date = $date;
+        $this->created = $created;
     }
 
     /**
@@ -299,19 +292,13 @@ class News implements NewsInterface, AuditableInterface
         $this->changer = $changer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getCreated()
+    public function getChanged(): \DateTime
     {
-        // TODO: Implement getCreated() method.
+        return $this->changed;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getChanged()
+    public function setChanged(\DateTime $changed): void
     {
-        // TODO: Implement getChanged() method.
+        $this->changed = $changed;
     }
 }

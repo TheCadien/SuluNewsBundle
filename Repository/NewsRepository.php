@@ -47,8 +47,8 @@ class NewsRepository extends ServiceEntityRepository implements DataProviderRepo
         $qb->select('a')
             ->from('News', 'a')
             ->where('a.enabled = 1')
-            ->andWhere('a.published_at <= :date')
-            ->setParameter('date', date('Y-m-d H:i:s'))
+            ->andWhere('a.published_at <= :created')
+            ->setParameter('created', date('Y-m-d H:i:s'))
             ->orderBy('a.published_at', 'DESC');
 
         $news = $qb->getQuery()->getResult();
