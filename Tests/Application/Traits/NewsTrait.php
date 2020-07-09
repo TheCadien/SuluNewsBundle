@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace TheCadien\Bundle\SuluNewsBundle\Tests\Traits;
+namespace TheCadien\Bundle\SuluNewsBundle\Tests\Application\Traits;
 
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 

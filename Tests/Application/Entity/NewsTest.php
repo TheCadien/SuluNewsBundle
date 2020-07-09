@@ -11,11 +11,11 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Tchibo\ApiBundle\Tests\DataTransferObject;
+namespace Tchibo\ApiBundle\Tests\Application\Entity;
 
 use PHPUnit\Framework\TestCase;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
-use TheCadien\Bundle\SuluNewsBundle\Tests\Traits\NewsTrait;
+use TheCadien\Bundle\SuluNewsBundle\Tests\Application\Traits\NewsTrait;
 
 class NewsTest extends TestCase
 {
