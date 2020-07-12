@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace TheCadien\Bundle\SuluNewsBundle\Tests\Application\Traits;
+namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits;
 
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
@@ -23,5 +23,14 @@ trait NewsTrait
     public function generateEmptyNews(): News
     {
         return new News();
+    }
+
+    public function generateNewsWithContent(): News
+    {
+        $news = new News();
+
+        $news->setId(1);
+        $news->setTitle('test');
+        $news->set('test');
     }
 }
