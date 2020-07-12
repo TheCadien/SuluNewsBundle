@@ -35,8 +35,8 @@ class NewsFactory extends AbstractFactory
      * NewsFactory constructor.
      */
     public function __construct(
-        MediaFactory $mediaFactory,
-        TagFactory $tagFactory
+        MediaFactoryInterface $mediaFactory,
+        TagFactoryInterface $tagFactory
     ) {
         $this->mediaFactory = $mediaFactory;
         $this->tagFactory = $tagFactory;

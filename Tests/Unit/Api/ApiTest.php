@@ -41,5 +41,6 @@ class ApiTest extends TestCase
         $this->assertSame('Test Title', $apiDto->getTitle());
         $this->assertSame('Test Teaser', $apiDto->getTeaser());
         $this->assertSame('Test Content', $apiDto->getContent());
+        $this->assertSame('2017-08-31 00:00:00', $apiDto->getPublishedAt()->format('Y-m-d H:i:s'));
     }
 }

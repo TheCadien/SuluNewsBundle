@@ -16,7 +16,7 @@ namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
 
-class MediaFactory extends AbstractFactory
+class MediaFactory extends AbstractFactory implements MediaFactoryInterface
 {
     /**
      * @var MediaRepositoryInterface
