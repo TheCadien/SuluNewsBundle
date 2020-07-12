@@ -72,13 +72,7 @@ class NewsAdmin extends Admin
             $module = new NavigationItem('sulu.news');
             $module->setPosition(20);
             $module->setIcon('su-newspaper');
-
-            // Configure a NavigationItem with a View
-            $events = new NavigationItem('sulu.news');
-            $events->setPosition(10);
-            $events->setView(static::NEWS_LIST_VIEW);
-
-            $module->addChild($events);
+            $module->setView(static::NEWS_LIST_VIEW);
 
             $navigationItemCollection->add($module);
         }
@@ -135,6 +129,7 @@ class NewsAdmin extends Admin
                 'disable'
             ),
         ];
+
         $editDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.details', '/details')
             ->setResourceKey(News::RESOURCE_KEY)
             ->setFormKey(self::NEWS_FORM_KEY)
