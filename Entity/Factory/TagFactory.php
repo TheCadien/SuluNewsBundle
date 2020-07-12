@@ -16,7 +16,7 @@ namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 use Sulu\Bundle\TagBundle\Tag\TagManagerInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
-class TagFactory extends AbstractFactory
+class TagFactory extends AbstractFactory implements TagFactoryInterface
 {
     /**
      * @var TagManagerInterface

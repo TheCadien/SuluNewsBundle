@@ -11,17 +11,9 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace TheCadien\Bundle\SuluNewsBundle\Tests\Traits;
+namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
-use TheCadien\Bundle\SuluNewsBundle\Entity\News;
-
-/**
- * Trait NewsTrait.
- */
-trait NewsTrait
+interface MediaFactoryInterface
 {
-    public function generateEmptyNews(): News
-    {
-        return new News();
-    }
+    public function generateMedia($header);
 }
