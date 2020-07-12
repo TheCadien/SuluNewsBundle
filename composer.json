@@ -21,7 +21,7 @@
     "symfony/dependency-injection": "^4.3 || ^5.0",
     "symfony/framework-bundle": "^4.3 || ^5.0",
     "symfony/http-foundation": "^4.3 || ^5.0",
-    "symfony/http-kernel": "^4.3 || ^5.0"
+    "symfony/http-kernel": "^4.3 || ^5.0.7"
   },
   "require-dev": {
     "coduo/php-matcher": "^4.0",
