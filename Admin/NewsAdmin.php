@@ -137,17 +137,6 @@ class NewsAdmin extends Admin
             ->addToolbarActions($formToolbarActions)
             ->setParent(static::NEWS_EDIT_FORM_VIEW);
         $viewCollection->add($editDetailsFormView);
-
-        $viewCollection->add(
-            $this->viewBuilderFactory
-                ->createFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.settings', '/settings')
-                ->setResourceKey(News::RESOURCE_KEY)
-                ->setFormKey('news_settings')
-                ->setTabTitle('sulu_admin.settings')
-                ->addToolbarActions($formToolbarActions)
-                ->setTabOrder(2048)
-                ->setParent(static::NEWS_EDIT_FORM_VIEW)
-        );
     }
 
     /**
