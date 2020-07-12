@@ -53,7 +53,6 @@ trait NewsTrait
         ];
     }
 
-
     public function generateSecondNewsWithContent(): News
     {
         $news = new News();
