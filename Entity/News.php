@@ -204,7 +204,7 @@ class News implements NewsInterface, AuditableInterface
         $this->published_at = $published_at;
     }
 
-    public function getTeaser(): string
+    public function getTeaser(): ?string
     {
         return $this->teaser;
     }

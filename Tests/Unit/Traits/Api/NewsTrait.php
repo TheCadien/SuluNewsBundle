@@ -11,26 +11,20 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits;
+namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api;
 
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Api\News as ApiNews;
 
 /**
  * Trait NewsTrait.
  */
 trait NewsTrait
 {
-    public function generateEmptyNews(): News
-    {
-        return new News();
-    }
+    use \TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity\NewsTrait;
 
-    public function generateNewsWithContent(): News
+    public function generateEmptyApiNews(): ApiNews
     {
-        $news = new News();
-
-        $news->setId(1);
-        $news->setTitle('test');
-        $news->set('test');
+        return new ApiNews($this->generateEmptyNews(),'de');
     }
 }
