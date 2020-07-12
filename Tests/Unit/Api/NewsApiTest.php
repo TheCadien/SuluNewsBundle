@@ -16,7 +16,7 @@ namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Api;
 use PHPUnit\Framework\TestCase;
 use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api\NewsTrait;
 
-class ApiTest extends TestCase
+class NewsApiTest extends TestCase
 {
     use NewsTrait;
 

@@ -54,7 +54,7 @@ class NewsFactoryTest extends TestCase
     {
         $oldNews = $this->generateSecondNewsWithContent();
 
-        $news = $this->factory->updateNewsFromRequest($this->generateNewsContentArray(),$oldNews);
+        $news = $this->factory->updateNewsFromRequest($this->generateNewsContentArray(), $oldNews);
 
         $this->assertSame('Test Title', $news->getTitle());
         $this->assertSame('Test Content', $news->getContent());

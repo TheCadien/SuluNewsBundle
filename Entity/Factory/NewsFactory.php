@@ -17,7 +17,7 @@ use Sulu\Component\Persistence\RelationTrait;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
-class NewsFactory extends AbstractFactory
+class NewsFactory extends AbstractFactory implements NewsFactoryInterface
 {
     use RelationTrait;
 
