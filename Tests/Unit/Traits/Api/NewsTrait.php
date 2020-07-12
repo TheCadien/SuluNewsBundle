@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api;
 
-use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Api\News as ApiNews;
 
 /**
@@ -25,6 +24,11 @@ trait NewsTrait
 
     public function generateEmptyApiNews(): ApiNews
     {
-        return new ApiNews($this->generateEmptyNews(),'de');
+        return new ApiNews($this->generateEmptyNews(), 'de');
+    }
+
+    public function generateApiNewsWithContent(): ApiNews
+    {
+        return new ApiNews($this->generateNewsWithContent(), 'de');
     }
 }

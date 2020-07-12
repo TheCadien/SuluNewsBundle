@@ -18,7 +18,6 @@ use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api\NewsTrait;
 
 class ApiTest extends TestCase
 {
-
     use NewsTrait;
 
     public function testEmptyApiDto()
@@ -28,10 +27,19 @@ class ApiTest extends TestCase
         $this->assertNull($apiDto->getId());
         $this->assertNull($apiDto->getTitle());
         $this->assertNull($apiDto->getTeaser());
-        $this->assertSame([],$apiDto->getHeader());
+        $this->assertSame([], $apiDto->getHeader());
         $this->assertNull($apiDto->getContent());
         $this->assertNull($apiDto->getPublishedAt());
-        $this->assertSame([],$apiDto->getTags());
+        $this->assertSame([], $apiDto->getTags());
+    }
 
+    public function testApiDtoWithContent()
+    {
+        $apiDto = $this->generateApiNewsWithContent();
+
+        $this->assertSame(1, $apiDto->getId());
+        $this->assertSame('Test Title', $apiDto->getTitle());
+        $this->assertSame('Test Teaser', $apiDto->getTeaser());
+        $this->assertSame('Test Content', $apiDto->getContent());
     }
 }

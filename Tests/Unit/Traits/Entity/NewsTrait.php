@@ -30,7 +30,12 @@ trait NewsTrait
         $news = new News();
 
         $news->setId(1);
-        $news->setTitle('test');
-        $news->setTeaser('test');
+        $news->setTitle('Test Title');
+        $news->setTeaser('Test Teaser');
+        $news->setContent('Test Content');
+        $news->setEnabled(true);
+        $news->setPublishedAt(new \DateTime('now'));
+
+        return $news;
     }
 }
