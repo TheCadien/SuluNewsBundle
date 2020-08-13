@@ -29,8 +29,8 @@
 
         <field name="enabled" type="boolean" column="enabled" nullable="false"/>
         <field name="title" type="string" column="title" length="255"/>
-        <field name="teaser" type="text" column="teaser" nullable="false"/>
-        <field name="content" type="text" column="content" nullable="false"/>
+        <field name="teaser" type="text" column="teaser" nullable="true"/>
+        <field name="content" type="text" column="content" nullable="true"/>
         <field name="created" type="datetime" column="created" nullable="false"/>
         <field name="changed" type="datetime" column="changed" nullable="false"/>
         <field name="publishedAt" type="datetime" column="publishedAt" nullable="false"/>
