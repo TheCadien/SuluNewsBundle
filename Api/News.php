@@ -111,7 +111,7 @@ class News extends ApiWrapper
 
     /**
      * @VirtualProperty
-     * @SerializedName("published_at")
+     * @SerializedName("publishedAt")
      * @Groups({"fullNews"})
      */
     public function getPublishedAt()

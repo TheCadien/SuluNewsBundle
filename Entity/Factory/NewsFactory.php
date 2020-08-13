@@ -61,8 +61,8 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
             $news->setHeader($this->mediaFactory->generateMedia($data['header']));
         }
 
-        if ($this->getProperty($data, 'published_at')) {
-            $news->setPublishedAt(new \DateTime($this->getProperty($data, 'published_at')));
+        if ($this->getProperty($data, 'publishedAt')) {
+            $news->setPublishedAt(new \DateTime($this->getProperty($data, 'publishedAt')));
         }
 
         if ($this->getProperty($data, 'content')) {
@@ -96,8 +96,8 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
             $news->setHeader($this->mediaFactory->generateMedia($data['header']));
         }
 
-        if ($this->getProperty($data, 'published_at')) {
-            $news->setPublishedAt(new \DateTime($this->getProperty($data, 'published_at')));
+        if ($this->getProperty($data, 'publishedAt')) {
+            $news->setPublishedAt(new \DateTime($this->getProperty($data, 'publishedAt')));
         }
 
         if ($this->getProperty($data, 'content')) {

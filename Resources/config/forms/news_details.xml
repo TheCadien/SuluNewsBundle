@@ -23,9 +23,9 @@
             </meta>
         </property>
 
-        <property name="published_at" type="datetime" mandatory="true" colspan="6">
+        <property name="publishedAt" type="datetime" mandatory="true" colspan="6">
             <meta>
-                <title>sulu.news.published_at</title>
+                <title>sulu.news.publishedAt</title>
             </meta>
         </property>
 

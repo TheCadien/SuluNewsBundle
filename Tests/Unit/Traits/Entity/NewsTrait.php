@@ -36,7 +36,7 @@ trait NewsTrait
         $news->setTeaser($contentArray['teaser']);
         $news->setContent($contentArray['content']);
         $news->setEnabled($contentArray['enable']);
-        $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['published_at']));
+        $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
     }
@@ -49,7 +49,7 @@ trait NewsTrait
             'teaser' => 'Test Teaser',
             'content' => 'Test Content',
             'enable' => true,
-            'published_at' => '2017-08-31 00:00:00',
+            'publishedAt' => '2017-08-31 00:00:00',
         ];
     }
 
@@ -63,7 +63,7 @@ trait NewsTrait
         $news->setTeaser($contentArray['teaser']);
         $news->setContent($contentArray['content']);
         $news->setEnabled($contentArray['enable']);
-        $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['published_at']));
+        $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
     }
@@ -76,7 +76,7 @@ trait NewsTrait
             'teaser' => 'Test',
             'content' => 'Test',
             'enable' => true,
-            'published_at' => '2017-08-30 00:00:00',
+            'publishedAt' => '2017-08-31 00:00:00',
         ];
     }
 }

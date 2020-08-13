@@ -59,8 +59,8 @@
             <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 
-        <property name="published_at" visibility="yes" searchability="yes" translation="sulu.news.published_at">
-            <field-name>published_at</field-name>
+        <property name="publishedAt" visibility="yes" searchability="yes" translation="sulu.news.publishedAt">
+            <field-name>publishedAt</field-name>
             <entity-name>TheCadien\Bundle\SuluNewsBundle\Entity\News</entity-name>
         </property>
 

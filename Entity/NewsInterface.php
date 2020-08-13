@@ -39,7 +39,7 @@ interface NewsInterface
 
     public function getPublishedAt(): ?\DateTime;
 
-    public function setPublishedAt(\DateTime $published_at): void;
+    public function setPublishedAt(\DateTime $publishedAt): void;
 
     public function getTeaser(): ?string;
 

@@ -45,7 +45,11 @@
     "phpstan": [
       "@php vendor/bin/phpstan analyse"
     ],
-    "phpunit": "@php vendor/bin/phpunit"
+    "phpunit": "@php vendor/bin/phpunit",
+    "bootstrap-test-environment": [
+      "@php Tests/Application/bin/console doctrine:database:create --if-not-exists",
+      "@php Tests/Application/bin/console doctrine:schema:update --force"
+    ]
   },
   "minimum-stability": "dev",
   "autoload": {

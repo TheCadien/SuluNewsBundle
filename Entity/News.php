@@ -15,110 +15,72 @@ namespace TheCadien\Bundle\SuluNewsBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\ManyToMany;
 use JMS\Serializer\Annotation\Accessor;
-use JMS\Serializer\Annotation\Groups;
+use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
+use Sulu\Component\Security\Authentication\UserInterface;
 
-/**
- * @ORM\Entity(repositoryClass="TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository")
- */
 class News implements NewsInterface, AuditableInterface
 {
     const RESOURCE_KEY = 'news';
 
     /**
-     * @var int|null
-     *
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
-     * @Groups({"partialMedia"})
-     * @ORM\ManyToOne(targetEntity="Sulu\Bundle\MediaBundle\Entity\MediaInterface")
-     * @ORM\JoinColumn(name="header_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @var MediaInterface
      */
     private $header;
 
     /**
-     * @Groups({"partialMedia"})
-     * @ORM\ManyToOne(targetEntity="Sulu\Component\Security\Authentication\UserInterface")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @var UserInterface
      */
     private $creator;
 
     /**
-     * @Groups({"partialMedia"})
-     * @ORM\ManyToOne(targetEntity="Sulu\Component\Security\Authentication\UserInterface")
-     * @ORM\JoinColumn(name="changer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @var UserInterface
      */
     private $changer;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(type="boolean", nullable=false)
      */
     private $enabled;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255 , nullable=false)
      */
     private $title;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", nullable=false)
      */
     private $teaser;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="text", nullable=false)
      */
     private $content;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=false)
      */
-    private $published_at;
+    private $publishedAt;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=true)
      */
     private $created;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=true)
      */
     private $changed;
 
     /**
-     * @var Collection|TagInterface[]
-     *
-     * @ManyToMany(targetEntity="Sulu\Bundle\TagBundle\Tag\TagInterface")
-     * @JoinTable(name="news_tags",
-     *      joinColumns={@JoinColumn(name="news_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="idTags", referencedColumnName="id")}
-     *      )
-     *
      * @Accessor(getter="getTagNameArray")
      */
     protected $tags;
@@ -196,12 +158,12 @@ class News implements NewsInterface, AuditableInterface
      */
     public function getPublishedAt(): ?\DateTime
     {
-        return $this->published_at;
+        return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTime $published_at): void
+    public function setPublishedAt(\DateTime $publishedAt): void
     {
-        $this->published_at = $published_at;
+        $this->publishedAt = $publishedAt;
     }
 
     public function getTeaser(): ?string
@@ -242,12 +204,12 @@ class News implements NewsInterface, AuditableInterface
         $this->tags->removeElement($tag);
     }
 
-    public function getTags()
+    public function getTags(): Collection
     {
         return $this->tags;
     }
 
-    public function getTagNameArray()
+    public function getTagNameArray(): array
     {
         $tags = [];
 
@@ -263,7 +225,7 @@ class News implements NewsInterface, AuditableInterface
     /**
      * @return mixed
      */
-    public function getCreator()
+    public function getCreator(): UserInterface
     {
         return $this->creator;
     }
@@ -279,7 +241,7 @@ class News implements NewsInterface, AuditableInterface
     /**
      * @return mixed
      */
-    public function getChanger()
+    public function getChanger(): UserInterface
     {
         return $this->changer;
     }

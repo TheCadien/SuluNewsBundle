@@ -25,9 +25,15 @@
         </service>
 
 
-        <service id="sulu_news.repository" public="true"
-                 class="TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository">
-            <argument type="service" id="doctrine"/>
+
+        <service id="sulu_news.repository" class="TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository" public="true" lazy="true">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service">
+                <service class="Doctrine\ORM\Mapping\ClassMetadata">
+                    <argument>TheCadien\Bundle\SuluNewsBundle\Entity\News</argument>
+                    <factory service="doctrine.orm.default_entity_manager" method="getClassMetadata"/>
+                </service>
+            </argument>
         </service>
 
 
