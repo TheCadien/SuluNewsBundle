@@ -9,6 +9,7 @@ env:
   DATABASE_URL: mysql://root@127.0.0.1:33306/su_news_test?serverVersion=5.7
 
 jobs:
+
   tests:
     name: Test Application
     runs-on: ubuntu-latest
@@ -43,6 +44,9 @@ jobs:
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: bootstrap test environment
+        run: composer bootstrap-test-environment
 
       - name: Run unit tests
         run: composer phpunit -- Tests/Unit --coverage-php var/coverage.php --coverage-html coverage-report --log-junit var/junit.xml
