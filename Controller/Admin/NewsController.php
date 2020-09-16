@@ -175,12 +175,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
 
     protected function generateApiNewsEntity(News $entity, string $locale): NewsApi
     {
-        $apiEntity = new NewsApi($entity, $locale);
-        if ($entity->getHeader()) {
-            $apiEntity->setAvatar($this->mediaManager->getById($entity->getHeader()->getId(), 'de'));
-        }
-
-        return $apiEntity;
+        return new NewsApi($entity, $locale);
     }
 
     protected function generateViewContent(NewsApi $entity): View

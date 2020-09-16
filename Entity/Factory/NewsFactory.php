@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
+use Sulu\Bundle\RouteBundle\Manager\RouteManager;
 use Sulu\Component\Persistence\RelationTrait;
-use Sulu\Component\Rest\Exception\EntityNotFoundException;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsFactory extends AbstractFactory implements NewsFactoryInterface
@@ -30,32 +30,34 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
      * @var TagFactory
      */
     private $tagFactory;
+    /**
+     * @var RouteManager
+     */
+    private $routeManager;
 
     /**
      * NewsFactory constructor.
      */
     public function __construct(
         MediaFactoryInterface $mediaFactory,
-        TagFactoryInterface $tagFactory
+        TagFactoryInterface $tagFactory,
+        RouteManager $manager
     ) {
         $this->mediaFactory = $mediaFactory;
         $this->tagFactory = $tagFactory;
+        $this->routeManager = $manager;
     }
 
     /**
      * @throws \Exception
      */
-    public function generateNewNewsFromRequest(array $data): News
+    public function generateNewsFromRequest(News $news, array $data): News
     {
-        $news = new News();
-
         if ($this->getProperty($data, 'title')) {
             $news->setTitle($this->getProperty($data, 'title'));
         }
 
-        if ($this->getProperty($data, 'teaser')) {
-            $news->setTeaser($this->getProperty($data, 'teaser'));
-        }
+        $news->setTeaser($this->getProperty($data, 'teaser'));
 
         if ($this->getProperty($data, 'header')) {
             $news->setHeader($this->mediaFactory->generateMedia($data['header']));
@@ -65,50 +67,16 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
             $news->setPublishedAt(new \DateTime($this->getProperty($data, 'publishedAt')));
         }
 
-        if ($this->getProperty($data, 'content')) {
-            $news->setContent($this->getProperty($data, 'content'));
-        }
+        $news->setContent($this->getProperty($data, 'content'));
 
         if ($tags = $this->getProperty($data, 'tags')) {
             $this->tagFactory->processTags($news, $tags);
         }
 
         $news->setCreated(new \DateTime());
+        $route = $this->routeManager->create($news);
 
-        return $news;
-    }
-
-    /**
-     * @throws EntityNotFoundException
-     * @throws \Exception
-     */
-    public function updateNewsFromRequest(array $data, News $news): News
-    {
-        if ($this->getProperty($data, 'title')) {
-            $news->setTitle($this->getProperty($data, 'title'));
-        }
-
-        if ($this->getProperty($data, 'teaser')) {
-            $news->setTeaser($this->getProperty($data, 'teaser'));
-        }
-
-        if ($this->getProperty($data, 'header')) {
-            $news->setHeader($this->mediaFactory->generateMedia($data['header']));
-        }
-
-        if ($this->getProperty($data, 'publishedAt')) {
-            $news->setPublishedAt(new \DateTime($this->getProperty($data, 'publishedAt')));
-        }
-
-        if ($this->getProperty($data, 'content')) {
-            $news->setContent($this->getProperty($data, 'content'));
-        }
-
-        if ($tags = $this->getProperty($data, 'tags')) {
-            $this->tagFactory->processTags($news, $tags);
-        }
-
-        $news->setChanged(new \DateTime());
+        $news->setRoute($route);
 
         return $news;
     }

@@ -29,9 +29,9 @@ interface NewsInterface
 
     public function setTitle(string $title): void;
 
-    public function getContent(): ?string;
+    public function getContent();
 
-    public function setContent(string $content): void;
+    public function setContent($content): void;
 
     public function getCreated(): ?\DateTime;
 

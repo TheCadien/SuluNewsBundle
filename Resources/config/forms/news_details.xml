@@ -6,17 +6,6 @@
     <key>news_details</key>
 
     <properties>
-
-        <property name="header" type="single_media_selection">
-            <meta>
-                <title>sulu.news.image</title>
-            </meta>
-            <params>
-                <param name="types" value="image"/>
-                <param name="image_size" value="800x400" />
-            </params>
-        </property>
-
         <property name="title" type="text_line" mandatory="true" colspan="6">
             <meta>
                 <title>sulu_admin.title</title>
@@ -29,22 +18,90 @@
             </meta>
         </property>
 
-        <property name="teaser" type="text_area">
+        <property name="route" type="route" disabledCondition="true">
             <meta>
-                <title>sulu.news.teaser</title>
+                <title>sulu.news.route</title>
             </meta>
         </property>
 
-        <property name="content" type="text_editor">
+        <section name="content">
             <meta>
-                <title>sulu.news.content</title>
+                <title>Content</title>
             </meta>
-        </property>
+            <properties>
+                <property name="header" type="single_media_selection">
+                    <meta>
+                        <title>sulu.news.image</title>
+                    </meta>
+                    <params>
+                        <param name="types" value="image"/>
+                        <param name="image_size" value="800x400"/>
+                    </params>
+                </property>
 
-        <property name="tags" type="tag_selection">
+                <property name="teaser" type="text_area">
+                    <meta>
+                        <title>sulu.news.teaser</title>
+                    </meta>
+                </property>
+
+                <block name="content" default-type="editor_image" minOccurs="0">
+                    <meta>
+                        <title lang="de">Inhalte</title>
+                        <title lang="en">Content</title>
+                    </meta>
+                    <types>
+                        <type name="editor_image">
+                            <meta>
+                                <title lang="de">Editor mit Bild</title>
+                                <title lang="en">Editor with image</title>
+                            </meta>
+                            <properties>
+                                <property name="images" type="media_selection">
+                                    <meta>
+                                        <title lang="de">Bilder</title>
+                                        <title lang="en">Images</title>
+                                    </meta>
+                                </property>
+
+                                <property name="article" type="text_editor">
+                                    <meta>
+                                        <title lang="de">Artikel</title>
+                                        <title lang="en">Article</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="title">
+                            <meta>
+                                <title lang="de">Titel</title>
+                                <title lang="en">Title</title>
+                            </meta>
+                            <properties>
+                                <property name="title" type="text_line" colspan="12">
+                                    <meta>
+                                        <title lang="de">Bilder</title>
+                                        <title lang="en">Images</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </block>
+            </properties>
+        </section>
+
+        <section name="tags">
             <meta>
-                <title>sulu.news.tags</title>
+                <title>Tags</title>
             </meta>
-        </property>
+            <properties>
+                <property name="tags" type="tag_selection">
+                    <meta>
+                        <title>sulu.news.tags</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
     </properties>
 </form>

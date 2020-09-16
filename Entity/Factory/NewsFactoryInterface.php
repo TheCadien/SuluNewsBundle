@@ -17,7 +17,5 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 interface NewsFactoryInterface
 {
-    public function generateNewNewsFromRequest(array $data): News;
-
-    public function updateNewsFromRequest(array $data, News $news): News;
+    public function generateNewsFromRequest(News $news, array $data): News;
 }

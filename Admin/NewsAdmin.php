@@ -130,13 +130,14 @@ class NewsAdmin extends Admin
             ),
         ];
 
-        $editDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.details', '/details')
-            ->setResourceKey(News::RESOURCE_KEY)
-            ->setFormKey(self::NEWS_FORM_KEY)
-            ->setTabTitle('sulu_admin.details')
-            ->addToolbarActions($formToolbarActions)
-            ->setParent(static::NEWS_EDIT_FORM_VIEW);
-        $viewCollection->add($editDetailsFormView);
+        $viewCollection->add(
+            $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.details', '/details')
+                ->setResourceKey(News::RESOURCE_KEY)
+                ->setFormKey(self::NEWS_FORM_KEY)
+                ->setTabTitle('sulu_admin.details')
+                ->addToolbarActions($formToolbarActions)
+                ->setParent(static::NEWS_EDIT_FORM_VIEW)
+        );
     }
 
     /**

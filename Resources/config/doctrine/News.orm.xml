@@ -30,7 +30,7 @@
         <field name="enabled" type="boolean" column="enabled" nullable="false"/>
         <field name="title" type="string" column="title" length="255"/>
         <field name="teaser" type="text" column="teaser" nullable="true"/>
-        <field name="content" type="text" column="content" nullable="true"/>
+        <field name="content" type="json" column="content" nullable="true"/>
         <field name="created" type="datetime" column="created" nullable="false"/>
         <field name="changed" type="datetime" column="changed" nullable="false"/>
         <field name="publishedAt" type="datetime" column="publishedAt" nullable="false"/>
@@ -49,5 +49,11 @@
             </order-by>
         </many-to-many>
 
+        <many-to-one field="route" target-entity="Sulu\Bundle\RouteBundle\Entity\Route">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-column name="idRoutes" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
+        </many-to-one>
     </mapped-superclass>
 </doctrine-mapping>

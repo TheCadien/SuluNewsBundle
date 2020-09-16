@@ -17,8 +17,6 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;
-use Sulu\Bundle\MediaBundle\Api\Media;
-use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Rest\ApiWrapper;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News as NewsEntity;
 
@@ -29,13 +27,6 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News as NewsEntity;
  */
 class News extends ApiWrapper
 {
-    const TYPE = 'news';
-
-    /**
-     * @var Media
-     */
-    private $header = null;
-
     public function __construct(NewsEntity $contact, $locale)
     {
         /* @var NewsEntity entity */
@@ -46,27 +37,13 @@ class News extends ApiWrapper
     /**
      * Get id.
      *
-     * @return int
-     *
      * @VirtualProperty
      * @SerializedName("id")
      * @Groups({"fullNews"})
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->entity->getId();
-    }
-
-    /**
-     * @param $title
-     *
-     * @return $this
-     */
-    public function setTitle($title)
-    {
-        $this->entity->setTitle($title);
-
-        return $this;
     }
 
     /**
@@ -94,7 +71,7 @@ class News extends ApiWrapper
      * @SerializedName("content")
      * @Groups({"fullNews"})
      */
-    public function getContent()
+    public function getContent(): array
     {
         return $this->entity->getContent();
     }
@@ -104,7 +81,7 @@ class News extends ApiWrapper
      * @SerializedName("enabled")
      * @Groups({"fullNews"})
      */
-    public function isEnabeld(): bool
+    public function isEnabled(): bool
     {
         return $this->entity->isEnabled();
     }
@@ -120,31 +97,13 @@ class News extends ApiWrapper
     }
 
     /**
-     * Sets the avatar (media-api object).
+     * @VirtualProperty
+     * @SerializedName("route")
+     * @Groups({"fullNews"})
      */
-    public function setAvatar(Media $header)
+    public function getRoute()
     {
-        $this->header = $header;
-    }
-
-    /**
-     * Add tag.
-     *
-     * @return News
-     */
-    public function addTag(TagInterface $tag)
-    {
-        $this->entity->addTag($tag);
-
-        return $this;
-    }
-
-    /**
-     * Remove tag.
-     */
-    public function removeTag(TagInterface $tag): void
-    {
-        $this->entity->removeTag($tag);
+        return $this->entity->getRoute()->getPath();
     }
 
     /**
@@ -168,11 +127,9 @@ class News extends ApiWrapper
      */
     public function getHeader(): array
     {
-        if ($this->header) {
+        if ($this->entity->getHeader()) {
             return [
-                'id' => $this->header->getId(),
-                'url' => $this->header->getUrl(),
-                'thumbnails' => $this->header->getFormats(),
+                'id' => $this->entity->getHeader()->getId(),
             ];
         }
 

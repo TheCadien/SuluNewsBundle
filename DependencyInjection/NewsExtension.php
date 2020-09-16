@@ -20,6 +20,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use TheCadien\Bundle\SuluNewsBundle\Admin\NewsAdmin;
+use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -56,6 +57,22 @@ class NewsExtension extends Extension implements PrependExtensionInterface
                 ]
             );
         }
+
+        if ($container->hasExtension('sulu_route')) {
+            $container->prependExtensionConfig(
+                'sulu_route',
+                [
+                    'mappings' => [
+                        News::class => [
+                            'generator' => 'schema',
+                            'options' => ['route_schema' => '/news/{object.getId()}'],
+                            'resource_key' => News::RESOURCE_KEY,
+                        ],
+                    ],
+                ]
+            );
+        }
+
         if ($container->hasExtension('sulu_admin')) {
             $container->prependExtensionConfig(
                 'sulu_admin',
@@ -99,6 +116,8 @@ class NewsExtension extends Extension implements PrependExtensionInterface
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('controller.xml');
+        $loader->load('events.xml');
 
         $this->configurePersistence($config['objects'], $container);
     }

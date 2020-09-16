@@ -58,7 +58,7 @@ class NewsService implements NewsServiceInterface
     public function saveNewNews(array $data): News
     {
         try {
-            $news = $this->factory->generateNewNewsFromRequest($data);
+            $news = $this->factory->generateNewsFromRequest(new News(), $data);
         } catch (\Exception $e) {
         }
 
@@ -80,7 +80,7 @@ class NewsService implements NewsServiceInterface
     public function updateNews($data, News $news): News
     {
         try {
-            $news = $this->factory->updateNewsFromRequest($data, $news);
+            $news = $this->factory->generateNewsFromRequest($news, $data);
         } catch (\Exception $e) {
         }
         $news->setChanger($this->loginUser);
