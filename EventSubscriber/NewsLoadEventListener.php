@@ -36,7 +36,7 @@ class NewsLoadEventListener
 
         if ($news->getHeader()) {
             try {
-                $media = $this->container->get('sulu_media.media_manager')->getById($news->getHeader()->getId(), 'de');
+                $media = $this->container->get('sulu.repository.media')->findMediaById($news->getHeader()->getId());
                 $news->setHeader($media);
             } catch (Exception $e) {
             }
