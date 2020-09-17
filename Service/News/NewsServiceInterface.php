@@ -17,7 +17,7 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 interface NewsServiceInterface
 {
-    public function saveNewNews(array $data): News;
+    public function saveNewNews(array $data, string $locale): News;
 
-    public function updateNews($data, News $article): News;
+    public function updateNews($data, News $article, string $locale): News;
 }

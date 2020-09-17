@@ -13,9 +13,12 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
+use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
-interface NewsFactoryInterface
+interface NewsRouteFactoryInterface
 {
-    public function generateNewsFromRequest(News $news, array $data, string $locale): News;
+    public function generateNewsRoute(News $news): RouteInterface;
+
+    public function updateNewsRoute(News $news, string $routePath): RouteInterface;
 }

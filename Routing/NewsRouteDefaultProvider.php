@@ -33,12 +33,13 @@ class NewsRouteDefaultProvider implements RouteDefaultsProviderInterface
     {
         return [
             '_controller' => 'sulu_news.controller:indexAction',
-            'news' => $object ?: $this->newsRepository->findById((int)$id),
+            'news' => $object ?: $this->newsRepository->findById((int) $id),
         ];
     }
 
     public function isPublished($entityClass, $id, $locale)
     {
+        /* TODO! */
         return true;
     }
 

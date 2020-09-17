@@ -103,7 +103,11 @@ class News extends ApiWrapper
      */
     public function getRoute()
     {
-        return $this->entity->getRoute()->getPath();
+        if ($this->entity->getRoute()) {
+            return $this->entity->getRoute()->getPath();
+        }
+
+        return '';
     }
 
     /**

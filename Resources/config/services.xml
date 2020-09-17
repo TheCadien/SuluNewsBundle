@@ -60,6 +60,7 @@
         <service id="sulu_news.service" public="true" class="TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService">
             <argument type="service" id="sulu_news.repository"/>
             <argument type="service" id="sulu_news.news.factory"/>
+            <argument type="service" id="sulu_news.route.factory"/>
             <argument type="service" id="security.token_storage"/>
 
             <tag name="sulu.context" context="admin"/>
@@ -70,6 +71,9 @@
             <tag name="sulu_preview.object_provider" provider-key="news"/>
         </service>
 
+        <service id="sulu_news.route.factory" public="true" class="TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsRouteFactory">
+            <argument type="service" id="sulu_route.manager.route_manager"/>
+        </service>
 
         <service id="sulu_news.routing_provider" public="true" class="TheCadien\Bundle\SuluNewsBundle\Routing\NewsRouteDefaultProvider">
             <argument type="service" id="sulu_news.repository"/>

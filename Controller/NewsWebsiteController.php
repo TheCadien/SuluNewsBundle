@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Controller;
 
+use Sulu\Bundle\PreviewBundle\Preview\Preview;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -23,12 +24,30 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
  */
 class NewsWebsiteController extends AbstractController
 {
-    public function indexAction(News $news): Response
+    public function indexAction(News $news, $preview = null): Response
     {
         if (!$news) {
             throw new NotFoundHttpException();
         }
 
-        return $this->render('news/index.html.twig', ['news' => $news]);
+        /* TODO ! */
+        if ($preview) {
+            $content = $this->renderPreview('news/index.html.twig', ['news' => $news]);
+        } else {
+            $content = $this->renderView(
+                'news/index.html.twig',
+                ['news' => $news]
+            );
+        }
+
+        return new Response($content);
+    }
+
+    protected function renderPreview(string $view, array $parameters = []): string
+    {
+        $parameters['previewParentTemplate'] = $view;
+        $parameters['previewContentReplacer'] = Preview::CONTENT_REPLACER;
+
+        return $this->renderView('@SuluWebsite/Preview/preview.html.twig', $parameters);
     }
 }

@@ -51,13 +51,15 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
     /**
      * @throws \Exception
      */
-    public function generateNewsFromRequest(News $news, array $data): News
+    public function generateNewsFromRequest(News $news, array $data, string $locale = null, $state = null): News
     {
         if ($this->getProperty($data, 'title')) {
             $news->setTitle($this->getProperty($data, 'title'));
         }
 
-        $news->setTeaser($this->getProperty($data, 'teaser'));
+        if ($this->getProperty($data, 'teaser')) {
+            $news->setTeaser($this->getProperty($data, 'teaser'));
+        }
 
         if ($this->getProperty($data, 'header')) {
             $news->setHeader($this->mediaFactory->generateMedia($data['header']));
@@ -67,16 +69,25 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
             $news->setPublishedAt(new \DateTime($this->getProperty($data, 'publishedAt')));
         }
 
-        $news->setContent($this->getProperty($data, 'content'));
+        if ($this->getProperty($data, 'content')) {
+            $news->setContent($this->getProperty($data, 'content'));
+        }
 
         if ($tags = $this->getProperty($data, 'tags')) {
             $this->tagFactory->processTags($news, $tags);
         }
 
-        $news->setCreated(new \DateTime());
-        $route = $this->routeManager->create($news);
+        if (!$news->getId()) {
+            $news->setCreated(new \DateTime());
+        }
 
-        $news->setRoute($route);
+        if ($locale) {
+            $news->setLocale($locale);
+        }
+
+        if (null !== $state) {
+            $news->setEnabled($state);
+        }
 
         return $news;
     }

@@ -3,24 +3,21 @@
       xmlns="http://schemas.sulu.io/template/template"
       xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
 >
-    <key>news_details</key>
+    <key>news_details_add</key>
 
     <properties>
         <property name="title" type="text_line" mandatory="true" colspan="6">
             <meta>
                 <title>sulu_admin.title</title>
             </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
         </property>
 
         <property name="publishedAt" type="datetime" mandatory="true" colspan="6">
             <meta>
                 <title>sulu.news.publishedAt</title>
-            </meta>
-        </property>
-
-        <property name="route" type="route" disabledCondition="true">
-            <meta>
-                <title>sulu.news.route</title>
             </meta>
         </property>
 
@@ -45,33 +42,12 @@
                     </meta>
                 </property>
 
-                <block name="content" default-type="editor_image" minOccurs="0">
+                <block name="content" default-type="editor" minOccurs="0">
                     <meta>
                         <title lang="de">Inhalte</title>
                         <title lang="en">Content</title>
                     </meta>
                     <types>
-                        <type name="editor_image">
-                            <meta>
-                                <title lang="de">Editor mit Bild</title>
-                                <title lang="en">Editor with image</title>
-                            </meta>
-                            <properties>
-                                <property name="images" type="media_selection">
-                                    <meta>
-                                        <title lang="de">Bilder</title>
-                                        <title lang="en">Images</title>
-                                    </meta>
-                                </property>
-
-                                <property name="article" type="text_editor">
-                                    <meta>
-                                        <title lang="de">Artikel</title>
-                                        <title lang="en">Article</title>
-                                    </meta>
-                                </property>
-                            </properties>
-                        </type>
                         <type name="title">
                             <meta>
                                 <title lang="de">Titel</title>
@@ -80,8 +56,58 @@
                             <properties>
                                 <property name="title" type="text_line" colspan="12">
                                     <meta>
+                                        <title lang="de">Titel</title>
+                                        <title lang="en">Title</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="editor">
+                            <meta>
+                                <title lang="de">Editor</title>
+                                <title lang="en">Editor</title>
+                            </meta>
+                            <properties>
+                                <property name="text" type="text_editor" colspan="12">
+                                    <meta>
+                                        <title lang="de">Editor</title>
+                                        <title lang="en">Editor</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="image">
+                            <meta>
+                                <title lang="de">Bild</title>
+                                <title lang="en">image</title>
+                            </meta>
+                            <properties>
+                                <property name="image" type="single_media_selection">
+                                    <meta>
                                         <title lang="de">Bilder</title>
                                         <title lang="en">Images</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                        <type name="quote">
+                            <meta>
+                                <title lang="en">Quote</title>
+                                <title lang="de">Zitat</title>
+                            </meta>
+
+                            <properties>
+                                <property name="quote" type="text_area" mandatory="true">
+                                    <meta>
+                                        <title lang="en">Quote</title>
+                                        <title lang="de">Zitat</title>
+                                    </meta>
+                                </property>
+
+                                <property name="quoteReference" type="text_line">
+                                    <meta>
+                                        <title lang="en">Reference</title>
+                                        <title lang="de">Referenz</title>
                                     </meta>
                                 </property>
                             </properties>

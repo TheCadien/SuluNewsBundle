@@ -50,13 +50,6 @@ bin/console do:sch:up --force
 ```
 
 ## Bundle Config
-
-Define Website Route in `routes_website.yaml`
-```yaml
-sulu_news.website:
-  path: /news/{id}
-  controller: sulu_news.controller:indexAction
-```
     
 Define the Admin Api Route in `routes_admin.yaml`
 ```yaml

@@ -30,7 +30,7 @@ class NewsObjectProvider implements PreviewObjectProviderInterface
 
     public function getObject($id, $locale)
     {
-        return $this->newsRepository->findById((int)$id);
+        return $this->newsRepository->findById((int) $id);
     }
 
     public function getId($object)

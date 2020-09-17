@@ -99,6 +99,11 @@ class NewsExtension extends Extension implements PrependExtensionInterface
             );
         }
 
+        $container->prependExtensionConfig(
+            'sulu_news',
+            ['templates' => ['view' => 'news/index.html.twig']]
+        );
+
         $container->loadFromExtension('framework', [
             'default_locale' => 'en',
             'translator' => ['paths' => [__DIR__ . '/../Resources/config/translations/']],

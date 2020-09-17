@@ -34,6 +34,7 @@
         <field name="created" type="datetime" column="created" nullable="false"/>
         <field name="changed" type="datetime" column="changed" nullable="false"/>
         <field name="publishedAt" type="datetime" column="publishedAt" nullable="false"/>
+        <field name="locale" type="string" column="locale" length="16"/>
 
         <many-to-many field="tags" target-entity="Sulu\Bundle\TagBundle\Tag\TagInterface">
             <join-table name="news_tags">

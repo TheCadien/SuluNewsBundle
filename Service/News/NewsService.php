@@ -17,6 +17,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
+use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsRouteFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
@@ -29,7 +30,7 @@ class NewsService implements NewsServiceInterface
     /**
      * @var NewsFactory
      */
-    private $factory;
+    private $newsFactory;
 
     /**
      * @var object|string
@@ -37,15 +38,23 @@ class NewsService implements NewsServiceInterface
     private $loginUser;
 
     /**
+     * @var NewsRouteFactory
+     */
+    private $routeFactory;
+
+    /**
      * ArticleService constructor.
      */
     public function __construct(
         NewsRepository $newsRepository,
-        NewsFactory $factory,
+        NewsFactory $newsFactory,
+        NewsRouteFactory $routeFactory,
         TokenStorageInterface $tokenStorage
     ) {
         $this->newsRepository = $newsRepository;
-        $this->factory = $factory;
+        $this->newsFactory = $newsFactory;
+        $this->routeFactory = $routeFactory;
+
         if ($tokenStorage->getToken()) {
             $this->loginUser = $tokenStorage->getToken()->getUser();
         }
@@ -55,10 +64,10 @@ class NewsService implements NewsServiceInterface
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function saveNewNews(array $data): News
+    public function saveNewNews(array $data, string $locale): News
     {
         try {
-            $news = $this->factory->generateNewsFromRequest(new News(), $data);
+            $news = $this->newsFactory->generateNewsFromRequest(new News(), $data, $locale);
         } catch (\Exception $e) {
         }
 
@@ -66,6 +75,10 @@ class NewsService implements NewsServiceInterface
         $news->setCreator($this->loginUser);
         $news->setChanger($this->loginUser);
 
+        $this->newsRepository->save($news);
+
+        $route = $this->routeFactory->generateNewsRoute($news);
+        $news->setRoute($route);
         $this->newsRepository->save($news);
 
         return $news;
@@ -77,14 +90,35 @@ class NewsService implements NewsServiceInterface
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function updateNews($data, News $news): News
+    public function updateNews($data, News $news, string $locale): News
     {
         try {
-            $news = $this->factory->generateNewsFromRequest($news, $data);
+            $news = $this->newsFactory->generateNewsFromRequest($news, $data, $locale);
         } catch (\Exception $e) {
         }
+
         $news->setChanger($this->loginUser);
 
+        if ($news->getRoute()->getPath() !== $data['route']) {
+            $route = $this->routeFactory->updateNewsRoute($news, $data['route']);
+            $news->setRoute($route);
+        }
+
+        $this->newsRepository->save($news);
+
+        return $news;
+    }
+
+    public function updateNewsPublish(News $news, array $data): News
+    {
+        switch ($data['action']) {
+            case 'enable':
+                $news = $this->newsFactory->generateNewsFromRequest($news, [], null, true);
+                break;
+            case 'disable':
+                $news = $this->newsFactory->generateNewsFromRequest($news, [], null, false);
+                break;
+        }
         $this->newsRepository->save($news);
 
         return $news;

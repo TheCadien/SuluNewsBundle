@@ -94,6 +94,11 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
     private $route;
 
     /**
+     * @var string
+     */
+    private $locale;
+
+    /**
      * News constructor.
      */
     public function __construct()
@@ -281,6 +286,11 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
 
     public function getLocale()
     {
-        return 'en';
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): void
+    {
+        $this->locale = $locale;
     }
 }

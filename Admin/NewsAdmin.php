@@ -31,7 +31,9 @@ class NewsAdmin extends Admin
 
     const NEWS_LIST_KEY = 'news';
 
-    const NEWS_FORM_KEY = 'news_details';
+    const NEWS_FORM_KEY_ADD = 'news_details_add';
+
+    const NEWS_FORM_KEY_EDIT = 'news_details_edit';
 
     const NEWS_LIST_VIEW = 'app.news_list';
 
@@ -104,7 +106,7 @@ class NewsAdmin extends Admin
 
         $addDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(self::NEWS_ADD_FORM_VIEW . '.details', '/details')
             ->setResourceKey(News::RESOURCE_KEY)
-            ->setFormKey(self::NEWS_FORM_KEY)
+            ->setFormKey(self::NEWS_FORM_KEY_ADD)
             ->setTabTitle('sulu_admin.details')
             ->setEditView(static::NEWS_EDIT_FORM_VIEW)
             ->addToolbarActions([new ToolbarAction('sulu_admin.save')])
@@ -133,7 +135,7 @@ class NewsAdmin extends Admin
         $viewCollection->add(
             $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.details', '/details')
                 ->setResourceKey(News::RESOURCE_KEY)
-                ->setFormKey(self::NEWS_FORM_KEY)
+                ->setFormKey(self::NEWS_FORM_KEY_EDIT)
                 ->setTabTitle('sulu_admin.details')
                 ->addToolbarActions($formToolbarActions)
                 ->setParent(static::NEWS_EDIT_FORM_VIEW)
