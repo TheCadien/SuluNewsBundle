@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
-use Sulu\Bundle\RouteBundle\Manager\RouteManager;
 use Sulu\Component\Persistence\RelationTrait;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
@@ -30,22 +29,17 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
      * @var TagFactory
      */
     private $tagFactory;
-    /**
-     * @var RouteManager
-     */
-    private $routeManager;
 
     /**
      * NewsFactory constructor.
      */
     public function __construct(
         MediaFactoryInterface $mediaFactory,
-        TagFactoryInterface $tagFactory,
-        RouteManager $manager
-    ) {
+        TagFactoryInterface $tagFactory
+    )
+    {
         $this->mediaFactory = $mediaFactory;
         $this->tagFactory = $tagFactory;
-        $this->routeManager = $manager;
     }
 
     /**

@@ -36,6 +36,7 @@ trait NewsTrait
         $news->setTeaser($contentArray['teaser']);
         $news->setContent($contentArray['content']);
         $news->setEnabled($contentArray['enable']);
+        $news->setLocale($contentArray['locale']);
         $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
@@ -47,7 +48,8 @@ trait NewsTrait
             'id' => 1,
             'title' => 'Test Title',
             'teaser' => 'Test Teaser',
-            'content' => 'Test Content',
+            'content' => [],
+            'locale' => 'en',
             'enable' => true,
             'publishedAt' => '2017-08-31 00:00:00',
         ];
@@ -63,6 +65,7 @@ trait NewsTrait
         $news->setTeaser($contentArray['teaser']);
         $news->setContent($contentArray['content']);
         $news->setEnabled($contentArray['enable']);
+        $news->setLocale($contentArray['locale']);
         $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
@@ -74,7 +77,8 @@ trait NewsTrait
             'id' => 2,
             'title' => 'Test',
             'teaser' => 'Test',
-            'content' => 'Test',
+            'content' => [],
+            'locale' => 'en',
             'enable' => true,
             'publishedAt' => '2017-08-31 00:00:00',
         ];

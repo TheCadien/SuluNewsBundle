@@ -28,7 +28,7 @@ class NewsTest extends TestCase
         $this->assertNull($news->getTitle());
         $this->assertNull($news->getTeaser());
         $this->assertNull($news->getHeader());
-        $this->assertNull($news->getContent());
+        $this->assertSame([],$news->getContent());
         $this->assertNull($news->getPublishedAt());
     }
 }

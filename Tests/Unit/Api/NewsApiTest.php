@@ -28,7 +28,7 @@ class NewsApiTest extends TestCase
         $this->assertNull($apiDto->getTitle());
         $this->assertNull($apiDto->getTeaser());
         $this->assertSame([], $apiDto->getHeader());
-        $this->assertNull($apiDto->getContent());
+        $this->assertSame([],$apiDto->getContent());
         $this->assertNull($apiDto->getPublishedAt());
         $this->assertSame([], $apiDto->getTags());
     }
@@ -40,7 +40,7 @@ class NewsApiTest extends TestCase
         $this->assertSame(1, $apiDto->getId());
         $this->assertSame('Test Title', $apiDto->getTitle());
         $this->assertSame('Test Teaser', $apiDto->getTeaser());
-        $this->assertSame('Test Content', $apiDto->getContent());
+        $this->assertSame([], $apiDto->getContent());
         $this->assertSame('2017-08-31 00:00:00', $apiDto->getPublishedAt()->format('Y-m-d H:i:s'));
     }
 }

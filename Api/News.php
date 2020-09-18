@@ -41,7 +41,7 @@ class News extends ApiWrapper
      * @SerializedName("id")
      * @Groups({"fullNews"})
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->entity->getId();
     }
@@ -73,6 +73,9 @@ class News extends ApiWrapper
      */
     public function getContent(): array
     {
+        if(!$this->entity->getContent()){
+            return [];
+        }
         return $this->entity->getContent();
     }
 
