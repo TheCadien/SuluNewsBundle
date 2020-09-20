@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity;
 
 use DateTime;
+use Sulu\Bundle\RouteBundle\Entity\Route;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 /**
@@ -37,6 +38,7 @@ trait NewsTrait
         $news->setContent($contentArray['content']);
         $news->setEnabled($contentArray['enable']);
         $news->setLocale($contentArray['locale']);
+        $news->setRoute($contentArray['route']);
         $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
@@ -48,8 +50,18 @@ trait NewsTrait
             'id' => 1,
             'title' => 'Test Title',
             'teaser' => 'Test Teaser',
-            'content' => [],
+            'content' => [
+                [
+                    "type" => "title",
+                    "title" => "Test"
+                ],
+                [
+                    "type" => "editor",
+                    "text" => "<p>Test Editor</p>"
+                ]
+            ],
             'locale' => 'en',
+            'route' => new Route('/test-1',1,News::class,'en'),
             'enable' => true,
             'publishedAt' => '2017-08-31 00:00:00',
         ];
@@ -66,6 +78,7 @@ trait NewsTrait
         $news->setContent($contentArray['content']);
         $news->setEnabled($contentArray['enable']);
         $news->setLocale($contentArray['locale']);
+        $news->setRoute($contentArray['route']);
         $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
@@ -77,8 +90,32 @@ trait NewsTrait
             'id' => 2,
             'title' => 'Test',
             'teaser' => 'Test',
+            'content' => [
+                [
+                    "type" => "title",
+                    "title" => "Test"
+                ],
+                [
+                    "type" => "editor",
+                    "text" => "<p>Test Editor</p>"
+                ]
+            ],
+            'locale' => 'en',
+            'route' => new Route('/test-2',2,News::class,'en'),
+            'enable' => true,
+            'publishedAt' => '2017-08-31 00:00:00',
+        ];
+    }
+
+    public function generateNewsContentArrayWithOutContent(): array
+    {
+        return [
+            'id' => 3,
+            'title' => 'Test',
+            'teaser' => 'Test',
             'content' => [],
             'locale' => 'en',
+            'route' => new Route('/test-3',3,News::class,'en'),
             'enable' => true,
             'publishedAt' => '2017-08-31 00:00:00',
         ];

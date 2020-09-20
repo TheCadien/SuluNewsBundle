@@ -44,10 +44,28 @@ class NewsFactoryTest extends TestCase
 
     public function testNewNewsFactory()
     {
-        $news = $this->factory->generateNewsFromRequest(new news(),$this->generateNewsContentArray());
+        $news = $this->factory->generateNewsFromRequest(new news(), $this->generateNewsContentArray());
         $this->assertSame('Test Title', $news->getTitle());
-        $this->assertSame([], $news->getContent());
+        $this->assertSame([
+            [
+                "type" => "title",
+                "title" => "Test"
+            ],
+            [
+                "type" => "editor",
+                "text" => "<p>Test Editor</p>"
+            ]
+        ], $news->getContent());
         $this->assertSame('Test Teaser', $news->getTeaser());
+        $this->assertSame('2017-08-31 00:00:00', $news->getPublishedAt()->format('Y-m-d H:i:s'));
+    }
+
+    public function testNewNewsFactoryWithEmptyContent()
+    {
+        $news = $this->factory->generateNewsFromRequest(new news(), $this->generateNewsContentArrayWithOutContent());
+        $this->assertSame('Test', $news->getTitle());
+        $this->assertSame([], $news->getContent());
+        $this->assertSame('Test', $news->getTeaser());
         $this->assertSame('2017-08-31 00:00:00', $news->getPublishedAt()->format('Y-m-d H:i:s'));
     }
 }
