@@ -28,9 +28,11 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder('news_bundle');
-        $treeBuilder->getRootNode()
-            ->children()
+        $treeBuilder = new TreeBuilder('sulu_news');
+        $root = $treeBuilder->getRootNode();
+
+
+        $root->children()
                 ->arrayNode('objects')
                     ->addDefaultsIfNotSet()
                     ->children()
