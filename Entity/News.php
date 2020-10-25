@@ -145,6 +145,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         if (!$this->content) {
             return [];
         }
+
         return $this->content;
     }
 

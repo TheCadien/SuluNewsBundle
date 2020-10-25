@@ -36,8 +36,7 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
     public function __construct(
         MediaFactoryInterface $mediaFactory,
         TagFactoryInterface $tagFactory
-    )
-    {
+    ) {
         $this->mediaFactory = $mediaFactory;
         $this->tagFactory = $tagFactory;
     }

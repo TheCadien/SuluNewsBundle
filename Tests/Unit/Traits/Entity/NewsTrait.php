@@ -52,16 +52,16 @@ trait NewsTrait
             'teaser' => 'Test Teaser',
             'content' => [
                 [
-                    "type" => "title",
-                    "title" => "Test"
+                    'type' => 'title',
+                    'title' => 'Test',
                 ],
                 [
-                    "type" => "editor",
-                    "text" => "<p>Test Editor</p>"
-                ]
+                    'type' => 'editor',
+                    'text' => '<p>Test Editor</p>',
+                ],
             ],
             'locale' => 'en',
-            'route' => new Route('/test-1',1,News::class,'en'),
+            'route' => new Route('/test-1', 1, News::class, 'en'),
             'enable' => true,
             'publishedAt' => '2017-08-31 00:00:00',
         ];
@@ -92,16 +92,16 @@ trait NewsTrait
             'teaser' => 'Test',
             'content' => [
                 [
-                    "type" => "title",
-                    "title" => "Test"
+                    'type' => 'title',
+                    'title' => 'Test',
                 ],
                 [
-                    "type" => "editor",
-                    "text" => "<p>Test Editor</p>"
-                ]
+                    'type' => 'editor',
+                    'text' => '<p>Test Editor</p>',
+                ],
             ],
             'locale' => 'en',
-            'route' => new Route('/test-2',2,News::class,'en'),
+            'route' => new Route('/test-2', 2, News::class, 'en'),
             'enable' => true,
             'publishedAt' => '2017-08-31 00:00:00',
         ];
@@ -115,7 +115,7 @@ trait NewsTrait
             'teaser' => 'Test',
             'content' => [],
             'locale' => 'en',
-            'route' => new Route('/test-3',3,News::class,'en'),
+            'route' => new Route('/test-3', 3, News::class, 'en'),
             'enable' => true,
             'publishedAt' => '2017-08-31 00:00:00',
         ];

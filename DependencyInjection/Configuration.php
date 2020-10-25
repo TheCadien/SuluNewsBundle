@@ -31,7 +31,6 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('sulu_news');
         $root = $treeBuilder->getRootNode();
 
-
         $root->children()
                 ->arrayNode('objects')
                     ->addDefaultsIfNotSet()

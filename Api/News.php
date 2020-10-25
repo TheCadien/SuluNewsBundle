@@ -73,9 +73,10 @@ class News extends ApiWrapper
      */
     public function getContent(): array
     {
-        if(!$this->entity->getContent()){
+        if (!$this->entity->getContent()) {
             return [];
         }
+
         return $this->entity->getContent();
     }
 

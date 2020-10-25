@@ -48,13 +48,13 @@ class NewsFactoryTest extends TestCase
         $this->assertSame('Test Title', $news->getTitle());
         $this->assertSame([
             [
-                "type" => "title",
-                "title" => "Test"
+                'type' => 'title',
+                'title' => 'Test',
             ],
             [
-                "type" => "editor",
-                "text" => "<p>Test Editor</p>"
-            ]
+                'type' => 'editor',
+                'text' => '<p>Test Editor</p>',
+            ],
         ], $news->getContent());
         $this->assertSame('Test Teaser', $news->getTeaser());
         $this->assertSame('2017-08-31 00:00:00', $news->getPublishedAt()->format('Y-m-d H:i:s'));
