@@ -7,5 +7,6 @@
     "sulu.news.tags": "Tags",
     "sulu.news.content": "Content",
     "sulu_audience_targeting.target_groups": "Zielgruppen",
-    "sulu.news.enable_news": "Verfügbar"
+    "sulu.news.enable_news": "Verfügbar",
+    "sulu.news.route": "Route"
 }
