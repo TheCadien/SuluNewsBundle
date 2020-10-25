@@ -13,20 +13,8 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <service id="sulu_news.rest.controller" class="TheCadien\Bundle\SuluNewsBundle\Controller\Admin\NewsController" public="true">
-            <argument type="service" id="fos_rest.view_handler.default"/>
-            <argument type="service" id="security.token_storage"/>
-            <argument type="service" id="sulu_news.repository"/>
-            <argument type="service" id="sulu_news.service"/>
-            <argument type="service" id="sulu_news.list.praesentation"/>
-            <argument type="service" id="sulu_media.media_manager"/>
-
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
-
-
-        <service id="sulu_news.repository" class="TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository" public="true" lazy="true">
+        <service id="sulu_news.repository" class="TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository"
+                 public="true" lazy="true">
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service">
                 <service class="Doctrine\ORM\Mapping\ClassMetadata">
@@ -58,7 +46,7 @@
                  class="TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory">
             <argument type="service" id="sulu_news.media.factory"/>
             <argument type="service" id="sulu_news.tag.factory"/>
-
+            <argument type="service" id="sulu_route.manager.route_manager"/>
             <tag name="sulu.context" context="admin"/>
         </service>
 
@@ -72,9 +60,25 @@
         <service id="sulu_news.service" public="true" class="TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService">
             <argument type="service" id="sulu_news.repository"/>
             <argument type="service" id="sulu_news.news.factory"/>
+            <argument type="service" id="sulu_news.route.factory"/>
             <argument type="service" id="security.token_storage"/>
 
             <tag name="sulu.context" context="admin"/>
         </service>
+
+        <service id="sulu_news.object_provider" public="true" class="TheCadien\Bundle\SuluNewsBundle\Preview\NewsObjectProvider">
+            <argument type="service" id="sulu_news.repository"/>
+            <tag name="sulu_preview.object_provider" provider-key="news"/>
+        </service>
+
+        <service id="sulu_news.route.factory" public="true" class="TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsRouteFactory">
+            <argument type="service" id="sulu_route.manager.route_manager"/>
+        </service>
+
+        <service id="sulu_news.routing_provider" public="true" class="TheCadien\Bundle\SuluNewsBundle\Routing\NewsRouteDefaultProvider">
+            <argument type="service" id="sulu_news.repository"/>
+            <tag name="sulu_route.defaults_provider"/>
+        </service>
+
     </services>
 </container>

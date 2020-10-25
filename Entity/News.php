@@ -13,17 +13,20 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\Accessor;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
+use Sulu\Bundle\RouteBundle\Model\RoutableInterface;
+use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
-class News implements NewsInterface, AuditableInterface
+class News implements NewsInterface, AuditableInterface, RoutableInterface
 {
-    const RESOURCE_KEY = 'news';
+    public const RESOURCE_KEY = 'news';
 
     /**
      * @var int
@@ -66,17 +69,17 @@ class News implements NewsInterface, AuditableInterface
     private $content;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $publishedAt;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $created;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $changed;
 
@@ -84,6 +87,16 @@ class News implements NewsInterface, AuditableInterface
      * @Accessor(getter="getTagNameArray")
      */
     protected $tags;
+
+    /**
+     * @var RouteInterface
+     */
+    private $route;
+
+    /**
+     * @var string
+     */
+    private $locale;
 
     /**
      * News constructor.
@@ -127,41 +140,41 @@ class News implements NewsInterface, AuditableInterface
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
-    public function getContent(): ?string
+    public function getContent()
     {
+        if (!$this->content) {
+            return [];
+        }
         return $this->content;
     }
 
-    public function setContent(string $content): void
+    public function setContent($content): void
     {
         $this->content = $content;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getCreated(): ?\DateTime
+    public function getCreated(): ?DateTime
     {
         return $this->created;
     }
 
-    public function setCreated(\DateTime $created): void
+    public function setCreated(DateTime $created): void
     {
         $this->created = $created;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getPublishedAt(): ?\DateTime
+    public function getPublishedAt(): ?DateTime
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTime $publishedAt): void
+    public function setPublishedAt(DateTime $publishedAt): void
     {
         $this->publishedAt = $publishedAt;
     }
@@ -254,13 +267,33 @@ class News implements NewsInterface, AuditableInterface
         $this->changer = $changer;
     }
 
-    public function getChanged(): \DateTime
+    public function getChanged(): DateTime
     {
         return $this->changed;
     }
 
-    public function setChanged(\DateTime $changed): void
+    public function setChanged(DateTime $changed): void
     {
         $this->changed = $changed;
+    }
+
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    public function setRoute(RouteInterface $route)
+    {
+        $this->route = $route;
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): void
+    {
+        $this->locale = $locale;
     }
 }

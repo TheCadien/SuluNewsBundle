@@ -109,7 +109,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
      */
     public function postAction(Request $request): Response
     {
-        $news = $this->newsService->saveNewNews($request->request->all());
+        $news = $this->newsService->saveNewNews($request->request->all(), $this->getLocale($request));
 
         $apiEntity = $this->generateApiNewsEntity($news, $this->getLocale($request));
 
@@ -128,16 +128,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
             throw new NotFoundHttpException();
         }
 
-        switch ($request->query->get('action')) {
-            case 'enable':
-                $news->setEnabled(true);
-                break;
-            case 'disable':
-                $news->setEnabled(false);
-                break;
-        }
-
-        $this->repository->save($news);
+        $news = $this->newsService->updateNewsPublish($news, $request->query->all());
 
         $apiEntity = $this->generateApiNewsEntity($news, $this->getLocale($request));
         $view = $this->generateViewContent($apiEntity);
@@ -155,7 +146,8 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         if (!$entity) {
             throw new NotFoundHttpException();
         }
-        $updatedEntity = $this->newsService->updateNews($request->request->all(), $entity);
+
+        $updatedEntity = $this->newsService->updateNews($request->request->all(), $entity, $this->getLocale($request));
         $apiEntity = $this->generateApiNewsEntity($updatedEntity, $this->getLocale($request));
         $view = $this->generateViewContent($apiEntity);
 
@@ -175,12 +167,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
 
     protected function generateApiNewsEntity(News $entity, string $locale): NewsApi
     {
-        $apiEntity = new NewsApi($entity, $locale);
-        if ($entity->getHeader()) {
-            $apiEntity->setAvatar($this->mediaManager->getById($entity->getHeader()->getId(), 'de'));
-        }
-
-        return $apiEntity;
+        return new NewsApi($entity, $locale);
     }
 
     protected function generateViewContent(NewsApi $entity): View

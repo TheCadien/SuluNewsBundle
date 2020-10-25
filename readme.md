@@ -50,17 +50,10 @@ bin/console do:sch:up --force
 ```
 
 ## Bundle Config
-
-Define Website Route in `routes_website.yaml`
-```yaml
-app.news:
-   path: /news/{id}
-   controller: TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController::indexAction
-```
     
 Define the Admin Api Route in `routes_admin.yaml`
 ```yaml
-app_news:
+sulu_news.admin:
   type: rest
   resource: sulu_news.rest.controller
   prefix: /admin/api
