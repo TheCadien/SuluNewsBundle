@@ -23,6 +23,7 @@ use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api\NewsTrait;
 
 class NewsRepositoryTest extends SuluTestCase
 {
+    use NewsTrait;
     use PurgeDatabaseTrait;
 
     /**
@@ -35,9 +36,7 @@ class NewsRepositoryTest extends SuluTestCase
      */
     private $newsRepository;
 
-    use NewsTrait;
-
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->em = $this->getEntityManager();
         $this->newsRepository = $this->em->getRepository(News::class);
