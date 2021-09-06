@@ -16,9 +16,9 @@
 
 ##Requirements
 
-* PHP 7.3
-* Sulu 2.0.*
-* Symfony 4.3
+* PHP 8.0
+* Sulu >=2.3.*
+* Symfony >=4.3
 
 ##Installation
 
@@ -57,5 +57,5 @@ sulu_news.admin:
   type: rest
   resource: sulu_news.rest.controller
   prefix: /admin/api
-  name_prefix: app.
+  name_prefix: news.
 ```

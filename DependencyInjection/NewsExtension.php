@@ -51,7 +51,7 @@ class NewsExtension extends Extension implements PrependExtensionInterface
                                     'locale' => 'locale',
                                 ],
                             ],
-                            'security_context' => NewsAdmin::NEWS_SECURITY_CONTEXT,
+                            'security_context' => NewsAdmin::SECURITY_CONTEXT,
                         ],
                     ],
                 ]

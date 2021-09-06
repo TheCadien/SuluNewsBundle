@@ -8,5 +8,9 @@
     "sulu.news.content": "Content",
     "sulu_audience_targeting.target_groups": "Zielgruppen",
     "sulu.news.enable_news": "Verfügbar",
-    "sulu.news.route": "Route"
+    "sulu.news.route": "Route",
+    "sulu_activity.description.news.created": "{userFullName} hat die News \"{resourceTitle}\" erstellt",
+    "sulu_activity.description.news.modified": "{userFullName} hat die News \"{resourceTitle}\" verändert",
+    "sulu_activity.description.news.removed": "{userFullName} hat die News \"{resourceTitle}\" entfernt",
+    "sulu_activity.resource.news": "News"
 }

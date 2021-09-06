@@ -20,6 +20,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Component\Rest\AbstractRestController;
+use Sulu\Component\Rest\Exception\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -160,7 +161,11 @@ class NewsController extends AbstractRestController implements ClassResourceInte
      */
     public function deleteAction(int $id): Response
     {
-        $this->repository->remove($id);
+        try {
+            $this->newsService->removeNews($id);
+        } catch (\Exception $tnfe) {
+            throw new EntityNotFoundException(self::$entityName, $id);
+        }
 
         return $this->handleView($this->view());
     }

@@ -15,10 +15,14 @@ namespace TheCadien\Bundle\SuluNewsBundle\Service\News;
 
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsRouteFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use TheCadien\Bundle\SuluNewsBundle\Event\NewsCreatedActivityEvent;
+use TheCadien\Bundle\SuluNewsBundle\Event\NewsModifiedActivityEvent;
+use TheCadien\Bundle\SuluNewsBundle\Event\NewsRemovedActivityEvent;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 class NewsService implements NewsServiceInterface
@@ -43,17 +47,24 @@ class NewsService implements NewsServiceInterface
     private $routeFactory;
 
     /**
+     * @var DomainEventCollectorInterface
+     */
+    private $domainEventCollector;
+
+    /**
      * ArticleService constructor.
      */
     public function __construct(
         NewsRepository $newsRepository,
         NewsFactory $newsFactory,
         NewsRouteFactory $routeFactory,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        DomainEventCollectorInterface $domainEventCollector
     ) {
         $this->newsRepository = $newsRepository;
         $this->newsFactory = $newsFactory;
         $this->routeFactory = $routeFactory;
+        $this->domainEventCollector = $domainEventCollector;
 
         if ($tokenStorage->getToken()) {
             $this->loginUser = $tokenStorage->getToken()->getUser();
@@ -79,6 +90,8 @@ class NewsService implements NewsServiceInterface
 
         $route = $this->routeFactory->generateNewsRoute($news);
         $news->setRoute($route);
+
+        $this->domainEventCollector->collect(new NewsCreatedActivityEvent($news, ['name' => $news->getTitle()]));
         $this->newsRepository->save($news);
 
         return $news;
@@ -104,6 +117,7 @@ class NewsService implements NewsServiceInterface
             $news->setRoute($route);
         }
 
+        $this->domainEventCollector->collect(new NewsModifiedActivityEvent($news, ['name' => $news->getTitle()]));
         $this->newsRepository->save($news);
 
         return $news;
@@ -119,8 +133,20 @@ class NewsService implements NewsServiceInterface
                 $news = $this->newsFactory->generateNewsFromRequest($news, [], null, false);
                 break;
         }
+        $this->domainEventCollector->collect(new NewsModifiedActivityEvent($news, ['name' => $news->getTitle()]));
         $this->newsRepository->save($news);
 
         return $news;
+    }
+
+    public function removeNews(int $id): void
+    {
+        $news = $this->newsRepository->findById($id);
+        if (!$news) {
+            throw new \Exception($id);
+        }
+
+        $this->domainEventCollector->collect(new NewsRemovedActivityEvent($news, ['name' => $news->getTitle()]));
+        $this->newsRepository->remove($id);
     }
 }
