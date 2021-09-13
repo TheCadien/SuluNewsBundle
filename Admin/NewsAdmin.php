@@ -27,19 +27,19 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsAdmin extends Admin
 {
-    const NEWS_SECURITY_CONTEXT = 'sulu.news';
+    public const SECURITY_CONTEXT = 'sulu.news';
 
-    const NEWS_LIST_KEY = 'news';
+    public const NEWS_LIST_KEY = 'news';
 
-    const NEWS_FORM_KEY_ADD = 'news_details_add';
+    public const NEWS_FORM_KEY_ADD = 'news_details_add';
 
-    const NEWS_FORM_KEY_EDIT = 'news_details_edit';
+    public const NEWS_FORM_KEY_EDIT = 'news_details_edit';
 
-    const NEWS_LIST_VIEW = 'app.news_list';
+    public const NEWS_LIST_VIEW = 'app.news_list';
 
-    const NEWS_ADD_FORM_VIEW = 'app.news_add_form';
+    public const NEWS_ADD_FORM_VIEW = 'app.news_add_form';
 
-    const NEWS_EDIT_FORM_VIEW = 'app.news_edit_form';
+    public const NEWS_EDIT_FORM_VIEW = 'app.news_edit_form';
 
     /**
      * @var ViewBuilderFactoryInterface
@@ -70,7 +70,7 @@ class NewsAdmin extends Admin
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
-        if ($this->securityChecker->hasPermission(static::NEWS_SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
             $module = new NavigationItem('sulu.news');
             $module->setPosition(20);
             $module->setIcon('su-newspaper');
@@ -150,7 +150,7 @@ class NewsAdmin extends Admin
         return [
             'Sulu' => [
                 'News' => [
-                    static::NEWS_SECURITY_CONTEXT => [
+                    static::SECURITY_CONTEXT => [
                         PermissionTypes::VIEW,
                         PermissionTypes::ADD,
                         PermissionTypes::EDIT,

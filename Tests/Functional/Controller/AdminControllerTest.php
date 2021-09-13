@@ -21,7 +21,7 @@ class AdminControllerTest extends SuluTestCase
     {
         $client = $this->createAuthenticatedClient();
 
-        $client->request('GET', '/admin/metadata/form/news_details');
+        $client->request('GET', '/admin/metadata/form/news_details_add');
 
         $this->assertHttpStatusCode(200, $client->getResponse());
         $response = json_decode($client->getResponse()->getContent());
@@ -30,10 +30,8 @@ class AdminControllerTest extends SuluTestCase
 
         $this->assertObjectHasAttribute('title', $form);
         $this->assertObjectHasAttribute('publishedAt', $form);
-        $this->assertObjectHasAttribute('header', $form);
-        $this->assertObjectHasAttribute('teaser', $form);
         $this->assertObjectHasAttribute('content', $form);
-        $this->assertObjectHasAttribute('teaser', $form);
+        $this->assertObjectHasAttribute('tags', $form);
 
         $schema = $response->schema;
 

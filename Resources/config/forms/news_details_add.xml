@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
       xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
 >
     <key>news_details_add</key>
@@ -44,34 +45,29 @@
 
                 <block name="content" default-type="editor" minOccurs="0">
                     <meta>
-                        <title lang="de">Inhalte</title>
-                        <title lang="en">Content</title>
+                        <title>sulu.news.content</title>
                     </meta>
                     <types>
                         <type name="title">
                             <meta>
-                                <title lang="de">Titel</title>
-                                <title lang="en">Title</title>
+                                <title>sulu.news.title</title>
                             </meta>
                             <properties>
                                 <property name="title" type="text_line" colspan="12">
                                     <meta>
-                                        <title lang="de">Titel</title>
-                                        <title lang="en">Title</title>
+                                        <title>sulu.news.title</title>
                                     </meta>
                                 </property>
                             </properties>
                         </type>
                         <type name="editor">
                             <meta>
-                                <title lang="de">Editor</title>
-                                <title lang="en">Editor</title>
+                                <title>sulu.news.editor</title>
                             </meta>
                             <properties>
                                 <property name="text" type="text_editor" colspan="12">
                                     <meta>
-                                        <title lang="de">Editor</title>
-                                        <title lang="en">Editor</title>
+                                        <title>sulu.news.editor</title>
                                     </meta>
                                 </property>
                             </properties>
@@ -79,28 +75,25 @@
                         <type name="image">
                             <meta>
                                 <title lang="de">Bild</title>
-                                <title lang="en">image</title>
+                                <title lang="en">Image</title>
                             </meta>
                             <properties>
                                 <property name="image" type="single_media_selection">
                                     <meta>
-                                        <title lang="de">Bilder</title>
-                                        <title lang="en">Images</title>
+                                        <title>sulu.news.image</title>
                                     </meta>
                                 </property>
                             </properties>
                         </type>
                         <type name="quote">
                             <meta>
-                                <title lang="en">Quote</title>
-                                <title lang="de">Zitat</title>
+                                <title>sulu.news.quote</title>
                             </meta>
 
                             <properties>
                                 <property name="quote" type="text_area" mandatory="true">
                                     <meta>
-                                        <title lang="en">Quote</title>
-                                        <title lang="de">Zitat</title>
+                                        <title>sulu.news.quote</title>
                                     </meta>
                                 </property>
 

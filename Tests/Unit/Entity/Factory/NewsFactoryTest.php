@@ -22,12 +22,11 @@ use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity\NewsTrait;
 
 class NewsFactoryTest extends TestCase
 {
+    use NewsTrait;
     /**
      * @var NewsFactory
      */
     public $factory;
-
-    use NewsTrait;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {

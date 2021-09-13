@@ -24,3 +24,8 @@ Tests/Application/.env.test.local
 # php-cs-fixer
 .php_cs.cache
 
+#LocalDocker
+docker-compose.yml
+.docker
+/var
+

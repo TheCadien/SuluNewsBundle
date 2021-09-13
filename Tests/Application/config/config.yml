@@ -1,9 +1,1 @@
 doctrine:
-    orm:
-        mappings:
-            gedmo_tree:
-                type: xml
-                prefix: Gedmo\Tree\Entity
-                dir: "%kernel.project_dir%/../../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
-                alias: GedmoTree
-                is_bundle: false
