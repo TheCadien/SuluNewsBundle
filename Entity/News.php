@@ -17,6 +17,9 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\Accessor;
+
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
 use Sulu\Bundle\RouteBundle\Model\RoutableInterface;
 use Sulu\Bundle\RouteBundle\Model\RouteInterface;
@@ -24,7 +27,7 @@ use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
-class News implements NewsInterface, AuditableInterface, RoutableInterface
+class News implements NewsInterface, ContentRichEntityInterface, AuditableInterface, RoutableInterface
 {
     public const RESOURCE_KEY = 'news';
 
@@ -296,5 +299,25 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
     public function setLocale(string $locale): void
     {
         $this->locale = $locale;
+    }
+
+    public function getDimensionContents(): Collection
+    {
+        // TODO: Implement getDimensionContents() method.
+    }
+
+    public function createDimensionContent(): DimensionContentInterface
+    {
+        // TODO: Implement createDimensionContent() method.
+    }
+
+    public function addDimensionContent(DimensionContentInterface $dimensionContent): void
+    {
+        // TODO: Implement addDimensionContent() method.
+    }
+
+    public function removeDimensionContent(DimensionContentInterface $dimensionContent): void
+    {
+        // TODO: Implement removeDimensionContent() method.
     }
 }
