@@ -18,21 +18,20 @@
 [![ezgif-5-d1dd7235da05.gif](https://i.postimg.cc/fTt3nZkh/ezgif-5-d1dd7235da05.gif)](https://postimg.cc/tYbRWKhr)
 
 
-###Requirements
+## Requirements
 
 * PHP 8.0
 * Sulu >=2.3.*
 * Symfony >=4.3
 
-##Features
+## Features
 * List view of News
 * Preview
 * Content Blocks (Title,Editor,Image,Quote)
 * Activity Log
 
 
-
-###Installation
+## Installation
 
 ### Install the bundle 
 
