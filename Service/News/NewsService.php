@@ -82,7 +82,7 @@ class NewsService implements NewsServiceInterface
         } catch (\Exception $e) {
         }
 
-        /* @var News $news */
+        // @var News $news
         $news->setCreator($this->loginUser);
         $news->setChanger($this->loginUser);
 
@@ -128,9 +128,12 @@ class NewsService implements NewsServiceInterface
         switch ($data['action']) {
             case 'enable':
                 $news = $this->newsFactory->generateNewsFromRequest($news, [], null, true);
+
                 break;
+
             case 'disable':
                 $news = $this->newsFactory->generateNewsFromRequest($news, [], null, false);
+
                 break;
         }
         $this->domainEventCollector->collect(new NewsModifiedActivityEvent($news, ['name' => $news->getTitle()]));

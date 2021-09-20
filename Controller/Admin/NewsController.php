@@ -33,6 +33,11 @@ use TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService;
 
 class NewsController extends AbstractRestController implements ClassResourceInterface
 {
+    // serialization groups for contact
+    protected static $oneNewsSerializationGroups = [
+        'partialMedia',
+        'fullNews',
+    ];
     /**
      * @var NewsRepository
      */
@@ -51,12 +56,6 @@ class NewsController extends AbstractRestController implements ClassResourceInte
      * @var MediaManagerInterface
      */
     private $mediaManager;
-
-    // serialization groups for contact
-    protected static $oneNewsSerializationGroups = [
-        'partialMedia',
-        'fullNews',
-    ];
 
     /**
      * NewsController constructor.
@@ -91,9 +90,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
 
     public function getAction(int $id, Request $request): Response
     {
-        /** @var News $entity */
-        $entity = $this->repository->findById($id);
-        if (!$entity) {
+        if (!$entity = $this->repository->findById($id)) {
             throw new NotFoundHttpException();
         }
 
@@ -170,6 +167,11 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         return $this->handleView($this->view());
     }
 
+    public static function getPriority(): int
+    {
+        return 0;
+    }
+
     protected function generateApiNewsEntity(News $entity, string $locale): NewsApi
     {
         return new NewsApi($entity, $locale);
@@ -182,10 +184,5 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         $context->setGroups(static::$oneNewsSerializationGroups);
 
         return $view->setContext($context);
-    }
-
-    public static function getPriority(): int
-    {
-        return 0;
     }
 }

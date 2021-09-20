@@ -29,7 +29,7 @@ class News extends ApiWrapper
 {
     public function __construct(NewsEntity $contact, $locale)
     {
-        /* @var NewsEntity entity */
+        // @var NewsEntity entity
         $this->entity = $contact;
         $this->locale = $locale;
     }

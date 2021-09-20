@@ -39,7 +39,8 @@ class NewsRepository extends EntityRepository
             ->where('n.enabled = 1')
             ->andWhere('n.publishedAt <= :created')
             ->setParameter('created', date('Y-m-d H:i:s'))
-            ->orderBy('n.publishedAt', 'DESC');
+            ->orderBy('n.publishedAt', 'DESC')
+        ;
 
         $news = $qb->getQuery()->getResult();
 

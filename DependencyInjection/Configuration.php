@@ -32,19 +32,20 @@ class Configuration implements ConfigurationInterface
         $root = $treeBuilder->getRootNode();
 
         $root->children()
-                ->arrayNode('objects')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('news')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('model')->defaultValue(News::class)->end()
-                                ->scalarNode('repository')->defaultValue(NewsRepository::class)->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
+            ->arrayNode('objects')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->arrayNode('news')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('model')->defaultValue(News::class)->end()
+            ->scalarNode('repository')->defaultValue(NewsRepository::class)->end()
+            ->end()
+            ->end()
+            ->end()
+            ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

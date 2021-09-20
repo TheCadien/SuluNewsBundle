@@ -29,3 +29,4 @@ docker-compose.yml
 .docker
 /var
 
+.php-cs-fixer.cache

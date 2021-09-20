@@ -18,11 +18,11 @@ abstract class AbstractFactory
     /**
      * Return property for key or given default value.
      *
-     * @param array $data
+     * @param array  $data
      * @param string $key
      * @param string $default
      *
-     * @return string|null
+     * @return null|string
      */
     protected function getProperty($data, $key, $default = null)
     {

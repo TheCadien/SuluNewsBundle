@@ -56,7 +56,7 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
 
         $entities = $news->getTags();
 
-        $result = $this->processSubEntities(
+        return $this->processSubEntities(
             $entities,
             $tags,
             $get,
@@ -64,8 +64,16 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
             $update,
             $delete
         );
+    }
 
-        return $result;
+    /**
+     * Returns the tag manager.
+     *
+     * @return TagManagerInterface
+     */
+    public function getTagManager()
+    {
+        return $this->tagManager;
     }
 
     /**
@@ -82,15 +90,5 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
         $news->addTag($resolvedTag);
 
         return $success;
-    }
-
-    /**
-     * Returns the tag manager.
-     *
-     * @return TagManagerInterface
-     */
-    public function getTagManager()
-    {
-        return $this->tagManager;
     }
 }

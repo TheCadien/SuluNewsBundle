@@ -28,7 +28,8 @@ class NewsDataProvider extends BaseDataProvider
                         ['column' => 'news_translation.title', 'title' => 'sulu_admin.title'],
                     ]
                 )
-                ->getConfiguration();
+                ->getConfiguration()
+            ;
         }
 
         return parent::getConfiguration();

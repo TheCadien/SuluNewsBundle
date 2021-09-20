@@ -16,19 +16,23 @@ namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Entity;
 use PHPUnit\Framework\TestCase;
 use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api\NewsTrait;
 
-class NewsTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class NewsTest extends TestCase
 {
     use NewsTrait;
 
-    public function testEmptyApiDto()
+    public function testEmptyApiDto(): void
     {
         $news = $this->generateEmptyNews();
 
-        $this->assertNull($news->getId());
-        $this->assertNull($news->getTitle());
-        $this->assertNull($news->getTeaser());
-        $this->assertNull($news->getHeader());
-        $this->assertSame([], $news->getContent());
-        $this->assertNull($news->getPublishedAt());
+        static::assertNull($news->getId());
+        static::assertNull($news->getTitle());
+        static::assertNull($news->getTeaser());
+        static::assertNull($news->getHeader());
+        static::assertSame([], $news->getContent());
+        static::assertNull($news->getPublishedAt());
     }
 }

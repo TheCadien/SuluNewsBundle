@@ -17,36 +17,40 @@ use PHPUnit\Framework\TestCase;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api\NewsTrait;
 
-class NewsApiTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class NewsApiTest extends TestCase
 {
     use NewsTrait;
 
-    public function testEmptyApiDto()
+    public function testEmptyApiDto(): void
     {
         $apiDto = $this->generateEmptyApiNews();
 
-        $this->assertInstanceOf(News::class, $apiDto->getEntity());
+        static::assertInstanceOf(News::class, $apiDto->getEntity());
 
-        $this->assertNull($apiDto->getId());
-        $this->assertNull($apiDto->getTitle());
-        $this->assertNull($apiDto->getTeaser());
-        $this->assertSame([], $apiDto->getHeader());
-        $this->assertSame([], $apiDto->getContent());
-        $this->assertNull($apiDto->getPublishedAt());
-        $this->assertSame([], $apiDto->getTags());
-        $this->assertSame('', $apiDto->getRoute());
+        static::assertNull($apiDto->getId());
+        static::assertNull($apiDto->getTitle());
+        static::assertNull($apiDto->getTeaser());
+        static::assertSame([], $apiDto->getHeader());
+        static::assertSame([], $apiDto->getContent());
+        static::assertNull($apiDto->getPublishedAt());
+        static::assertSame([], $apiDto->getTags());
+        static::assertSame('', $apiDto->getRoute());
     }
 
-    public function testApiDtoWithContent()
+    public function testApiDtoWithContent(): void
     {
         $apiDto = $this->generateApiNewsWithContent();
 
-        $this->assertInstanceOf(News::class, $apiDto->getEntity());
+        static::assertInstanceOf(News::class, $apiDto->getEntity());
 
-        $this->assertSame(1, $apiDto->getId());
-        $this->assertSame('Test Title', $apiDto->getTitle());
-        $this->assertSame('Test Teaser', $apiDto->getTeaser());
-        $this->assertSame(
+        static::assertSame(1, $apiDto->getId());
+        static::assertSame('Test Title', $apiDto->getTitle());
+        static::assertSame('Test Teaser', $apiDto->getTeaser());
+        static::assertSame(
             [
                 [
                     'type' => 'title',
@@ -59,7 +63,7 @@ class NewsApiTest extends TestCase
             ],
             $apiDto->getContent()
         );
-        $this->assertSame('2017-08-31 00:00:00', $apiDto->getPublishedAt()->format('Y-m-d H:i:s'));
-        $this->assertSame('/test-1', $apiDto->getRoute());
+        static::assertSame('2017-08-31 00:00:00', $apiDto->getPublishedAt()->format('Y-m-d H:i:s'));
+        static::assertSame('/test-1', $apiDto->getRoute());
     }
 }

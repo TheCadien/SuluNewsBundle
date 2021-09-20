@@ -30,7 +30,7 @@ class NewsWebsiteController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        /* TODO ! */
+        // TODO !
         if ($preview) {
             $content = $this->renderPreview('news/index.html.twig', ['news' => $news]);
         } else {

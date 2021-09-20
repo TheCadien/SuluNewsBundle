@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 use Symfony\Component\Dotenv\Dotenv;
 
-$file = __DIR__ . '/../vendor/autoload.php';
+$file = __DIR__.'/../vendor/autoload.php';
 if (!file_exists($file)) {
     throw new RuntimeException('Install dependencies to run test suite.');
 }
@@ -22,13 +22,13 @@ require $file;
 
 // Load cached env vars if the .env.local.php file exists
 // Run "composer dump-env prod" to create it (requires symfony/flex >=1.2)
-if (is_array($env = @include dirname(__DIR__) . '/.env.local.php')) {
+if (is_array($env = @include dirname(__DIR__).'/.env.local.php')) {
     $_SERVER += $env;
     $_ENV += $env;
 } elseif (!class_exists(Dotenv::class)) {
     throw new RuntimeException('Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
 } else {
-    $path = dirname(__DIR__) . '/Tests/Application/.env';
+    $path = dirname(__DIR__).'/Tests/Application/.env';
     $dotenv = new Dotenv();
 
     // load all the .env files
@@ -37,7 +37,7 @@ if (is_array($env = @include dirname(__DIR__) . '/.env.local.php')) {
     } else {
         // fallback code in case your Dotenv component is not 4.2 or higher (when loadEnv() was added)
 
-        if (file_exists($path) || !file_exists($p = "$path.dist")) {
+        if (file_exists($path) || !file_exists($p = "{$path}.dist")) {
             $dotenv->load($path);
         } else {
             $dotenv->load($p);
@@ -47,16 +47,16 @@ if (is_array($env = @include dirname(__DIR__) . '/.env.local.php')) {
             $dotenv->populate(['APP_ENV' => $env = 'dev']);
         }
 
-        if ('test' !== $env && file_exists($p = "$path.local")) {
+        if ('test' !== $env && file_exists($p = "{$path}.local")) {
             $dotenv->load($p);
             $env = $_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] ?? $env;
         }
 
-        if (file_exists($p = "$path.$env")) {
+        if (file_exists($p = "{$path}.{$env}")) {
             $dotenv->load($p);
         }
 
-        if (file_exists($p = "$path.$env.local")) {
+        if (file_exists($p = "{$path}.{$env}.local")) {
             $dotenv->load($p);
         }
     }

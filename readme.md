@@ -10,7 +10,7 @@
         <img src="https://img.shields.io/github/workflow/status/thecadien/sulunewsbundle/PHP?style=flat-square" alt="workflows">
     </a>    
     <a href="https://github.com/sulu/sulu/releases" target="_blank">
-        <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.0-52b6ca.svg" alt="Sulu compatibility">
+        <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.3-52b6ca.svg" alt="Sulu compatibility">
     </a>    
 </p>
 
@@ -59,3 +59,14 @@ sulu_news.admin:
   prefix: /admin/api
   name_prefix: news.
 ```
+
+Configure your own public website controller with the name `sulu_news.controller` or use the default bundle controller as follows
+ ```yaml
+    sulu_news.controller:
+      class: 'TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController'
+      public: 'true'
+      tags: ['controller.service_arguments', {name: 'sulu.context', context: 'website'}]
+ ```
+
+After that, only a template needs to be defined.
+If the bundle standard controller is used. A template must be created in `news/index.html.twig`.

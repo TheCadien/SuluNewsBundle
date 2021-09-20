@@ -15,9 +15,13 @@ namespace Functional\Controller;
 
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
-class AdminControllerTest extends SuluTestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class AdminControllerTest extends SuluTestCase
 {
-    public function testTagMetadataAction()
+    public function testTagMetadataAction(): void
     {
         $client = $this->createAuthenticatedClient();
 
@@ -28,13 +32,13 @@ class AdminControllerTest extends SuluTestCase
 
         $form = $response->form;
 
-        $this->assertObjectHasAttribute('title', $form);
-        $this->assertObjectHasAttribute('publishedAt', $form);
-        $this->assertObjectHasAttribute('content', $form);
-        $this->assertObjectHasAttribute('tags', $form);
+        static::assertObjectHasAttribute('title', $form);
+        static::assertObjectHasAttribute('publishedAt', $form);
+        static::assertObjectHasAttribute('content', $form);
+        static::assertObjectHasAttribute('tags', $form);
 
         $schema = $response->schema;
 
-        $this->assertSame(['title', 'publishedAt'], $schema->required);
+        static::assertSame(['title', 'publishedAt'], $schema->required);
     }
 }

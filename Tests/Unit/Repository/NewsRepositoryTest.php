@@ -21,7 +21,11 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api\NewsTrait;
 
-class NewsRepositoryTest extends SuluTestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class NewsRepositoryTest extends SuluTestCase
 {
     use NewsTrait;
     use PurgeDatabaseTrait;
@@ -43,17 +47,17 @@ class NewsRepositoryTest extends SuluTestCase
         $this->purgeDatabase();
     }
 
-    public function testSave()
+    public function testSave(): void
     {
         $newsTestData = $this->generateNewsWithContent();
         $this->newsRepository->save($newsTestData);
 
         $newsResult = $this->newsRepository->findOneBy(['title' => $newsTestData->getTitle()]);
 
-        $this->assertSame($newsTestData->getTitle(), $newsResult->getTitle());
+        static::assertSame($newsTestData->getTitle(), $newsResult->getTitle());
     }
 
-    public function testGetPublishedNewsWithResult()
+    public function testGetPublishedNewsWithResult(): void
     {
         $newsTestData = $this->generateNewsWithContent();
         $this->newsRepository->save($newsTestData);
@@ -62,18 +66,18 @@ class NewsRepositoryTest extends SuluTestCase
 
         $result = $this->newsRepository->getPublishedNews();
 
-        $this->assertSame($newsTestData->getTitle(), $result[0]->getTitle());
-        $this->assertSame($secondNewsTestData->getTitle(), $result[1]->getTitle());
+        static::assertSame($newsTestData->getTitle(), $result[0]->getTitle());
+        static::assertSame($secondNewsTestData->getTitle(), $result[1]->getTitle());
     }
 
-    public function testGetPublishedNewsWithEmptyDatabase()
+    public function testGetPublishedNewsWithEmptyDatabase(): void
     {
         $result = $this->newsRepository->getPublishedNews();
 
-        $this->assertSame([], $result);
+        static::assertSame([], $result);
     }
 
-    public function testGetPublishedNewsWithoutPublishedResult()
+    public function testGetPublishedNewsWithoutPublishedResult(): void
     {
         /** not enabled example in   */
         $newsTestData = $this->generateNewsWithContent();
@@ -87,6 +91,6 @@ class NewsRepositoryTest extends SuluTestCase
 
         $result = $this->newsRepository->getPublishedNews();
 
-        $this->assertSame([], $result);
+        static::assertSame([], $result);
     }
 }

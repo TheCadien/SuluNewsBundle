@@ -34,7 +34,7 @@ class NewsExtension extends Extension implements PrependExtensionInterface
     /**
      * Allow an extension to prepend the extension configurations.
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         if ($container->hasExtension('sulu_search')) {
             $container->prependExtensionConfig(
@@ -79,12 +79,12 @@ class NewsExtension extends Extension implements PrependExtensionInterface
                 [
                     'lists' => [
                         'directories' => [
-                            __DIR__ . '/../Resources/config/lists',
+                            __DIR__.'/../Resources/config/lists',
                         ],
                     ],
                     'forms' => [
                         'directories' => [
-                            __DIR__ . '/../Resources/config/forms',
+                            __DIR__.'/../Resources/config/forms',
                         ],
                     ],
                     'resources' => [
@@ -106,7 +106,7 @@ class NewsExtension extends Extension implements PrependExtensionInterface
 
         $container->loadFromExtension('framework', [
             'default_locale' => 'en',
-            'translator' => ['paths' => [__DIR__ . '/../Resources/config/translations/']],
+            'translator' => ['paths' => [__DIR__.'/../Resources/config/translations/']],
             // ...
         ]);
     }
@@ -114,12 +114,12 @@ class NewsExtension extends Extension implements PrependExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
         $loader->load('controller.xml');
         $loader->load('events.xml');

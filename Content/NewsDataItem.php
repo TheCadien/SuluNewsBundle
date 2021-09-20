@@ -59,7 +59,7 @@ class NewsDataItem implements ItemInterface
     }
 
     /**
-     * @return News|mixed
+     * @return mixed|News
      */
     public function getResource()
     {

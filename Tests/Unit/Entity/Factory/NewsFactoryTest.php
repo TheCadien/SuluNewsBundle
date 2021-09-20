@@ -20,7 +20,11 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\TagFactoryInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity\NewsTrait;
 
-class NewsFactoryTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class NewsFactoryTest extends TestCase
 {
     use NewsTrait;
     /**
@@ -41,11 +45,11 @@ class NewsFactoryTest extends TestCase
         $this->factory = new NewsFactory($mediaFactory->reveal(), $tagFactory->reveal());
     }
 
-    public function testNewNewsFactory()
+    public function testNewNewsFactory(): void
     {
         $news = $this->factory->generateNewsFromRequest(new news(), $this->generateNewsContentArray());
-        $this->assertSame('Test Title', $news->getTitle());
-        $this->assertSame([
+        static::assertSame('Test Title', $news->getTitle());
+        static::assertSame([
             [
                 'type' => 'title',
                 'title' => 'Test',
@@ -55,16 +59,16 @@ class NewsFactoryTest extends TestCase
                 'text' => '<p>Test Editor</p>',
             ],
         ], $news->getContent());
-        $this->assertSame('Test Teaser', $news->getTeaser());
-        $this->assertSame('2017-08-31 00:00:00', $news->getPublishedAt()->format('Y-m-d H:i:s'));
+        static::assertSame('Test Teaser', $news->getTeaser());
+        static::assertSame('2017-08-31 00:00:00', $news->getPublishedAt()->format('Y-m-d H:i:s'));
     }
 
-    public function testNewNewsFactoryWithEmptyContent()
+    public function testNewNewsFactoryWithEmptyContent(): void
     {
         $news = $this->factory->generateNewsFromRequest(new news(), $this->generateNewsContentArrayWithOutContent());
-        $this->assertSame('Test', $news->getTitle());
-        $this->assertSame([], $news->getContent());
-        $this->assertSame('Test', $news->getTeaser());
-        $this->assertSame('2017-08-31 00:00:00', $news->getPublishedAt()->format('Y-m-d H:i:s'));
+        static::assertSame('Test', $news->getTitle());
+        static::assertSame([], $news->getContent());
+        static::assertSame('Test', $news->getTeaser());
+        static::assertSame('2017-08-31 00:00:00', $news->getPublishedAt()->format('Y-m-d H:i:s'));
     }
 }
