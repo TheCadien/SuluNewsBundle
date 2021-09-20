@@ -20,6 +20,16 @@
 * Sulu >=2.3.*
 * Symfony >=4.3
 
+[![ezgif-5-d1dd7235da05.gif](https://i.postimg.cc/fTt3nZkh/ezgif-5-d1dd7235da05.gif)](https://postimg.cc/tYbRWKhr)
+
+##Features
+* List view of News
+* Preview
+* Content Blocks (Title,Editor,Image,Quote)
+* Activity Log
+
+
+
 ##Installation
 
 ### Install the bundle 
