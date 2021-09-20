@@ -17,7 +17,6 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\Accessor;
-
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
@@ -30,6 +29,11 @@ use Sulu\Component\Security\Authentication\UserInterface;
 class News implements NewsInterface, ContentRichEntityInterface, AuditableInterface, RoutableInterface
 {
     public const RESOURCE_KEY = 'news';
+
+    /**
+     * @Accessor(getter="getTagNameArray")
+     */
+    protected $tags;
 
     /**
      * @var int
@@ -85,11 +89,6 @@ class News implements NewsInterface, ContentRichEntityInterface, AuditableInterf
      * @var DateTime
      */
     private $changed;
-
-    /**
-     * @Accessor(getter="getTagNameArray")
-     */
-    protected $tags;
 
     /**
      * @var RouteInterface
@@ -216,7 +215,7 @@ class News implements NewsInterface, ContentRichEntityInterface, AuditableInterf
         return $this;
     }
 
-    public function removeTag(TagInterface $tag)
+    public function removeTag(TagInterface $tag): void
     {
         $this->tags->removeElement($tag);
     }
@@ -286,7 +285,7 @@ class News implements NewsInterface, ContentRichEntityInterface, AuditableInterf
         return $this->route;
     }
 
-    public function setRoute(RouteInterface $route)
+    public function setRoute(RouteInterface $route): void
     {
         $this->route = $route;
     }

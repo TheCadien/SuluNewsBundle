@@ -94,7 +94,7 @@ class DoctrineListRepresentationFactory
      * Takes an array of contacts and resets the avatar containing the media id with
      * the actual urls to the avatars thumbnail.
      *
-     * @param array $news
+     * @param array  $news
      * @param string $locale
      *
      * @return array

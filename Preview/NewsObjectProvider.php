@@ -38,7 +38,7 @@ class NewsObjectProvider implements PreviewObjectProviderInterface
         return $object->getId();
     }
 
-    public function setValues($object, $locale, array $data)
+    public function setValues($object, $locale, array $data): void
     {
         // TODO: Implement setValues() method.
     }

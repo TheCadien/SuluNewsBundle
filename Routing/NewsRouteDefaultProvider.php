@@ -39,7 +39,7 @@ class NewsRouteDefaultProvider implements RouteDefaultsProviderInterface
 
     public function isPublished($entityClass, $id, $locale)
     {
-        /* TODO! */
+        // TODO!
         return true;
     }
 

@@ -22,7 +22,7 @@ class NewsBundle extends Bundle
 {
     use PersistenceBundleTrait;
 
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         $this->buildPersistence(
             [

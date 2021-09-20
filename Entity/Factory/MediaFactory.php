@@ -37,7 +37,7 @@ class MediaFactory extends AbstractFactory implements MediaFactoryInterface
      *
      * @throws EntityNotFoundException
      *
-     * @return \Sulu\Bundle\MediaBundle\Entity\Media|null
+     * @return null|\Sulu\Bundle\MediaBundle\Entity\Media
      */
     public function generateMedia($header)
     {

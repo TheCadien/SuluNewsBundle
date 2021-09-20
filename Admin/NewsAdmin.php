@@ -95,22 +95,25 @@ class NewsAdmin extends Admin
             ->setDefaultLocale($locales[0])
             ->setAddView(static::NEWS_ADD_FORM_VIEW)
             ->setEditView(static::NEWS_EDIT_FORM_VIEW)
-            ->addToolbarActions($listToolbarActions);
+            ->addToolbarActions($listToolbarActions)
+        ;
         $viewCollection->add($listView);
 
         $addFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(self::NEWS_ADD_FORM_VIEW, '/news/:locale/add')
             ->setResourceKey(News::RESOURCE_KEY)
             ->setBackView(static::NEWS_LIST_VIEW)
-            ->addLocales($locales);
+            ->addLocales($locales)
+        ;
         $viewCollection->add($addFormView);
 
-        $addDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(self::NEWS_ADD_FORM_VIEW . '.details', '/details')
+        $addDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(self::NEWS_ADD_FORM_VIEW.'.details', '/details')
             ->setResourceKey(News::RESOURCE_KEY)
             ->setFormKey(self::NEWS_FORM_KEY_ADD)
             ->setTabTitle('sulu_admin.details')
             ->setEditView(static::NEWS_EDIT_FORM_VIEW)
             ->addToolbarActions([new ToolbarAction('sulu_admin.save')])
-            ->setParent(static::NEWS_ADD_FORM_VIEW);
+            ->setParent(static::NEWS_ADD_FORM_VIEW)
+        ;
         $viewCollection->add($addDetailsFormView);
 
         // Configure news Edit View
@@ -118,7 +121,8 @@ class NewsAdmin extends Admin
             ->setResourceKey(News::RESOURCE_KEY)
             ->setBackView(static::NEWS_LIST_VIEW)
             ->setTitleProperty('title')
-            ->addLocales($locales);
+            ->addLocales($locales)
+        ;
         $viewCollection->add($editFormView);
 
         $formToolbarActions = [
@@ -133,7 +137,7 @@ class NewsAdmin extends Admin
         ];
 
         $viewCollection->add(
-            $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.details', '/details')
+            $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW.'.details', '/details')
                 ->setResourceKey(News::RESOURCE_KEY)
                 ->setFormKey(self::NEWS_FORM_KEY_EDIT)
                 ->setTabTitle('sulu_admin.details')

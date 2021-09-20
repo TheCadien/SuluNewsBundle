@@ -42,6 +42,8 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
     }
 
     /**
+     * @param null|mixed $state
+     *
      * @throws \Exception
      */
     public function generateNewsFromRequest(News $news, array $data, string $locale = null, $state = null): News
