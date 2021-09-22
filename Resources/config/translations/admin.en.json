@@ -12,5 +12,8 @@
     "sulu_activity.description.news.created": "{userFullName} has created the News \"{resourceTitle}\"",
     "sulu_activity.description.news.modified": "{userFullName} has modified the News \"{resourceTitle}\"",
     "sulu_activity.description.news.removed": "{userFullName} has removed the News \"{resourceTitle}\"",
-    "sulu_activity.resource.news": "News"
+    "sulu_activity.resource.news": "News",
+    "sulu.news.quote": "Quote",
+    "sulu.news.editor": "Editor",
+    "sulu.news.title": "Title"
 }

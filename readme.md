@@ -55,7 +55,7 @@ composer require thecadien/sulu-news-bundle
  ];
  ```
 
-###Update schema
+### Update schema
 ```shell script
 bin/console do:sch:up --force
 ```

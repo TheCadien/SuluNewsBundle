@@ -83,8 +83,8 @@ class NewsService implements NewsServiceInterface
         }
 
         // @var News $news
-        $news->setCreator($this->loginUser);
-        $news->setChanger($this->loginUser);
+        $news->setCreator($this->loginUser->getContact());
+        $news->setchanger($this->loginUser->getContact());
 
         $this->newsRepository->save($news);
 
@@ -110,7 +110,7 @@ class NewsService implements NewsServiceInterface
         } catch (\Exception $e) {
         }
 
-        $news->setChanger($this->loginUser);
+        $news->setchanger($this->loginUser->getContact());
 
         if ($news->getRoute()->getPath() !== $data['route']) {
             $route = $this->routeFactory->updateNewsRoute($news, $data['route']);

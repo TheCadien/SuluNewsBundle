@@ -15,13 +15,13 @@
             </join-columns>
         </many-to-one>
 
-        <many-to-one field="creator" target-entity="Sulu\Component\Security\Authentication\UserInterface">
+        <many-to-one field="creator" target-entity="Sulu\Bundle\ContactBundle\Entity\ContactInterface">
             <join-columns>
                 <join-column name="user_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
             </join-columns>
         </many-to-one>
 
-        <many-to-one field="changer" target-entity="Sulu\Component\Security\Authentication\UserInterface">
+        <many-to-one field="changer" target-entity="Sulu\Bundle\ContactBundle\Entity\ContactInterface">
             <join-columns>
                 <join-column name="changer_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
             </join-columns>

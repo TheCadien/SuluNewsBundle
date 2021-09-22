@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Entity\Factory;
 
 use PHPUnit\Framework\TestCase;
+use Sulu\Bundle\ContactBundle\Entity\Contact;
+use Sulu\Bundle\ContactBundle\Entity\ContactRepositoryInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\MediaFactoryInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\TagFactoryInterface;
@@ -42,7 +44,10 @@ final class NewsFactoryTest extends TestCase
         $tagFactory = $this->prophesize(TagFactoryInterface::class);
         $tagFactory->processTags()->willReturn([]);
 
-        $this->factory = new NewsFactory($mediaFactory->reveal(), $tagFactory->reveal());
+        $contactRepository = $this->prophesize(ContactRepositoryInterface::class);
+        $contactRepository->find()->willReturn(new Contact());
+
+        $this->factory = new NewsFactory($mediaFactory->reveal(), $tagFactory->reveal(),$contactRepository->reveal());
     }
 
     public function testNewNewsFactory(): void
@@ -60,6 +65,7 @@ final class NewsFactoryTest extends TestCase
             ],
         ], $news->getContent());
         static::assertSame('Test Teaser', $news->getTeaser());
+        //static::assertInstanceOf(Contact::class, $news->getCreator());
         static::assertSame('2017-08-31 00:00:00', $news->getPublishedAt()->format('Y-m-d H:i:s'));
     }
 
