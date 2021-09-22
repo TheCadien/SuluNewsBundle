@@ -24,6 +24,7 @@ use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
+use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilderFactoryInterface;
 
 class NewsAdmin extends Admin
 {
@@ -58,16 +59,22 @@ class NewsAdmin extends Admin
     private $securityChecker;
 
     /**
+     * @var ActivityViewBuilderFactoryInterface
+     */
+    private $activityViewBuilderFactory;
+    /**
      * ArticleAdmin constructor.
      */
     public function __construct(
         ViewBuilderFactoryInterface $viewBuilderFactory,
         WebspaceManagerInterface $webspaceManager,
-        SecurityCheckerInterface $securityChecker
+        SecurityCheckerInterface $securityChecker,
+        ActivityViewBuilderFactoryInterface $activityViewBuilderFactory,
     ) {
         $this->viewBuilderFactory = $viewBuilderFactory;
         $this->webspaceManager = $webspaceManager;
         $this->securityChecker = $securityChecker;
+        $this->activityViewBuilderFactory = $activityViewBuilderFactory;
     }
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
@@ -155,6 +162,17 @@ class NewsAdmin extends Admin
                 ->addToolbarActions($formToolbarActions)
                 ->setParent(static::NEWS_EDIT_FORM_VIEW)
         );
+        if ($this->activityViewBuilderFactory->hasActivityListPermission()) {
+            $viewCollection->add(
+                $this->activityViewBuilderFactory
+                    ->createActivityListViewBuilder(
+                        static::NEWS_EDIT_FORM_VIEW . '.activity',
+                        '/activity',
+                        News::RESOURCE_KEY
+                    )
+                    ->setParent(static::NEWS_EDIT_FORM_VIEW)
+            );
+        }
     }
 
     /**
