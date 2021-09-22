@@ -160,6 +160,30 @@ class News extends ApiWrapper
      * Get tags.
      *
      * @VirtualProperty
+     * @SerializedName("created")
+     * @Groups({"fullNews"})
+     */
+    public function getCreated(): \DateTime
+    {
+        return $this->entity->getCreated();
+    }
+
+    /**
+     * Get tags.
+     *
+     * @VirtualProperty
+     * @SerializedName("changed")
+     * @Groups({"fullNews"})
+     */
+    public function getChanged(): \DateTime
+    {
+        return $this->entity->getChanged();
+    }
+
+    /**
+     * Get tags.
+     *
+     * @VirtualProperty
      * @SerializedName("author")
      * @Groups({"fullNews"})
      */
