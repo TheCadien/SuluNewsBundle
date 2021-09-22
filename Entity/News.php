@@ -17,16 +17,15 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\Accessor;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
+use Sulu\Bundle\ContactBundle\Entity\ContactInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
 use Sulu\Bundle\RouteBundle\Model\RoutableInterface;
 use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
-use Sulu\Component\Security\Authentication\UserInterface;
 
-class News implements NewsInterface, ContentRichEntityInterface, AuditableInterface, RoutableInterface
+class News implements NewsInterface, AuditableInterface, RoutableInterface
 {
     public const RESOURCE_KEY = 'news';
 
@@ -46,12 +45,12 @@ class News implements NewsInterface, ContentRichEntityInterface, AuditableInterf
     private $header;
 
     /**
-     * @var UserInterface
+     * @var ContactInterface
      */
     private $creator;
 
     /**
-     * @var UserInterface
+     * @var ContactInterface
      */
     private $changer;
 
@@ -241,7 +240,7 @@ class News implements NewsInterface, ContentRichEntityInterface, AuditableInterf
     /**
      * @return mixed
      */
-    public function getCreator(): UserInterface
+    public function getCreator(): ContactInterface
     {
         return $this->creator;
     }
@@ -249,7 +248,7 @@ class News implements NewsInterface, ContentRichEntityInterface, AuditableInterf
     /**
      * @param mixed $creator
      */
-    public function setCreator($creator): void
+    public function setCreator(ContactInterface $creator): void
     {
         $this->creator = $creator;
     }
@@ -257,17 +256,17 @@ class News implements NewsInterface, ContentRichEntityInterface, AuditableInterf
     /**
      * @return mixed
      */
-    public function getChanger(): UserInterface
+    public function getchanger(): ContactInterface
     {
-        return $this->changer;
+        return $this->lastchanger;
     }
 
     /**
      * @param mixed $changer
      */
-    public function setChanger($changer): void
+    public function setchanger(ContactInterface $changer): void
     {
-        $this->changer = $changer;
+        $this->lastchanger = $changer;
     }
 
     public function getChanged(): DateTime

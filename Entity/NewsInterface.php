@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity;
 
+use Sulu\Bundle\ContactBundle\Entity\ContactInterface;
 use Sulu\Bundle\TagBundle\Tag\TagInterface;
 
 interface NewsInterface
@@ -59,11 +60,11 @@ interface NewsInterface
 
     public function getCreator();
 
-    public function setCreator($creator): void;
+    public function setCreator(ContactInterface $creator): void;
 
-    public function getChanger();
+    public function getchanger();
 
-    public function setChanger($changer): void;
+    public function setchanger(ContactInterface $lastchanger): void;
 
     public function getChanged(): \DateTime;
 

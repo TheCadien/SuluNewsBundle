@@ -41,6 +41,8 @@ class NewsAdmin extends Admin
 
     public const NEWS_EDIT_FORM_VIEW = 'app.news_edit_form';
 
+    public const NEWS_FORM_KEY_SETTINGS = 'news_settings';
+
     /**
      * @var ViewBuilderFactoryInterface
      */
@@ -141,6 +143,15 @@ class NewsAdmin extends Admin
                 ->setResourceKey(News::RESOURCE_KEY)
                 ->setFormKey(self::NEWS_FORM_KEY_EDIT)
                 ->setTabTitle('sulu_admin.details')
+                ->addToolbarActions($formToolbarActions)
+                ->setParent(static::NEWS_EDIT_FORM_VIEW)
+        );
+
+        $viewCollection->add(
+            $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW.'.details_settings', '/details-settings')
+                ->setResourceKey(News::RESOURCE_KEY)
+                ->setFormKey(self::NEWS_FORM_KEY_SETTINGS)
+                ->setTabTitle('sulu_admin.settings')
                 ->addToolbarActions($formToolbarActions)
                 ->setParent(static::NEWS_EDIT_FORM_VIEW)
         );

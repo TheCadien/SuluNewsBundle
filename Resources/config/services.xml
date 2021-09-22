@@ -46,7 +46,7 @@
                  class="TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory">
             <argument type="service" id="sulu_news.media.factory"/>
             <argument type="service" id="sulu_news.tag.factory"/>
-            <argument type="service" id="sulu_route.manager.route_manager"/>
+            <argument type="service" id="sulu.repository.contact"/>
             <tag name="sulu.context" context="admin"/>
         </service>
 
