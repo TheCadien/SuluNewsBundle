@@ -240,7 +240,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
     /**
      * @return mixed
      */
-    public function getCreator(): ContactInterface
+    public function getCreator()
     {
         return $this->creator;
     }
@@ -248,7 +248,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
     /**
      * @param mixed $creator
      */
-    public function setCreator(ContactInterface $creator): void
+    public function setCreator($creator): void
     {
         $this->creator = $creator;
     }
@@ -256,17 +256,17 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
     /**
      * @return mixed
      */
-    public function getchanger(): ContactInterface
+    public function getchanger()
     {
-        return $this->lastchanger;
+        return $this->changer;
     }
 
     /**
      * @param mixed $changer
      */
-    public function setchanger(ContactInterface $changer): void
+    public function setchanger($changer): void
     {
-        $this->lastchanger = $changer;
+        $this->changer = $changer;
     }
 
     public function getChanged(): DateTime
