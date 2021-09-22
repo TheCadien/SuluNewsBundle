@@ -63,8 +63,7 @@ trait NewsTrait
             'locale' => 'en',
             'route' => new Route('/test-1', 1, News::class, 'en'),
             'enable' => true,
-            'publishedAt' => '2017-08-31 00:00:00',
-            'author' => 'eraz9q2dgykfsirtuhdfosuhge'
+            'publishedAt' => '2017-08-31 00:00:00'
         ];
     }
 
