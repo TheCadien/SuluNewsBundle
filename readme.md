@@ -68,7 +68,7 @@ sulu_news.admin:
   type: rest
   resource: sulu_news.rest.controller
   prefix: /admin/api
-  name_prefix: news.
+  name_prefix: app.
 ```
 
 Configure your own public website controller with the name `sulu_news.controller` or use the default bundle controller as follows
