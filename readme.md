@@ -40,7 +40,7 @@ project:
 
 ```bash
 
-composer require thecadien/sulu-news-bundle
+composer composer require thecadien/sulu-news-bundle --with-all-dependencies
 
 ```
 
@@ -71,7 +71,7 @@ sulu_news.admin:
   name_prefix: app.
 ```
 
-Configure your own public website controller with the name `sulu_news.controller` or use the default bundle controller as follows
+Configure your own public website controller with the name `sulu_news.controller` or use the default bundle controller as follows.
  ```yaml
     sulu_news.controller:
       class: 'TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController'
