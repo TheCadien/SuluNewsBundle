@@ -24,15 +24,22 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
  */
 class NewsWebsiteController extends AbstractController
 {
-    public function indexAction(News $news, $preview = null): Response
+    public function indexAction(News $news, $attributes = [], $preview = false, $partial = false): Response
     {
         if (!$news) {
             throw new NotFoundHttpException();
         }
-
-        // TODO !
-        if ($preview) {
-            $content = $this->renderPreview('news/index.html.twig', ['news' => $news]);
+        
+        if ($partial) {
+            $content = $this->renderBlock(
+                'news/index.html.twig',
+                'content',
+                ['news' => $news]
+            );
+        } elseif ($preview) {
+            $content = $this->renderPreview(
+                'news/index.html.twig', ['news' => $news]
+            );
         } else {
             $content = $this->renderView(
                 'news/index.html.twig',
@@ -49,5 +56,32 @@ class NewsWebsiteController extends AbstractController
         $parameters['previewContentReplacer'] = Preview::CONTENT_REPLACER;
 
         return $this->renderView('@SuluWebsite/Preview/preview.html.twig', $parameters);
+    }
+
+    /**
+     * Returns rendered part of template specified by block.
+     */
+    protected function renderBlock($template, $block, $attributes = [])
+    {
+        $twig = $this->get('twig');
+        $attributes = $twig->mergeGlobals($attributes);
+
+        $template = $twig->load($template);
+
+        $level = \ob_get_level();
+        \ob_start();
+
+        try {
+            $rendered = $template->renderBlock($block, $attributes);
+            \ob_end_clean();
+
+            return $rendered;
+        } catch (\Exception $e) {
+            while (\ob_get_level() > $level) {
+                \ob_end_clean();
+            }
+
+            throw $e;
+        }
     }
 }
