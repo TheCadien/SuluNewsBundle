@@ -26,9 +26,12 @@
 
 ## Features
 * List view of News
+* Routing
 * Preview
+* SULU Media include
 * Content Blocks (Title,Editor,Image,Quote)
 * Activity Log
+* SEO
 
 
 ## Installation
