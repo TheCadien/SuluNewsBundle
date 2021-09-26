@@ -47,7 +47,7 @@ final class NewsFactoryTest extends TestCase
         $contactRepository = $this->prophesize(ContactRepositoryInterface::class);
         $contactRepository->find()->willReturn(new Contact());
 
-        $this->factory = new NewsFactory($mediaFactory->reveal(), $tagFactory->reveal(),$contactRepository->reveal());
+        $this->factory = new NewsFactory($mediaFactory->reveal(), $tagFactory->reveal(), $contactRepository->reveal());
     }
 
     public function testNewNewsFactory(): void

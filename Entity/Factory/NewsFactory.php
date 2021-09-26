@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
-use Sulu\Bundle\ContactBundle\Entity\Contact;
 use Sulu\Bundle\ContactBundle\Entity\ContactRepositoryInterface;
 use Sulu\Component\Persistence\RelationTrait;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
@@ -36,11 +35,10 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
      * NewsFactory constructor.
      */
     public function __construct(
-        MediaFactoryInterface      $mediaFactory,
-        TagFactoryInterface        $tagFactory,
+        MediaFactoryInterface $mediaFactory,
+        TagFactoryInterface $tagFactory,
         ContactRepositoryInterface $contactRepository
-    )
-    {
+    ) {
         $this->mediaFactory = $mediaFactory;
         $this->tagFactory = $tagFactory;
         $this->contactRepository = $contactRepository;
@@ -73,6 +71,10 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
             $news->setContent($this->getProperty($data, 'content'));
         }
 
+        if ($this->getProperty($data, 'ext')) {
+            $news->setSeo($this->getProperty($data['ext'], 'seo'));
+        }
+
         if ($tags = $this->getProperty($data, 'tags')) {
             $this->tagFactory->processTags($news, $tags);
         }
@@ -94,7 +96,7 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
         }
 
         if ($author = $this->getProperty($data, 'author')) {
-            /** @var Contact $contact */
+            // @var Contact $contact
             $news->setCreator($this->contactRepository->find($author));
         }
 
