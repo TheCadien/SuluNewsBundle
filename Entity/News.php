@@ -100,6 +100,11 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
     private $locale;
 
     /**
+     * @var string
+     */
+    private $seo;
+
+    /**
      * News constructor.
      */
     public function __construct()
@@ -317,5 +322,15 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
     public function removeDimensionContent(DimensionContentInterface $dimensionContent): void
     {
         // TODO: Implement removeDimensionContent() method.
+    }
+
+    public function getSeo()
+    {
+        return $this->seo;
+    }
+
+    public function setSeo($seo): void
+    {
+        $this->seo = $seo;
     }
 }

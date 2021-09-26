@@ -192,5 +192,18 @@ class News extends ApiWrapper
         return $this->entity->getCreator()->getId();
     }
 
+    /**
+     * Get tags.
+     *
+     * @VirtualProperty
+     * @SerializedName("ext")
+     * @Groups({"fullNews"})
+     */
+    public function getSeo()
+    {
+        $seo = ['seo'];
+        $seo['seo'] = $this->getEntity()->getSeo();
 
+        return $seo;
+    }
 }

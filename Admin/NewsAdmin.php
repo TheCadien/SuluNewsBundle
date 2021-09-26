@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Admin;
 
+use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
@@ -24,7 +25,6 @@ use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
-use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilderFactoryInterface;
 
 class NewsAdmin extends Admin
 {
@@ -62,6 +62,7 @@ class NewsAdmin extends Admin
      * @var ActivityViewBuilderFactoryInterface
      */
     private $activityViewBuilderFactory;
+
     /**
      * ArticleAdmin constructor.
      */
@@ -166,13 +167,26 @@ class NewsAdmin extends Admin
             $viewCollection->add(
                 $this->activityViewBuilderFactory
                     ->createActivityListViewBuilder(
-                        static::NEWS_EDIT_FORM_VIEW . '.activity',
+                        static::NEWS_EDIT_FORM_VIEW.'.activity',
                         '/activity',
                         News::RESOURCE_KEY
                     )
                     ->setParent(static::NEWS_EDIT_FORM_VIEW)
             );
         }
+
+        $viewCollection->add(
+            $this->viewBuilderFactory
+                ->createPreviewFormViewBuilder('sulu_page.page_edit_form.seo', '/seo')
+                ->disablePreviewWebspaceChooser()
+                ->setResourceKey(News::RESOURCE_KEY)
+                ->setFormKey('news_seo')
+                ->setTabTitle('sulu_page.seo')
+                ->addToolbarActions($formToolbarActions)
+                ->setTitleVisible(true)
+                ->setTabOrder(2048)
+                ->setParent(static::NEWS_EDIT_FORM_VIEW)
+        );
     }
 
     /**

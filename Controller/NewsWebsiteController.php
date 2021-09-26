@@ -29,7 +29,7 @@ class NewsWebsiteController extends AbstractController
         if (!$news) {
             throw new NotFoundHttpException();
         }
-        
+
         if ($partial) {
             $content = $this->renderBlock(
                 'news/index.html.twig',
@@ -38,7 +38,8 @@ class NewsWebsiteController extends AbstractController
             );
         } elseif ($preview) {
             $content = $this->renderPreview(
-                'news/index.html.twig', ['news' => $news]
+                'news/index.html.twig',
+                ['news' => $news]
             );
         } else {
             $content = $this->renderView(
@@ -60,6 +61,10 @@ class NewsWebsiteController extends AbstractController
 
     /**
      * Returns rendered part of template specified by block.
+     *
+     * @param mixed $template
+     * @param mixed $block
+     * @param mixed $attributes
      */
     protected function renderBlock($template, $block, $attributes = [])
     {
@@ -68,17 +73,17 @@ class NewsWebsiteController extends AbstractController
 
         $template = $twig->load($template);
 
-        $level = \ob_get_level();
-        \ob_start();
+        $level = ob_get_level();
+        ob_start();
 
         try {
             $rendered = $template->renderBlock($block, $attributes);
-            \ob_end_clean();
+            ob_end_clean();
 
             return $rendered;
         } catch (\Exception $e) {
-            while (\ob_get_level() > $level) {
-                \ob_end_clean();
+            while (ob_get_level() > $level) {
+                ob_end_clean();
             }
 
             throw $e;
