@@ -62,7 +62,7 @@
                  class="TheCadien\Bundle\SuluNewsBundle\Content\NewsDataProvider">
 
             <tag name="sulu.smart_content.data_provider" alias="news"/>
-            <argument type="service" id="sulu.repository.contact"/>
+            <argument type="service" id="sulu_news.repository"/>
             <argument type="service" id="sulu_core.array_serializer"/>
         </service>
 
