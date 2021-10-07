@@ -14,12 +14,13 @@ declare(strict_types=1);
 namespace TheCadien\Bundle\SuluNewsBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 /**
  * Class NewsRepository.
  */
-class NewsRepository extends EntityRepository
+class NewsRepository extends EntityRepository implements DataProviderRepositoryInterface
 {
     /**
      * @throws \Doctrine\ORM\ORMException
@@ -74,5 +75,10 @@ class NewsRepository extends EntityRepository
             )
         );
         $this->getEntityManager()->flush();
+    }
+
+    public function findByFilters($filters, $page, $pageSize, $limit, $locale, $options = [])
+    {
+        return $this->getPublishedNews();
     }
 }
