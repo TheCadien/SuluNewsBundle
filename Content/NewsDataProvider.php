@@ -44,4 +44,9 @@ class NewsDataProvider extends BaseDataProvider
             $data
         );
     }
+
+    protected function getSerializationContext()
+    {
+        return parent::getSerializationContext()->setGroups(['fullNews']);
+    }
 }

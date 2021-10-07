@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
@@ -40,8 +41,7 @@ class NewsRepository extends EntityRepository implements DataProviderRepositoryI
             ->where('n.enabled = 1')
             ->andWhere('n.publishedAt <= :created')
             ->setParameter('created', date('Y-m-d H:i:s'))
-            ->orderBy('n.publishedAt', 'DESC')
-        ;
+            ->orderBy('n.publishedAt', 'DESC');
 
         $news = $qb->getQuery()->getResult();
 
