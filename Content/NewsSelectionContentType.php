@@ -18,18 +18,19 @@ use Sulu\Component\Content\SimpleContentType;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
+
 class NewsSelectionContentType extends SimpleContentType
 {
     /**
      * @var NewsRepository
      */
-    private $eventRepository;
+    private $newsRepository;
 
-    public function __construct(NewsRepository $eventRepository)
+    public function __construct(NewsRepository $newsRepository)
     {
-        parent::__construct('news_selection');
+        parent::__construct('news_selection', []);
 
-        $this->eventRepository = $eventRepository;
+        $this->newsRepository = $newsRepository;
     }
 
     /**
@@ -39,15 +40,15 @@ class NewsSelectionContentType extends SimpleContentType
     {
         $ids = $property->getValue();
 
-        $articles = [];
+        $news = [];
         foreach ($ids ?: [] as $id) {
-            $event = $this->eventRepository->findById((int) $id);
-            if ($event && $event->isEnabled()) {
-                $articles[] = $event;
+            $singleNews = $this->newsRepository->findById((int)$id);
+            if ($singleNews && $singleNews->isEnabled()) {
+                $news[] = $singleNews;
             }
         }
 
-        return $articles;
+        return $news;
     }
 
     /**
@@ -55,6 +56,10 @@ class NewsSelectionContentType extends SimpleContentType
      */
     public function getViewData(PropertyInterface $property)
     {
-        return $property->getValue();
+        return [
+            'ids' => $property->getValue(),
+        ];
     }
+
+
 }
