@@ -2,10 +2,10 @@
 <list xmlns="http://schemas.sulu.io/list-builder/list">
     <key>news</key>
 
-    <joins name="lastchanger">
+    <joins name="changer">
         <join>
             <entity-name>%sulu.model.user.class%</entity-name>
-            <field-name>%sulu.model.news.class%.lastchanger</field-name>
+            <field-name>%sulu.model.news.class%.changer</field-name>
         </join>
     </joins>
 
@@ -93,18 +93,18 @@
             <filter type="datetime" />
         </property>
 
-        <concatenation-property name="lastchanger" translation="sulu_admin.lastchanger" visibility="no">
+        <concatenation-property name="changer" translation="sulu_admin.changer" visibility="no">
             <field>
                 <field-name>firstName</field-name>
                 <entity-name>%sulu.model.contact.class%</entity-name>
 
-                <joins ref="lastchanger"/>
+                <joins ref="changer"/>
             </field>
             <field>
                 <field-name>lastName</field-name>
                 <entity-name>%sulu.model.contact.class%</entity-name>
 
-                <joins ref="lastchanger"/>
+                <joins ref="changer"/>
             </field>
 
             <filter type="selection">

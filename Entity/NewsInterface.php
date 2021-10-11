@@ -64,7 +64,7 @@ interface NewsInterface
 
     public function getchanger();
 
-    public function setchanger(ContactInterface $lastchanger): void;
+    public function setchanger(ContactInterface $changer): void;
 
     public function getChanged(): \DateTime;
 
