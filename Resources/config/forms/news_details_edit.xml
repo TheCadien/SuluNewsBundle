@@ -60,6 +60,34 @@
                                         <title>sulu.news.title</title>
                                     </meta>
                                 </property>
+
+                                <property name="titleType" type="single_select" mandatory="true">
+                                    <meta>
+                                        <title>Type</title>
+                                    </meta>
+                                    <params>
+                                        <param name="default_value" value="h1"/>
+                                        <param name="values" type="collection">
+                                            <param name="h1">
+                                                <meta>
+                                                    <title>H1</title>
+                                                </meta>
+                                            </param>
+                                            <param name="h2">
+                                                <meta>
+                                                    <title>H2</title>
+                                                </meta>
+                                            </param>
+                                            <param name="h3">
+                                                <meta>
+                                                    <title>H3</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                    </params>
+                                </property>
+
+
                             </properties>
                         </type>
                         <type name="editor">
