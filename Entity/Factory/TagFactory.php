@@ -18,10 +18,7 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class TagFactory extends AbstractFactory implements TagFactoryInterface
 {
-    /**
-     * @var TagManagerInterface
-     */
-    private $tagManager;
+    private TagManagerInterface $tagManager;
 
     /**
      * TagFactory constructor.

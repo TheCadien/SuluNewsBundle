@@ -21,15 +21,11 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
 {
     use RelationTrait;
 
-    /**
-     * @var MediaFactory
-     */
-    private $mediaFactory;
+    private MediaFactoryInterface $mediaFactory;
 
-    /**
-     * @var TagFactory
-     */
-    private $tagFactory;
+    private TagFactoryInterface $tagFactory;
+
+    private ContactRepositoryInterface $contactRepository;
 
     /**
      * NewsFactory constructor.

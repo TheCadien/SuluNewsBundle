@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
+use Sulu\Bundle\MediaBundle\Entity\Media;
+
 interface MediaFactoryInterface
 {
-    public function generateMedia($header);
+    public function generateMedia($header): ?Media;
 }

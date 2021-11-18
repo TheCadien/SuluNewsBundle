@@ -19,10 +19,7 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsRouteFactory implements NewsRouteFactoryInterface
 {
-    /**
-     * @var RouteManager
-     */
-    private $routeManager;
+    private RouteManager $routeManager;
 
     /**
      * NewsFactory constructor.

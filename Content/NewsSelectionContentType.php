@@ -18,7 +18,6 @@ use Sulu\Component\Content\SimpleContentType;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
-
 class NewsSelectionContentType extends SimpleContentType
 {
     /**
@@ -42,7 +41,7 @@ class NewsSelectionContentType extends SimpleContentType
 
         $news = [];
         foreach ($ids ?: [] as $id) {
-            $singleNews = $this->newsRepository->findById((int)$id);
+            $singleNews = $this->newsRepository->findById((int) $id);
             if ($singleNews && $singleNews->isEnabled()) {
                 $news[] = $singleNews;
             }
@@ -60,6 +59,4 @@ class NewsSelectionContentType extends SimpleContentType
             'ids' => $property->getValue(),
         ];
     }
-
-
 }

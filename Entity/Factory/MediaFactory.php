@@ -13,15 +13,13 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
+use Sulu\Bundle\MediaBundle\Entity\Media;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
 
 class MediaFactory extends AbstractFactory implements MediaFactoryInterface
 {
-    /**
-     * @var MediaRepositoryInterface
-     */
-    private $mediaRepository;
+    private MediaRepositoryInterface $mediaRepository;
 
     /**
      * NewsFactory constructor.
@@ -36,10 +34,8 @@ class MediaFactory extends AbstractFactory implements MediaFactoryInterface
      * @param $header
      *
      * @throws EntityNotFoundException
-     *
-     * @return null|\Sulu\Bundle\MediaBundle\Entity\Media
      */
-    public function generateMedia($header)
+    public function generateMedia($header): ?Media
     {
         $mediaEntity = null;
         if (\is_array($header) && $this->getProperty($header, 'id')) {
