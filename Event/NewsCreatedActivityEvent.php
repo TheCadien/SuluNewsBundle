@@ -19,12 +19,9 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsCreatedActivityEvent extends DomainEvent
 {
-    /**
-     * @var News
-     */
-    private $news;
+    private News $news;
 
-    private $payload;
+    private array $payload;
 
     public function __construct(
         News $book,
