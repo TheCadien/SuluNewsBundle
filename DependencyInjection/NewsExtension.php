@@ -122,7 +122,6 @@ class NewsExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
         $loader->load('controller.xml');
-        $loader->load('events.xml');
 
         $this->configurePersistence($config['objects'], $container);
     }
