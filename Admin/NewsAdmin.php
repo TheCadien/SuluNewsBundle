@@ -177,7 +177,7 @@ class NewsAdmin extends Admin
 
         $viewCollection->add(
             $this->viewBuilderFactory
-                ->createPreviewFormViewBuilder('sulu_page.page_edit_form.seo', '/seo')
+                ->createPreviewFormViewBuilder(static::SOCIAL_POST_EDIT_FORM_VIEW.'.details_seo', '/seo')
                 ->disablePreviewWebspaceChooser()
                 ->setResourceKey(News::RESOURCE_KEY)
                 ->setFormKey('news_seo')
