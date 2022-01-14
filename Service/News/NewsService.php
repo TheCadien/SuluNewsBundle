@@ -83,13 +83,14 @@ class NewsService implements NewsServiceInterface
         }
 
         // @var News $news
-        $news->setCreator($this->loginUser->getContact());
+        if (!$news->getCreator()) {
+            $news->setCreator($this->loginUser->getContact());
+        }
         $news->setchanger($this->loginUser->getContact());
 
         $this->newsRepository->save($news);
 
-        $route = $this->routeFactory->generateNewsRoute($news);
-        $news->setRoute($route);
+        $this->routeFactory->generateNewsRoute($news);
 
         $this->domainEventCollector->collect(new NewsCreatedActivityEvent($news, ['name' => $news->getTitle()]));
         $this->newsRepository->save($news);
