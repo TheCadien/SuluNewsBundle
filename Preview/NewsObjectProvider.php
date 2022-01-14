@@ -31,7 +31,7 @@ class NewsObjectProvider implements PreviewObjectProviderInterface
 
     public function getObject($id, $locale): ?News
     {
-        return $this->newsRepository->findById((int)$id);
+        return $this->newsRepository->findById((int) $id);
     }
 
     public function getId($object): string
@@ -44,7 +44,7 @@ class NewsObjectProvider implements PreviewObjectProviderInterface
         // TODO: Implement setValues() method.
     }
 
-    public function setContext($object, $locale, array $context) :News
+    public function setContext($object, $locale, array $context): News
     {
         if (\array_key_exists('template', $context)) {
             $object->setStructureType($context['template']);

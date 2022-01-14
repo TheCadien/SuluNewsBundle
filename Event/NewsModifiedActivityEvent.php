@@ -19,16 +19,14 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsModifiedActivityEvent extends DomainEvent
 {
-
     private News $news;
 
     private array $payload;
 
     public function __construct(
-        News  $book,
+        News $book,
         array $payload
-    )
-    {
+    ) {
         parent::__construct();
 
         $this->news = $book;
