@@ -39,8 +39,13 @@ class NewsRouteDefaultProvider implements RouteDefaultsProviderInterface
 
     public function isPublished($entityClass, $id, $locale)
     {
-        // TODO!
-        return true;
+        /** @var News $news */
+        $news = $this->newsRepository->findById((int) $id);
+        if (!$this->supports($entityClass) || !$news instanceof News) {
+            return false;
+        }
+
+        return $news->isEnabled();
     }
 
     public function supports($entityClass)
