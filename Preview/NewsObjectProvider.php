@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace TheCadien\Bundle\SuluNewsBundle\Preview;
 
 use Sulu\Bundle\PreviewBundle\Preview\Object\PreviewObjectProviderInterface;
+use TheCadien\Bundle\SuluNewsBundle\Admin\NewsAdmin;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
@@ -61,5 +62,10 @@ class NewsObjectProvider implements PreviewObjectProviderInterface
     public function deserialize($serializedObject, $objectClass): News
     {
         return unserialize($serializedObject);
+    }
+
+    public function getSecurityContext($id, $locale): ?string
+    {
+        return NewsAdmin::SECURITY_CONTEXT;
     }
 }
