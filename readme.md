@@ -21,7 +21,7 @@
 ## Requirements
 
 * PHP 8.0
-* Sulu >=2.3.*
+* Sulu >=2.4.*
 * Symfony >=4.3
 
 ## Features
@@ -74,7 +74,7 @@ sulu_news.admin:
   name_prefix: app.
 ```
 
-Configure your own public website controller with the name `sulu_news.controller` or use the default bundle controller as follows.
+Configure your own public website controller with the name `sulu_news.controller` or use the default bundle controller as follows in your `service.yml`.
  ```yaml
     sulu_news.controller:
       class: 'TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController'
