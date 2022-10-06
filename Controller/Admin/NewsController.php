@@ -18,7 +18,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,10 +51,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
      * @var DoctrineListRepresentationFactory
      */
     private $doctrineListRepresentationFactory;
-    /**
-     * @var MediaManagerInterface
-     */
-    private $mediaManager;
+
 
     /**
      * NewsController constructor.
@@ -66,14 +62,12 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         NewsRepository $repository,
         NewsService $newsService,
         DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
-        MediaManagerInterface $mediaManager
     ) {
         parent::__construct($viewHandler, $tokenStorage);
 
         $this->repository = $repository;
         $this->newsService = $newsService;
         $this->doctrineListRepresentationFactory = $doctrineListRepresentationFactory;
-        $this->mediaManager = $mediaManager;
     }
 
     public function cgetAction(Request $request): Response
