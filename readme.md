@@ -9,8 +9,8 @@
     <a href="https://github.com/TheCadien/SuluNewsBundle/actions" target="_blank">
         <img src="https://img.shields.io/github/workflow/status/thecadien/sulunewsbundle/PHP?style=flat-square" alt="workflows">
     </a>    
-    <a href="https://github.com/sulu/sulu/releases" target="_blank">
-        <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.3-52b6ca.svg" alt="Sulu compatibility">
+    <a href="https://github.com/TheCadien/SuluNewsBundle/releases" target="_blank">
+        <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.5-52b6ca.svg" alt="Sulu compatibility">
     </a>    
 </p>
 
@@ -21,8 +21,8 @@
 ## Requirements
 
 * PHP 8.0
-* Sulu >=2.4.*
-* Symfony >=4.3
+* Sulu ^2.5.*
+* Symfony ^5.0 || ^6.0
 
 ## Features
 * List view of News
