@@ -9,8 +9,8 @@
     <a href="https://github.com/TheCadien/SuluNewsBundle/actions" target="_blank">
         <img src="https://img.shields.io/github/workflow/status/thecadien/sulunewsbundle/PHP?style=flat-square" alt="workflows">
     </a>    
-    <a href="https://github.com/sulu/sulu/releases" target="_blank">
-        <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.3-52b6ca.svg" alt="Sulu compatibility">
+    <a href="https://github.com/TheCadien/SuluNewsBundle/releases" target="_blank">
+        <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.5-52b6ca.svg" alt="Sulu compatibility">
     </a>    
 </p>
 
@@ -21,8 +21,8 @@
 ## Requirements
 
 * PHP 8.0
-* Sulu >=2.4.*
-* Symfony >=4.3
+* Sulu ^2.5.*
+* Symfony ^5.0 || ^6.0
 
 ## Features
 * List view of News
@@ -36,9 +36,9 @@
 
 ## Installation
 
-### Install the bundle 
+### Install the bundle
 
-Execute the following [composer](https://getcomposer.org/) command to add the bundle to the dependencies of your 
+Execute the following [composer](https://getcomposer.org/) command to add the bundle to the dependencies of your
 project:
 
 ```bash
@@ -47,10 +47,10 @@ composer require thecadien/sulu-news-bundle --with-all-dependencies
 
 ```
 
-### Enable the bundle 
- 
- Enable the bundle by adding it to the list of registered bundles in the `config/bundles.php` file of your project:
- 
+### Enable the bundle
+
+Enable the bundle by adding it to the list of registered bundles in the `config/bundles.php` file of your project:
+
  ```php
  return [
      /* ... */
@@ -64,7 +64,7 @@ bin/console do:sch:up --force
 ```
 
 ## Bundle Config
-    
+
 Define the Admin Api Route in `routes_admin.yaml`
 ```yaml
 sulu_news.admin:

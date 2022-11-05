@@ -304,26 +304,6 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         $this->locale = $locale;
     }
 
-    public function getDimensionContents(): Collection
-    {
-        // TODO: Implement getDimensionContents() method.
-    }
-
-    public function createDimensionContent(): DimensionContentInterface
-    {
-        // TODO: Implement createDimensionContent() method.
-    }
-
-    public function addDimensionContent(DimensionContentInterface $dimensionContent): void
-    {
-        // TODO: Implement addDimensionContent() method.
-    }
-
-    public function removeDimensionContent(DimensionContentInterface $dimensionContent): void
-    {
-        // TODO: Implement removeDimensionContent() method.
-    }
-
     public function getSeo()
     {
         return $this->seo;
