@@ -88,6 +88,10 @@
             <argument type="service" id="sulu_news.repository"/>
             <tag name="sulu_route.defaults_provider"/>
         </service>
-
+        <service id="sulu_news.content.type.news_selection" class="TheCadien\Bundle\SuluNewsBundle\Content\NewsSelectionContentType">
+            <tag name="sulu.content.type" alias="news_selection"/>
+            <tag name="sulu.content.export" format="1.2.xliff" translate="false" />
+            <argument type="service" id="sulu_news.repository"/>
+        </service>
     </services>
 </container>

@@ -15,5 +15,6 @@
     "sulu_activity.resource.news": "News",
     "sulu.news.quote": "Quote",
     "sulu.news.editor": "Editor",
-    "sulu.news.title": "Title"
+    "sulu.news.title": "Title",
+    "sulu_news.news_select": "Select news"
 }
