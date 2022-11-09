@@ -1,9 +1,9 @@
-
+<h1 align="center">SuluNewsBundle</h1>
 <p align="center">
-    <a href="https://github.com/sulu/sulu/blob/master/LICENSE" target="_blank">
+    <a href="https://github.com/TheCadien/SuluNewsBundle/blob/master/LICENSE" target="_blank">
         <img src="https://img.shields.io/github/license/thecadien/sulunewsbundle?style=flat-square" alt="GitHub license">
     </a>
-    <a href="https://github.com/sulu/sulu/releases" target="_blank">
+    <a href="https://github.com/TheCadien/SuluNewsBundle/releases" target="_blank">
         <img src="https://img.shields.io/github/v/tag/thecadien/sulunewsbundle?style=flat-square" alt="GitHub tag (latest SemVer)">
     </a>
     <a href="https://github.com/TheCadien/SuluNewsBundle/actions" target="_blank">
@@ -46,41 +46,4 @@ project:
 composer require thecadien/sulu-news-bundle --with-all-dependencies
 
 ```
-
-### Enable the bundle 
- 
- Enable the bundle by adding it to the list of registered bundles in the `config/bundles.php` file of your project:
- 
- ```php
- return [
-     /* ... */
-     TheCadien\Bundle\SuluNewsBundle\NewsBundle::class => ['all' => true],
- ];
- ```
-
-### Update schema
-```shell script
-bin/console do:sch:up --force
-```
-
-## Bundle Config
-    
-Define the Admin Api Route in `routes_admin.yaml`
-```yaml
-sulu_news.admin:
-  type: rest
-  resource: sulu_news.rest.controller
-  prefix: /admin/api
-  name_prefix: app.
-```
-
-Configure your own public website controller with the name `sulu_news.controller` or use the default bundle controller as follows in your `service.yml`.
- ```yaml
-    sulu_news.controller:
-      class: 'TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController'
-      public: 'true'
-      tags: ['controller.service_arguments', {name: 'sulu.context', context: 'website'}]
- ```
-
-After that, only a template needs to be defined.
-If the bundle standard controller is used. A template must be created in `news/index.html.twig`.
+Afterwards, visit the [bundle documentation](Resources/docs) to find out how to set up and configure the SuluNewsBundle to your specific needs.
