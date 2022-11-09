@@ -36,6 +36,7 @@ class DoctrineListRepresentationFactory
      * @var FieldDescriptorFactoryInterface
      */
     private $fieldDescriptorFactory;
+
     /**
      * @var MediaManagerInterface
      */
