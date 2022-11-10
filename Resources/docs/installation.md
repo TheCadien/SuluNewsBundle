@@ -7,7 +7,7 @@ project:
 
 ```bash
 
-composer require thecadien/sulu-news-bundle --with-all-dependencies
+composer require thecadien/sulu-news-bundle
 
 ```
 
