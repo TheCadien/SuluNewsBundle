@@ -43,7 +43,7 @@ class NewsTwigExtension extends AbstractExtension
 
         $news = $this->newsRepository->find($id);
         if (null === $news) {
-            return;
+            return null;
         }
 
         $this->cache->save($id, $news);
