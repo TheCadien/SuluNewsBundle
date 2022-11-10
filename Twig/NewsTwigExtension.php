@@ -23,21 +23,10 @@ use Twig\TwigFunction;
  */
 class NewsTwigExtension extends AbstractExtension
 {
-    /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
-
-    /**
-     * @var Cache
-     */
-    private $cache;
-
-    public function __construct(Cache $cache, NewsRepository $newsRepository)
-    {
-        $this->cache = $cache;
-        $this->newsRepository = $newsRepository;
-    }
+    public function __construct(
+        private readonly Cache $cache,
+        private readonly NewsRepository $newsRepository
+    ) {}
 
     public function getFunctions()
     {
