@@ -35,10 +35,7 @@ class NewsTwigExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @param int $id id to resolve
-     */
-    public function resolveNewsFunction($id)
+    public function resolveNewsFunction(int $id): ?string
     {
         if ($this->cache->contains($id)) {
             return $this->cache->fetch($id);
