@@ -42,7 +42,7 @@ Configure your own public website controller with the name `sulu_news.controller
  ```yaml
     sulu_news.controller:
       class: 'TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController'
-      public: 'true'
+      public: true
       tags: ['controller.service_arguments', {name: 'sulu.context', context: 'website'}]
  ```
 
