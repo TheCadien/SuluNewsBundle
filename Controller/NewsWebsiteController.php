@@ -68,7 +68,7 @@ class NewsWebsiteController extends AbstractController
      */
     protected function renderBlock($template, $block, $attributes = [])
     {
-        $twig = $this->get('twig');
+        $twig = $this->container->get('twig');
         $attributes = $twig->mergeGlobals($attributes);
 
         $template = $twig->load($template);

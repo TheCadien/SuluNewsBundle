@@ -37,6 +37,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         'partialMedia',
         'fullNews',
     ];
+
     /**
      * @var NewsRepository
      */
@@ -51,7 +52,6 @@ class NewsController extends AbstractRestController implements ClassResourceInte
      * @var DoctrineListRepresentationFactory
      */
     private $doctrineListRepresentationFactory;
-
 
     /**
      * NewsController constructor.

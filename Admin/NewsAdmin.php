@@ -53,6 +53,7 @@ class NewsAdmin extends Admin
      * @var WebspaceManagerInterface
      */
     private $webspaceManager;
+
     /**
      * @var SecurityCheckerInterface
      */

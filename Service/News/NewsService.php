@@ -31,6 +31,7 @@ class NewsService implements NewsServiceInterface
      * @var NewsRepository
      */
     private $newsRepository;
+
     /**
      * @var NewsFactory
      */
@@ -82,7 +83,7 @@ class NewsService implements NewsServiceInterface
         } catch (\Exception $e) {
         }
 
-        // @var News $news
+        /** @var News $news */
         if (!$news->getCreator()) {
             $news->setCreator($this->loginUser->getContact());
         }
