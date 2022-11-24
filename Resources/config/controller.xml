@@ -13,9 +13,10 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <service id="sulu_news.controller" class="TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController"
+        <service id="sulu_news.controller" class="TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController" autowire="true"
                  public="true">
             <tag name="controller.service_arguments"/>
+            <tag name="container.service_subscriber"/>
             <tag name="sulu.context" context="website"/>
         </service>
     </services>
