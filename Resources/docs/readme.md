@@ -6,3 +6,4 @@ This documentation covers basic-topics to install and use this bundle.
 
 * [Installation](installation.md)
 * [Twig-Extensions](twig-extensions.md)
+* [Template](template.md)

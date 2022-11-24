@@ -24,7 +24,7 @@ composer require thecadien/sulu-news-bundle
 
 ### Update schema
 ```shell script
-bin/console do:sch:up --force
+bin/console doctrine:schema:update --force
 ```
 
 ## Bundle Config
@@ -38,13 +38,5 @@ sulu_news.admin:
   name_prefix: app.
 ```
 
-Configure your own public website controller with the name `sulu_news.controller` or use the default bundle controller as follows in your `service.yml`.
- ```yaml
-    sulu_news.controller:
-      class: 'TheCadien\Bundle\SuluNewsBundle\Controller\NewsWebsiteController'
-      public: true
-      tags: ['controller.service_arguments', {name: 'sulu.context', context: 'website'}]
- ```
-
-After that, only a template needs to be defined.
-If the bundle standard controller is used. A template must be created in `news/index.html.twig`.
+## Template
+After the installation, a news [Template](template.md) must be set up for the frontend.
