@@ -219,7 +219,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         return $this;
     }
 
-    public function removeTag(TagInterface $tag): void
+    public function removeTag(TagInterface $tag)
     {
         $this->tags->removeElement($tag);
     }

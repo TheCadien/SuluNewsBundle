@@ -14,10 +14,12 @@ declare(strict_types=1);
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
 use Sulu\Bundle\TagBundle\Tag\TagManagerInterface;
+use Sulu\Component\Persistence\RelationTrait;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class TagFactory extends AbstractFactory implements TagFactoryInterface
 {
+    use RelationTrait;
     private TagManagerInterface $tagManager;
 
     /**
