@@ -100,8 +100,6 @@ class NewsService implements NewsServiceInterface
     }
 
     /**
-     * @param $data
-     *
      * @throws ORMException
      * @throws OptimisticLockException
      */

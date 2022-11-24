@@ -19,6 +19,7 @@ use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api\NewsTrait;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 final class NewsApiTest extends TestCase

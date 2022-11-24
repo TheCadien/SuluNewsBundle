@@ -31,8 +31,6 @@ class MediaFactory extends AbstractFactory implements MediaFactoryInterface
     }
 
     /**
-     * @param $header
-     *
      * @throws EntityNotFoundException
      */
     public function generateMedia($header): ?Media

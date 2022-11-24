@@ -31,8 +31,6 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
     }
 
     /**
-     * @param $tags
-     *
      * @return bool
      */
     public function processTags(News $news, $tags)
@@ -77,8 +75,6 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
 
     /**
      * Adds a new tag to the given contact and persist it with the given object manager.
-     *
-     * @param $data
      *
      * @return bool True if there was no error, otherwise false
      */

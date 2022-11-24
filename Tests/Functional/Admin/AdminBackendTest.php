@@ -17,6 +17,7 @@ use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 final class AdminBackendTest extends SuluTestCase

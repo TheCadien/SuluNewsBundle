@@ -38,6 +38,7 @@ class News extends ApiWrapper
      * Get id.
      *
      * @VirtualProperty
+     *
      * @SerializedName("id")
      * @Groups({"fullNews"})
      */
@@ -48,6 +49,7 @@ class News extends ApiWrapper
 
     /**
      * @VirtualProperty
+     *
      * @SerializedName("title")
      * @Groups({"fullNews"})
      */
@@ -58,6 +60,7 @@ class News extends ApiWrapper
 
     /**
      * @VirtualProperty
+     *
      * @SerializedName("teaser")
      * @Groups({"fullNews"})
      */
@@ -68,6 +71,7 @@ class News extends ApiWrapper
 
     /**
      * @VirtualProperty
+     *
      * @SerializedName("content")
      * @Groups({"fullNews"})
      */
@@ -82,6 +86,7 @@ class News extends ApiWrapper
 
     /**
      * @VirtualProperty
+     *
      * @SerializedName("enabled")
      * @Groups({"fullNews"})
      */
@@ -92,6 +97,7 @@ class News extends ApiWrapper
 
     /**
      * @VirtualProperty
+     *
      * @SerializedName("publishedAt")
      * @Groups({"fullNews"})
      */
@@ -102,6 +108,7 @@ class News extends ApiWrapper
 
     /**
      * @VirtualProperty
+     *
      * @SerializedName("route")
      * @Groups({"fullNews"})
      */
@@ -118,6 +125,7 @@ class News extends ApiWrapper
      * Get tags.
      *
      * @VirtualProperty
+     *
      * @SerializedName("tags")
      * @Groups({"fullNews"})
      */
@@ -130,6 +138,7 @@ class News extends ApiWrapper
      * Get the contacts avatar and return the array of different formats.
      *
      * @VirtualProperty
+     *
      * @SerializedName("header")
      * @Groups({"fullNews"})
      */
@@ -148,6 +157,7 @@ class News extends ApiWrapper
      * Get tags.
      *
      * @VirtualProperty
+     *
      * @SerializedName("authored")
      * @Groups({"fullNews"})
      */
@@ -160,6 +170,7 @@ class News extends ApiWrapper
      * Get tags.
      *
      * @VirtualProperty
+     *
      * @SerializedName("created")
      * @Groups({"fullNews"})
      */
@@ -172,6 +183,7 @@ class News extends ApiWrapper
      * Get tags.
      *
      * @VirtualProperty
+     *
      * @SerializedName("changed")
      * @Groups({"fullNews"})
      */
@@ -184,6 +196,7 @@ class News extends ApiWrapper
      * Get tags.
      *
      * @VirtualProperty
+     *
      * @SerializedName("author")
      * @Groups({"fullNews"})
      */
@@ -196,6 +209,7 @@ class News extends ApiWrapper
      * Get tags.
      *
      * @VirtualProperty
+     *
      * @SerializedName("ext")
      * @Groups({"fullNews"})
      */

@@ -23,6 +23,7 @@ use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api\NewsTrait;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 final class NewsRepositoryTest extends SuluTestCase

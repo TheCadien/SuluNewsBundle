@@ -24,6 +24,7 @@ use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity\NewsTrait;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 final class NewsFactoryTest extends TestCase
