@@ -30,5 +30,8 @@ This is an example template, covering all currently available content block type
             </figure>
         {% endif %}
     {% endfor %}
+    <aside>
+        <small>Published at {{ news.publishedAt | date() }} by {{ sulu_resolve_user(news.creator.id).contact.fullName }}</small>
+    </aside>
 {% endblock %}
  ```
