@@ -41,7 +41,7 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
     }
 
     /**
-     * @param null|mixed $state
+     * @param mixed|null $state
      *
      * @throws \Exception
      */

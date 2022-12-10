@@ -56,12 +56,12 @@ class NewsObjectProvider implements PreviewObjectProviderInterface
 
     public function serialize($object): string
     {
-        return serialize($object);
+        return \serialize($object);
     }
 
     public function deserialize($serializedObject, $objectClass): News
     {
-        return unserialize($serializedObject);
+        return \unserialize($serializedObject);
     }
 
     public function getSecurityContext($id, $locale): ?string

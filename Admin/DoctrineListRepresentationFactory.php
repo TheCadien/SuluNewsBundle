@@ -95,14 +95,14 @@ class DoctrineListRepresentationFactory
      * Takes an array of contacts and resets the avatar containing the media id with
      * the actual urls to the avatars thumbnail.
      *
-     * @param array  $news
+     * @param array $news
      * @param string $locale
      *
      * @return array
      */
     private function addHeader($news, $locale)
     {
-        $ids = array_filter(array_column($news, 'header'));
+        $ids = \array_filter(\array_column($news, 'header'));
         $avatars = $this->mediaManager->getFormatUrls($ids, $locale);
         foreach ($news as $key => $oneNews) {
             if (\array_key_exists('header', $oneNews)

@@ -73,17 +73,17 @@ class NewsWebsiteController extends AbstractController
 
         $template = $twig->load($template);
 
-        $level = ob_get_level();
-        ob_start();
+        $level = \ob_get_level();
+        \ob_start();
 
         try {
             $rendered = $template->renderBlock($block, $attributes);
-            ob_end_clean();
+            \ob_end_clean();
 
             return $rendered;
         } catch (\Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
+            while (\ob_get_level() > $level) {
+                \ob_end_clean();
             }
 
             throw $e;

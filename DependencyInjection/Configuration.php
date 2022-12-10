@@ -23,9 +23,6 @@ use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
  */
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('sulu_news');
@@ -44,8 +41,7 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->end()
             ->end()
-            ->end()
-        ;
+            ->end();
 
         return $treeBuilder;
     }

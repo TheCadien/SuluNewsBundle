@@ -28,8 +28,7 @@ class NewsDataProvider extends BaseDataProvider
                         ['column' => 'news_translation.title', 'title' => 'sulu_admin.title'],
                     ]
                 )
-                ->getConfiguration()
-            ;
+                ->getConfiguration();
         }
 
         return parent::getConfiguration();
@@ -37,7 +36,7 @@ class NewsDataProvider extends BaseDataProvider
 
     protected function decorateDataItems(array $data)
     {
-        return array_map(
+        return \array_map(
             function ($item) {
                 return new NewsDataItem($item);
             },

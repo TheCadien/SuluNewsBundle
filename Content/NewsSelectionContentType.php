@@ -50,9 +50,6 @@ class NewsSelectionContentType extends SimpleContentType
         return $news;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getViewData(PropertyInterface $property)
     {
         return [

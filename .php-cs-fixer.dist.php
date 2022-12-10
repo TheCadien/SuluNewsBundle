@@ -21,49 +21,46 @@ with this source code in the file LICENSE.
 EOF;
 
 $finder = PhpCsFixer\Finder::create()
-    ->ignoreVCSIgnored(true)
-    ->exclude('tests/Fixtures')
-    ->in(__DIR__)
-    ->append([
-        __DIR__.'/dev-tools/doc.php',
-        // __DIR__.'/php-cs-fixer', disabled, as we want to be able to run bootstrap file even on lower PHP version, to show nice message
-        __FILE__,
-    ])
-;
+    ->exclude(['var/cache', 'var/coverage.php'])
+    ->in(__DIR__);
 
 $config = new PhpCsFixer\Config();
-$config
-    ->setRiskyAllowed(true)
+$config->setRiskyAllowed(true)
     ->setRules([
-        '@PHP71Migration' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'ordered_imports' => true,
         'concat_space' => ['spacing' => 'one'],
         'array_syntax' => ['syntax' => 'short'],
-        'phpdoc_align' => false,
+        'phpdoc_align' => ['align' => 'left'],
         'class_definition' => [
-            'multiLineExtendsEachSingleLine' => true,
-        ],
+            'multi_line_extends_each_single_line' => true,
+        ] ,
         'linebreak_after_opening_tag' => true,
-        'declare_strict_types' => true,
-        'mb_str_functions' => false,
+//        'declare_strict_types' => true,
         'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
+        'native_constant_invocation' => true,
+        'native_function_casing' => true,
+        'native_function_invocation' => ['include' => ['@internal']],
         'no_php4_constructor' => true,
-        'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
+        'no_superfluous_phpdoc_tags' => ['allow_mixed' => true, 'remove_inheritdoc' => true],
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
         'php_unit_strict' => true,
         'phpdoc_order' => true,
-        '@PHP71Migration:risky' => true,
-        '@PHPUnit75Migration:risky' => true,
-        '@PhpCsFixer' => true,
-        '@PhpCsFixer:risky' => true,
-        'general_phpdoc_annotation_remove' => ['annotations' => ['expectedDeprecation']], // one should use PHPUnit built-in method instead
-        'header_comment' => ['header' => $header],
+        'semicolon_after_instruction' => true,
+        'strict_comparison' => true,
+        'strict_param' => true,
+        'array_indentation' => true,
+        'multiline_whitespace_before_semicolons' => true,
+        'single_line_throw' => false,
+        'visibility_required' => ['elements' => ['property', 'method', 'const']],
+        'phpdoc_to_comment' => [
+            'ignored_tags' => ['todo', 'var'],
+        ],
+        'trailing_comma_in_multiline' => ['elements' => ['arrays', /*'arguments', 'parameters' */]],
     ])
-    ->setFinder($finder)
-;
+    ->setFinder($finder);
 
 return $config;
