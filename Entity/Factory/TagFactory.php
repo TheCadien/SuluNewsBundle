@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -31,6 +31,8 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
     }
 
     /**
+     * @param mixed $tags
+     *
      * @return bool
      */
     public function processTags(News $news, $tags)
@@ -75,6 +77,8 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
 
     /**
      * Adds a new tag to the given contact and persist it with the given object manager.
+     *
+     * @param mixed $data
      *
      * @return bool True if there was no error, otherwise false
      */

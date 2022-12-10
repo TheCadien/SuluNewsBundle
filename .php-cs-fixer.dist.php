@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -14,7 +14,7 @@ declare(strict_types=1);
 $header = <<<'EOF'
 This file is part of TheCadien/SuluNewsBundle.
 
-(c) Oliver Kossin
+by Oliver Kossin and contributors.
 
 This source file is subject to the MIT license that is bundled
 with this source code in the file LICENSE.
