@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Twig;
 
-use Doctrine\Common\Cache\Cache;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use Twig\Extension\AbstractExtension;
@@ -25,7 +24,6 @@ use Twig\TwigFunction;
 class NewsTwigExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly Cache $cache,
         private readonly NewsRepository $newsRepository
     ) {
     }
@@ -39,17 +37,7 @@ class NewsTwigExtension extends AbstractExtension
 
     public function resolveNewsFunction(int $id): ?News
     {
-        if ($this->cache->contains($id)) {
-            return $this->cache->fetch($id);
-        }
-
         $news = $this->newsRepository->find($id);
-        if (null === $news) {
-            return null;
-        }
-
-        $this->cache->save($id, $news);
-
-        return $news;
+        return $news ?? null;
     }
 }
