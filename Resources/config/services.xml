@@ -94,7 +94,6 @@
             <argument type="service" id="sulu_news.repository"/>
         </service>
         <service id="sulu_contact.twig" class="TheCadien\Bundle\SuluNewsBundle\Twig\NewsTwigExtension">
-            <argument type="service" id="sulu_contact.twig.cache"/>
             <argument type="service" id="sulu_news.repository"/>
             <tag name="twig.extension"/>
         </service>
