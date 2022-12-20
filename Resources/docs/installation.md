@@ -38,5 +38,8 @@ sulu_news.admin:
   name_prefix: app.
 ```
 
+## Role Permissions
+If this bundle is being added to a previous Sulu installation, you will need to manually add the permissions to your admin user role(s) under the `Settings > User roles` menu option.
+
 ## Template
 After the installation, a news [Template](template.md) must be set up for the frontend.
