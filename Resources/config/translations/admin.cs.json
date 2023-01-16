@@ -1,0 +1,20 @@
+{
+  "sulu.news": "Novinky",
+  "sulu.news.image": "Obrázek",
+  "sulu.news.header": "Novinky hlavička",
+  "sulu.news.publishedAt": "Publikováno",
+  "sulu.news.teaser": "Stručný popis",
+  "sulu.news.tags": "Štítky",
+  "sulu.news.content": "Obsah",
+  "sulu_audience_targeting.target_groups": "Cílová skupina",
+  "sulu.news.enable_news": "Zapnout",
+  "sulu.news.route": "Cesta (URL)",
+  "sulu_activity.description.news.created": "{userFullName} vytvořil/a novinku \"{resourceTitle}\"",
+  "sulu_activity.description.news.modified": "{userFullName} upravil/a novinku \"{resourceTitle}\"",
+  "sulu_activity.description.news.removed": "{userFullName} odstranil/a novinku \"{resourceTitle}\"",
+  "sulu_activity.resource.news": "Novinky",
+  "sulu.news.quote": "Citace",
+  "sulu.news.editor": "Editor",
+  "sulu.news.title": "Titulek",
+  "sulu_news.news_select": "Výběr novinek"
+}
