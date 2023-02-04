@@ -1,8 +1,47 @@
 ### News Template
 
-If the bundles default controller is used, a template must be created in `news/index.html.twig`.
+#### Template.xml 
 
-#### Example Template
+To link the news in the frontend there are two ways of integration, Smart Content and the News Selection.
+
+##### Smart Content
+The smart content type is used to display a list of news items it loads the latest published news items by default.
+
+The smart content can be configured in every `template.xml` file.
+
+ ```xml
+        <property name="news" type="smart_content">
+            <meta>
+                <title lang="en">Latest News</title>
+            </meta>
+
+            <params>
+                <param name="provider" value="news"/>
+                <param name="max_per_page" value="5"/>
+                <param name="page_parameter" value="p"/>
+            </params>
+        </property>
+
+```
+
+Follow the Official [Smart Content Documentation](https://docs.sulu.io/en/latest/cookbook/smart-content.html) to learn more about the smart content.
+
+##### News Selection
+The news selection is used to display a specific list of news items.
+
+The smart content can be configured in every `template.xml` file.
+
+ ```xml
+        <property name="news" type="news_selection">
+            <meta>
+                <title lang="en">News</title>
+            </meta>
+        </property>
+```
+
+#### Twig Template
+
+If the bundles default controller is used, a template must be created in `news/index.html.twig`.
 
 This is an example template, covering all currently available content block types in one news item.
 
