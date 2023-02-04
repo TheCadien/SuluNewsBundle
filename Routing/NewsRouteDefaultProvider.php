@@ -19,14 +19,8 @@ use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 class NewsRouteDefaultProvider implements RouteDefaultsProviderInterface
 {
-    /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
-
-    public function __construct(NewsRepository $newsRepository)
+    public function __construct(private readonly NewsRepository $newsRepository)
     {
-        $this->newsRepository = $newsRepository;
     }
 
     public function getByEntity($entityClass, $id, $locale, $object = null)

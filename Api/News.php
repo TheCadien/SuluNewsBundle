@@ -53,9 +53,9 @@ class News extends ApiWrapper
      * @SerializedName("title")
      * @Groups({"fullNews"})
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
-        return $this->entity->getTitle();
+        return $this->entity?->getTitle();
     }
 
     /**
@@ -64,7 +64,7 @@ class News extends ApiWrapper
      * @SerializedName("teaser")
      * @Groups({"fullNews"})
      */
-    public function getTeaser()
+    public function getTeaser(): ?string
     {
         return $this->entity->getTeaser();
     }
@@ -92,7 +92,7 @@ class News extends ApiWrapper
      */
     public function isEnabled(): bool
     {
-        return $this->entity->isEnabled();
+        return $this->entity?->isEnabled();
     }
 
     /**
@@ -101,9 +101,9 @@ class News extends ApiWrapper
      * @SerializedName("publishedAt")
      * @Groups({"fullNews"})
      */
-    public function getPublishedAt()
+    public function getPublishedAt(): ?\DateTime
     {
-        return $this->entity->getPublishedAt();
+        return $this->entity?->getPublishedAt();
     }
 
     /**
@@ -112,10 +112,10 @@ class News extends ApiWrapper
      * @SerializedName("route")
      * @Groups({"fullNews"})
      */
-    public function getRoute()
+    public function getRoutePath(): ?string
     {
-        if ($this->entity->getRoute()) {
-            return $this->entity->getRoute()->getPath();
+        if ($this->entity?->getRoute()) {
+            return $this->entity->getRoute()?->getPath();
         }
 
         return '';
@@ -200,9 +200,9 @@ class News extends ApiWrapper
      * @SerializedName("author")
      * @Groups({"fullNews"})
      */
-    public function getAuthor(): int
+    public function getAuthor(): ?int
     {
-        return $this->entity->getCreator()->getId();
+        return $this->entity?->getCreator()?->getId();
     }
 
     /**
@@ -213,7 +213,7 @@ class News extends ApiWrapper
      * @SerializedName("ext")
      * @Groups({"fullNews"})
      */
-    public function getSeo()
+    public function getSeo(): array
     {
         $seo = ['seo'];
         $seo['seo'] = $this->getEntity()->getSeo();

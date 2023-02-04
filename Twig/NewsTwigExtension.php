@@ -38,6 +38,7 @@ class NewsTwigExtension extends AbstractExtension
     public function resolveNewsFunction(int $id): ?News
     {
         $news = $this->newsRepository->find($id);
+
         return $news ?? null;
     }
 }

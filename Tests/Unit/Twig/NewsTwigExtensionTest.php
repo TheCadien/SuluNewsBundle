@@ -2,14 +2,15 @@
 
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Twig;
 
+use PHPUnit\Framework\TestCase;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity\NewsTrait;
 use TheCadien\Bundle\SuluNewsBundle\Twig\NewsTwigExtension;
-use PHPUnit\Framework\TestCase;
 
 class NewsTwigExtensionTest extends TestCase
 {
     use NewsTrait;
+
     public function testResolveNewsFunction()
     {
         $repoMock = $this->createMock(NewsRepository::class);

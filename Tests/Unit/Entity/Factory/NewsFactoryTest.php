@@ -73,7 +73,7 @@ final class NewsFactoryTest extends TestCase
 
     public function testNewNewsFactoryWithEmptyContent(): void
     {
-        $news = $this->factory->generateNewsFromRequest(new news(), $this->generateNewsContentArrayWithOutContent());
+        $news = $this->factory->generateNewsFromRequest(new news(), $this->generateNewsContentArrayWithoutContent());
         static::assertSame('Test', $news->getTitle());
         static::assertSame([], $news->getContent());
         static::assertSame('Test', $news->getTeaser());

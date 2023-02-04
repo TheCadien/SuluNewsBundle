@@ -7,13 +7,16 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
     - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
 
-
 parameters:
     paths:
         - .
-    level: 6
-    excludes_analyse:
+    level: max
+    excludePaths:
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
+        - %currentWorkingDirectory%/Tests/*
         - %currentWorkingDirectory%/vendor/*
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
+    symfony:
+        console_application_loader: Tests/phpstan/console-application.php
+        constant_hassers: false
+    doctrine:
+        objectManagerLoader: Tests/phpstan/object-manager.php

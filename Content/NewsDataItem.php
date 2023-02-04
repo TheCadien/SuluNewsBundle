@@ -20,18 +20,14 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 class NewsDataItem implements ItemInterface
 {
     /**
-     * @var News
-     *
-     * @Serializer\Exclude
-     */
-    private $entity;
-
-    /**
      * NewsDataItem constructor.
      */
-    public function __construct(News $entity)
-    {
-        $this->entity = $entity;
+    public function __construct(
+        /**
+         * @Serializer\Exclude
+         */
+        private readonly News $entity
+    ) {
     }
 
     /**

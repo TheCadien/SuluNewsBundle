@@ -34,12 +34,12 @@ final class NewsRepositoryTest extends SuluTestCase
     /**
      * @var EntityManager
      */
-    private $em;
+    private \Doctrine\ORM\EntityManagerInterface $em;
 
     /**
      * @var NewsRepository
      */
-    private $newsRepository;
+    private \Doctrine\ORM\EntityRepository $newsRepository;
 
     protected function setUp(): void
     {
@@ -84,10 +84,9 @@ final class NewsRepositoryTest extends SuluTestCase
         $newsTestData = $this->generateNewsWithContent();
         $newsTestData->setEnabled(false);
         $this->newsRepository->save($newsTestData);
-
-        /** enabled example in future */
+        /** not published example in */
         $secondNewsTestData = $this->generateSecondNewsWithContent();
-        $secondNewsTestData->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', '3000-00-00 00:00:00'));
+        $secondNewsTestData->setPublishedAt(new DateTime('tomorrow'));
         $this->newsRepository->save($secondNewsTestData);
 
         $result = $this->newsRepository->getPublishedNews();

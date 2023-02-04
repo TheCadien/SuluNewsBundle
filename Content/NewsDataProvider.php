@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Content;
 
+use JMS\Serializer\Context;
+use JMS\Serializer\SerializationContext;
 use Sulu\Component\SmartContent\Orm\BaseDataProvider;
 
 class NewsDataProvider extends BaseDataProvider
@@ -37,14 +39,12 @@ class NewsDataProvider extends BaseDataProvider
     protected function decorateDataItems(array $data)
     {
         return \array_map(
-            function ($item) {
-                return new NewsDataItem($item);
-            },
+            fn ($item) => new NewsDataItem($item),
             $data
         );
     }
 
-    protected function getSerializationContext()
+    protected function getSerializationContext(): Context|SerializationContext
     {
         return parent::getSerializationContext()->setGroups(['fullNews']);
     }

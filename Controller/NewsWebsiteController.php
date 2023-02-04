@@ -61,12 +61,8 @@ class NewsWebsiteController extends AbstractController
 
     /**
      * Returns rendered part of template specified by block.
-     *
-     * @param mixed $template
-     * @param mixed $block
-     * @param mixed $attributes
      */
-    protected function renderBlock($template, $block, $attributes = [])
+    protected function renderBlock(mixed $template, mixed $block, mixed $attributes = [])
     {
         $twig = $this->container->get('twig');
         $attributes = $twig->mergeGlobals($attributes);

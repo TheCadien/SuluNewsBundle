@@ -20,14 +20,8 @@ use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 class NewsObjectProvider implements PreviewObjectProviderInterface
 {
-    /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
-
-    public function __construct(NewsRepository $newsRepository)
+    public function __construct(private readonly NewsRepository $newsRepository)
     {
-        $this->newsRepository = $newsRepository;
     }
 
     public function getObject($id, $locale): ?News

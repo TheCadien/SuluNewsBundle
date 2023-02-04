@@ -17,7 +17,7 @@ use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use TheCadien\Bundle\SuluNewsBundle\Admin\NewsAdmin;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
@@ -144,7 +144,7 @@ class NewsExtension extends Extension implements PrependExtensionInterface
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
         $loader->load('controller.xml');
 

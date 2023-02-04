@@ -29,7 +29,7 @@ final class AdminBackendTest extends SuluTestCase
         $client->request('GET', '/admin/metadata/list/news');
 
         $this->assertHttpStatusCode(200, $client->getResponse());
-        $response = \json_decode($client->getResponse()->getContent());
+        $response = \json_decode($client->getResponse()->getContent(), null, 512, \JSON_THROW_ON_ERROR);
 
         static::assertObjectHasAttribute('title', $response);
         static::assertObjectHasAttribute('publishedAt', $response);
@@ -50,7 +50,7 @@ final class AdminBackendTest extends SuluTestCase
         $client->request('GET', '/admin/metadata/form/news_details_add');
 
         $this->assertHttpStatusCode(200, $client->getResponse());
-        $response = \json_decode($client->getResponse()->getContent());
+        $response = \json_decode($client->getResponse()->getContent(), null, 512, \JSON_THROW_ON_ERROR);
 
         $form = $response->form;
 

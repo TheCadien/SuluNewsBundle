@@ -107,7 +107,7 @@ trait NewsTrait
         ];
     }
 
-    public function generateNewsContentArrayWithOutContent(): array
+    public function generateNewsContentArrayWithoutContent(): array
     {
         return [
             'id' => 3,

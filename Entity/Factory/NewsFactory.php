@@ -21,23 +21,11 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
 {
     use RelationTrait;
 
-    private MediaFactoryInterface $mediaFactory;
-
-    private TagFactoryInterface $tagFactory;
-
-    private ContactRepositoryInterface $contactRepository;
-
     /**
      * NewsFactory constructor.
      */
-    public function __construct(
-        MediaFactoryInterface $mediaFactory,
-        TagFactoryInterface $tagFactory,
-        ContactRepositoryInterface $contactRepository
-    ) {
-        $this->mediaFactory = $mediaFactory;
-        $this->tagFactory = $tagFactory;
-        $this->contactRepository = $contactRepository;
+    public function __construct(private readonly MediaFactoryInterface $mediaFactory, private readonly TagFactoryInterface $tagFactory, private readonly ContactRepositoryInterface $contactRepository)
+    {
     }
 
     /**

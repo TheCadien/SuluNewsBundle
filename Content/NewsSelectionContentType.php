@@ -20,16 +20,9 @@ use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 class NewsSelectionContentType extends SimpleContentType
 {
-    /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
-
-    public function __construct(NewsRepository $newsRepository)
+    public function __construct(private readonly NewsRepository $newsRepository)
     {
         parent::__construct('news_selection', []);
-
-        $this->newsRepository = $newsRepository;
     }
 
     /**

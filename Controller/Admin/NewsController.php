@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Controller\Admin;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -39,35 +41,16 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     ];
 
     /**
-     * @var NewsRepository
-     */
-    private $repository;
-
-    /**
-     * @var NewsService
-     */
-    private $newsService;
-
-    /**
-     * @var DoctrineListRepresentationFactory
-     */
-    private $doctrineListRepresentationFactory;
-
-    /**
      * NewsController constructor.
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         TokenStorageInterface $tokenStorage,
-        NewsRepository $repository,
-        NewsService $newsService,
-        DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
+        private readonly NewsRepository $repository,
+        private readonly NewsService $newsService,
+        private readonly DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
     ) {
         parent::__construct($viewHandler, $tokenStorage);
-
-        $this->repository = $repository;
-        $this->newsService = $newsService;
-        $this->doctrineListRepresentationFactory = $doctrineListRepresentationFactory;
     }
 
     public function cgetAction(Request $request): Response
@@ -84,7 +67,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
 
     public function getAction(int $id, Request $request): Response
     {
-        if (!$entity = $this->repository->findById($id)) {
+        if (($entity = $this->repository->findById($id)) === null) {
             throw new NotFoundHttpException();
         }
 
@@ -96,8 +79,8 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     }
 
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function postAction(Request $request): Response
     {
@@ -116,7 +99,7 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     public function postTriggerAction(int $id, Request $request): Response
     {
         $news = $this->repository->findById($id);
-        if (!$news) {
+        if (!$news instanceof News) {
             throw new NotFoundHttpException();
         }
 
@@ -129,13 +112,13 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     }
 
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function putAction(int $id, Request $request): Response
     {
         $entity = $this->repository->findById($id);
-        if (!$entity) {
+        if (!$entity instanceof News) {
             throw new NotFoundHttpException();
         }
 
@@ -147,14 +130,14 @@ class NewsController extends AbstractRestController implements ClassResourceInte
     }
 
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function deleteAction(int $id): Response
     {
         try {
             $this->newsService->removeNews($id);
-        } catch (\Exception $tnfe) {
+        } catch (\Exception) {
             throw new EntityNotFoundException(self::$entityName, $id);
         }
 

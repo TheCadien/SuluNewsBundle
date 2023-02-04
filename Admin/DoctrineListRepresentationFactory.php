@@ -22,36 +22,12 @@ use Sulu\Component\Rest\RestHelperInterface;
 
 class DoctrineListRepresentationFactory
 {
-    /**
-     * @var RestHelperInterface
-     */
-    private $restHelper;
-
-    /**
-     * @var DoctrineListBuilderFactoryInterface
-     */
-    private $listBuilderFactory;
-
-    /**
-     * @var FieldDescriptorFactoryInterface
-     */
-    private $fieldDescriptorFactory;
-
-    /**
-     * @var MediaManagerInterface
-     */
-    private $mediaManager;
-
     public function __construct(
-        RestHelperInterface $restHelper,
-        DoctrineListBuilderFactoryInterface $listBuilderFactory,
-        FieldDescriptorFactoryInterface $fieldDescriptorFactory,
-        MediaManagerInterface $mediaManager
+        private readonly RestHelperInterface $restHelper,
+        private readonly DoctrineListBuilderFactoryInterface $listBuilderFactory,
+        private readonly FieldDescriptorFactoryInterface $fieldDescriptorFactory,
+        private readonly MediaManagerInterface $mediaManager
     ) {
-        $this->restHelper = $restHelper;
-        $this->listBuilderFactory = $listBuilderFactory;
-        $this->fieldDescriptorFactory = $fieldDescriptorFactory;
-        $this->mediaManager = $mediaManager;
     }
 
     /**
@@ -94,13 +70,8 @@ class DoctrineListRepresentationFactory
     /**
      * Takes an array of contacts and resets the avatar containing the media id with
      * the actual urls to the avatars thumbnail.
-     *
-     * @param array $news
-     * @param string $locale
-     *
-     * @return array
      */
-    private function addHeader($news, $locale)
+    private function addHeader(array $news, string $locale): array
     {
         $ids = \array_filter(\array_column($news, 'header'));
         $avatars = $this->mediaManager->getFormatUrls($ids, $locale);

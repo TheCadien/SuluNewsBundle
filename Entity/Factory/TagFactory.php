@@ -20,14 +20,12 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 class TagFactory extends AbstractFactory implements TagFactoryInterface
 {
     use RelationTrait;
-    private TagManagerInterface $tagManager;
 
     /**
      * TagFactory constructor.
      */
-    public function __construct(TagManagerInterface $tagManager)
+    public function __construct(private readonly TagManagerInterface $tagManager)
     {
-        $this->tagManager = $tagManager;
     }
 
     /**
@@ -37,21 +35,13 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
      */
     public function processTags(News $news, $tags)
     {
-        $get = function ($tag) {
-            return $tag->getId();
-        };
+        $get = fn ($tag) => $tag->getId();
 
-        $delete = function ($tag) use ($news) {
-            return $news->removeTag($tag);
-        };
+        $delete = fn ($tag) => $news->removeTag($tag);
 
-        $update = function () {
-            return true;
-        };
+        $update = fn () => true;
 
-        $add = function ($tag) use ($news) {
-            return $this->addTag($news, $tag);
-        };
+        $add = fn ($tag) => $this->addTag($news, $tag);
 
         $entities = $news->getTags();
 
@@ -78,16 +68,13 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
     /**
      * Adds a new tag to the given contact and persist it with the given object manager.
      *
-     * @param mixed $data
-     *
      * @return bool True if there was no error, otherwise false
      */
-    protected function addTag(News $news, $data)
+    protected function addTag(News $news, mixed $data): bool
     {
-        $success = true;
         $resolvedTag = $this->getTagManager()->findOrCreateByName($data);
         $news->addTag($resolvedTag);
 
-        return $success;
+        return true;
     }
 }
