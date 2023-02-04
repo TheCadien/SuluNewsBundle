@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -35,7 +35,7 @@ class Kernel extends SuluTestKernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         parent::registerContainerConfiguration($loader);
-        $loader->load(__DIR__.'/config/config.yml');
+        $loader->load(__DIR__ . '/config/config.yml');
     }
 
     public function getProjectDir(): string

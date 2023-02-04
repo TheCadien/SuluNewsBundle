@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -17,6 +17,7 @@ use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilde
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
+use Sulu\Bundle\AdminBundle\Admin\View\PreviewFormViewBuilderInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\TogglerToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
@@ -28,55 +29,28 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsAdmin extends Admin
 {
-    public const SECURITY_CONTEXT = 'sulu.news';
+    final public const SECURITY_CONTEXT = 'sulu.news';
 
-    public const NEWS_LIST_KEY = 'news';
+    final public const NEWS_LIST_KEY = 'news';
 
-    public const NEWS_FORM_KEY_ADD = 'news_details_add';
+    final public const NEWS_FORM_KEY_ADD = 'news_details_add';
 
-    public const NEWS_FORM_KEY_EDIT = 'news_details_edit';
+    final public const NEWS_FORM_KEY_EDIT = 'news_details_edit';
 
-    public const NEWS_LIST_VIEW = 'app.news_list';
+    final public const NEWS_LIST_VIEW = 'app.news_list';
 
-    public const NEWS_ADD_FORM_VIEW = 'app.news_add_form';
+    final public const NEWS_ADD_FORM_VIEW = 'app.news_add_form';
 
-    public const NEWS_EDIT_FORM_VIEW = 'app.news_edit_form';
+    final public const NEWS_EDIT_FORM_VIEW = 'app.news_edit_form';
 
-    public const NEWS_FORM_KEY_SETTINGS = 'news_settings';
+    final public const NEWS_FORM_KEY_SETTINGS = 'news_settings';
 
-    /**
-     * @var ViewBuilderFactoryInterface
-     */
-    private $viewBuilderFactory;
-
-    /**
-     * @var WebspaceManagerInterface
-     */
-    private $webspaceManager;
-
-    /**
-     * @var SecurityCheckerInterface
-     */
-    private $securityChecker;
-
-    /**
-     * @var ActivityViewBuilderFactoryInterface
-     */
-    private $activityViewBuilderFactory;
-
-    /**
-     * ArticleAdmin constructor.
-     */
     public function __construct(
-        ViewBuilderFactoryInterface $viewBuilderFactory,
-        WebspaceManagerInterface $webspaceManager,
-        SecurityCheckerInterface $securityChecker,
-        ActivityViewBuilderFactoryInterface $activityViewBuilderFactory,
+        private readonly ViewBuilderFactoryInterface $viewBuilderFactory,
+        private readonly WebspaceManagerInterface $webspaceManager,
+        private readonly SecurityCheckerInterface $securityChecker,
+        private readonly ActivityViewBuilderFactoryInterface $activityViewBuilderFactory
     ) {
-        $this->viewBuilderFactory = $viewBuilderFactory;
-        $this->webspaceManager = $webspaceManager;
-        $this->securityChecker = $securityChecker;
-        $this->activityViewBuilderFactory = $activityViewBuilderFactory;
     }
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
@@ -106,25 +80,22 @@ class NewsAdmin extends Admin
             ->setDefaultLocale($locales[0])
             ->setAddView(static::NEWS_ADD_FORM_VIEW)
             ->setEditView(static::NEWS_EDIT_FORM_VIEW)
-            ->addToolbarActions($listToolbarActions)
-        ;
+            ->addToolbarActions($listToolbarActions);
         $viewCollection->add($listView);
 
         $addFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(self::NEWS_ADD_FORM_VIEW, '/news/:locale/add')
             ->setResourceKey(News::RESOURCE_KEY)
             ->setBackView(static::NEWS_LIST_VIEW)
-            ->addLocales($locales)
-        ;
+            ->addLocales($locales);
         $viewCollection->add($addFormView);
 
-        $addDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(self::NEWS_ADD_FORM_VIEW.'.details', '/details')
+        $addDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(self::NEWS_ADD_FORM_VIEW . '.details', '/details')
             ->setResourceKey(News::RESOURCE_KEY)
             ->setFormKey(self::NEWS_FORM_KEY_ADD)
             ->setTabTitle('sulu_admin.details')
             ->setEditView(static::NEWS_EDIT_FORM_VIEW)
             ->addToolbarActions([new ToolbarAction('sulu_admin.save')])
-            ->setParent(static::NEWS_ADD_FORM_VIEW)
-        ;
+            ->setParent(static::NEWS_ADD_FORM_VIEW);
         $viewCollection->add($addDetailsFormView);
 
         // Configure news Edit View
@@ -132,8 +103,7 @@ class NewsAdmin extends Admin
             ->setResourceKey(News::RESOURCE_KEY)
             ->setBackView(static::NEWS_LIST_VIEW)
             ->setTitleProperty('title')
-            ->addLocales($locales)
-        ;
+            ->addLocales($locales);
         $viewCollection->add($editFormView);
 
         $formToolbarActions = [
@@ -148,7 +118,7 @@ class NewsAdmin extends Admin
         ];
 
         $viewCollection->add(
-            $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW.'.details', '/details')
+            $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.details', '/details')
                 ->setResourceKey(News::RESOURCE_KEY)
                 ->setFormKey(self::NEWS_FORM_KEY_EDIT)
                 ->setTabTitle('sulu_admin.details')
@@ -157,7 +127,7 @@ class NewsAdmin extends Admin
         );
 
         $viewCollection->add(
-            $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW.'.details_settings', '/details-settings')
+            $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.details_settings', '/details-settings')
                 ->setResourceKey(News::RESOURCE_KEY)
                 ->setFormKey(self::NEWS_FORM_KEY_SETTINGS)
                 ->setTabTitle('sulu_admin.settings')
@@ -168,7 +138,7 @@ class NewsAdmin extends Admin
             $viewCollection->add(
                 $this->activityViewBuilderFactory
                     ->createActivityListViewBuilder(
-                        static::NEWS_EDIT_FORM_VIEW.'.activity',
+                        static::NEWS_EDIT_FORM_VIEW . '.activity',
                         '/activity',
                         News::RESOURCE_KEY
                     )
@@ -176,10 +146,10 @@ class NewsAdmin extends Admin
             );
         }
 
+        /** @var PreviewFormViewBuilderInterface $test */
+        $test = $this->viewBuilderFactory->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW . '.details_seo', '/seo');
         $viewCollection->add(
-            $this->viewBuilderFactory
-                ->createPreviewFormViewBuilder(static::NEWS_EDIT_FORM_VIEW.'.details_seo', '/seo')
-                ->disablePreviewWebspaceChooser()
+            $test->disablePreviewWebspaceChooser()
                 ->setResourceKey(News::RESOURCE_KEY)
                 ->setFormKey('news_seo')
                 ->setTabTitle('sulu_page.seo')
@@ -190,9 +160,6 @@ class NewsAdmin extends Admin
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSecurityContexts()
     {
         return [

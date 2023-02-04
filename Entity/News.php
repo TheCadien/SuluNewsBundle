@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -25,17 +25,14 @@ use Sulu\Component\Persistence\Model\AuditableInterface;
 
 class News implements NewsInterface, AuditableInterface, RoutableInterface
 {
-    public const RESOURCE_KEY = 'news';
+    final public const RESOURCE_KEY = 'news';
 
     /**
      * @Accessor(getter="getTagNameArray")
      */
     protected $tags;
 
-    /**
-     * @var int
-     */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @var MediaInterface
@@ -52,50 +49,26 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
      */
     private $changer;
 
-    /**
-     * @var bool
-     */
-    private $enabled;
+    private bool $enabled = false;
 
-    /**
-     * @var string
-     */
-    private $title;
+    private ?string $title = null;
 
-    /**
-     * @var string
-     */
-    private $teaser;
+    private ?string $teaser = null;
 
     /**
      * @var string
      */
     private $content;
 
-    /**
-     * @var DateTime
-     */
-    private $publishedAt;
+    private ?\DateTime $publishedAt = null;
 
-    /**
-     * @var DateTime
-     */
-    private $created;
+    private ?\DateTime $created = null;
 
-    /**
-     * @var DateTime
-     */
-    private $changed;
+    private ?\DateTime $changed = null;
 
-    /**
-     * @var RouteInterface
-     */
-    private $route;
+    private ?RouteInterface $route = null;
 
-    /**
-     * @var string
-     */
-    private $locale;
+    private ?string $locale = null;
 
     /**
      * @var string
@@ -107,7 +80,6 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
      */
     public function __construct()
     {
-        $this->enabled = false;
         $this->tags = new ArrayCollection();
     }
 
@@ -146,11 +118,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
 
     public function getContent()
     {
-        if (!$this->content) {
-            return [];
-        }
-
-        return $this->content;
+        return $this->content ?: [];
     }
 
     public function setContent($content): void
@@ -202,10 +170,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         return $this->header;
     }
 
-    /**
-     * @param mixed $header
-     */
-    public function setHeader($header): void
+    public function setHeader(mixed $header): void
     {
         $this->header = $header;
     }
@@ -248,10 +213,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         return $this->creator;
     }
 
-    /**
-     * @param mixed $creator
-     */
-    public function setCreator($creator): void
+    public function setCreator(mixed $creator): void
     {
         $this->creator = $creator;
     }
@@ -264,10 +226,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         return $this->changer;
     }
 
-    /**
-     * @param mixed $changer
-     */
-    public function setchanger($changer): void
+    public function setchanger(mixed $changer): void
     {
         $this->changer = $changer;
     }

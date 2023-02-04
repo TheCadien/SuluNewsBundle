@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -19,14 +19,8 @@ use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 class NewsRouteDefaultProvider implements RouteDefaultsProviderInterface
 {
-    /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
-
-    public function __construct(NewsRepository $newsRepository)
+    public function __construct(private readonly NewsRepository $newsRepository)
     {
-        $this->newsRepository = $newsRepository;
     }
 
     public function getByEntity($entityClass, $id, $locale, $object = null)

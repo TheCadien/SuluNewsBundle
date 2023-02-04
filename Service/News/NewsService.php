@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -17,6 +17,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsRouteFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
@@ -28,46 +29,21 @@ use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 class NewsService implements NewsServiceInterface
 {
     /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
-
-    /**
-     * @var NewsFactory
-     */
-    private $newsFactory;
-
-    /**
      * @var object|string
      */
-    private $loginUser;
-
-    /**
-     * @var NewsRouteFactory
-     */
-    private $routeFactory;
-
-    /**
-     * @var DomainEventCollectorInterface
-     */
-    private $domainEventCollector;
+    private ?UserInterface $loginUser = null;
 
     /**
      * ArticleService constructor.
      */
     public function __construct(
-        NewsRepository $newsRepository,
-        NewsFactory $newsFactory,
-        NewsRouteFactory $routeFactory,
+        private readonly NewsRepository $newsRepository,
+        private readonly NewsFactory $newsFactory,
+        private readonly NewsRouteFactory $routeFactory,
         TokenStorageInterface $tokenStorage,
-        DomainEventCollectorInterface $domainEventCollector
+        private readonly DomainEventCollectorInterface $domainEventCollector
     ) {
-        $this->newsRepository = $newsRepository;
-        $this->newsFactory = $newsFactory;
-        $this->routeFactory = $routeFactory;
-        $this->domainEventCollector = $domainEventCollector;
-
-        if ($tokenStorage->getToken()) {
+        if (null !== $tokenStorage->getToken()) {
             $this->loginUser = $tokenStorage->getToken()->getUser();
         }
     }
@@ -78,9 +54,10 @@ class NewsService implements NewsServiceInterface
      */
     public function saveNewNews(array $data, string $locale): News
     {
+        $news = null;
         try {
             $news = $this->newsFactory->generateNewsFromRequest(new News(), $data, $locale);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
         }
 
         /** @var News $news */
@@ -100,6 +77,8 @@ class NewsService implements NewsServiceInterface
     }
 
     /**
+     * @param mixed $data
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -107,7 +86,7 @@ class NewsService implements NewsServiceInterface
     {
         try {
             $news = $this->newsFactory->generateNewsFromRequest($news, $data, $locale);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
         }
 
         $news->setchanger($this->loginUser->getContact());
@@ -145,7 +124,7 @@ class NewsService implements NewsServiceInterface
     public function removeNews(int $id): void
     {
         $news = $this->newsRepository->findById($id);
-        if (!$news) {
+        if (!$news instanceof News) {
             throw new \Exception($id);
         }
 

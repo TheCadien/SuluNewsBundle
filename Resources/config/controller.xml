@@ -9,7 +9,7 @@
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="sulu_news.repository"/>
             <argument type="service" id="sulu_news.service"/>
-            <argument type="service" id="sulu_news.list.praesentation"/>
+            <argument type="service" id="sulu_news.list.presentation"/>
             <tag name="sulu.context" context="admin"/>
         </service>
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -73,7 +73,7 @@ final class NewsFactoryTest extends TestCase
 
     public function testNewNewsFactoryWithEmptyContent(): void
     {
-        $news = $this->factory->generateNewsFromRequest(new news(), $this->generateNewsContentArrayWithOutContent());
+        $news = $this->factory->generateNewsFromRequest(new news(), $this->generateNewsContentArrayWithoutContent());
         static::assertSame('Test', $news->getTitle());
         static::assertSame([], $news->getContent());
         static::assertSame('Test', $news->getTeaser());

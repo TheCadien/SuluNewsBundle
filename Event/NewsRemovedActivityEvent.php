@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -19,18 +19,11 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsRemovedActivityEvent extends DomainEvent
 {
-    private News $news;
-
-    private array $payload;
-
     public function __construct(
-        News $book,
-        array $payload
+        private readonly News $news,
+        private readonly array $payload
     ) {
         parent::__construct();
-
-        $this->news = $book;
-        $this->payload = $payload;
     }
 
     public function getEventType(): string

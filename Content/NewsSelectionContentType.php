@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -20,16 +20,9 @@ use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 
 class NewsSelectionContentType extends SimpleContentType
 {
-    /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
-
-    public function __construct(NewsRepository $newsRepository)
+    public function __construct(private readonly NewsRepository $newsRepository)
     {
         parent::__construct('news_selection', []);
-
-        $this->newsRepository = $newsRepository;
     }
 
     /**
@@ -50,9 +43,6 @@ class NewsSelectionContentType extends SimpleContentType
         return $news;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getViewData(PropertyInterface $property)
     {
         return [

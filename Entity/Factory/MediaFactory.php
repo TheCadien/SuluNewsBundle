@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -19,18 +19,16 @@ use Sulu\Component\Rest\Exception\EntityNotFoundException;
 
 class MediaFactory extends AbstractFactory implements MediaFactoryInterface
 {
-    private MediaRepositoryInterface $mediaRepository;
-
     /**
      * NewsFactory constructor.
      */
-    public function __construct(
-        MediaRepositoryInterface $mediaRepository
-    ) {
-        $this->mediaRepository = $mediaRepository;
+    public function __construct(private readonly MediaRepositoryInterface $mediaRepository)
+    {
     }
 
     /**
+     * @param mixed $header
+     *
      * @throws EntityNotFoundException
      */
     public function generateMedia($header): ?Media
@@ -40,7 +38,7 @@ class MediaFactory extends AbstractFactory implements MediaFactoryInterface
             $mediaId = $this->getProperty($header, 'id');
             $mediaEntity = $this->mediaRepository->findMediaById($mediaId);
 
-            if (!$mediaEntity) {
+            if (!$mediaEntity instanceof Media) {
                 throw new EntityNotFoundException($this->mediaRepository->getClassName(), $mediaId);
             }
         }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -20,18 +20,14 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 class NewsDataItem implements ItemInterface
 {
     /**
-     * @var News
-     *
-     * @Serializer\Exclude
-     */
-    private $entity;
-
-    /**
      * NewsDataItem constructor.
      */
-    public function __construct(News $entity)
-    {
-        $this->entity = $entity;
+    public function __construct(
+        /**
+         * @Serializer\Exclude
+         */
+        private readonly News $entity
+    ) {
     }
 
     /**

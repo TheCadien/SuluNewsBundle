@@ -26,7 +26,7 @@
         </service>
 
 
-        <service id="sulu_news.list.praesentation" public="true"
+        <service id="sulu_news.list.presentation" public="true"
                  class="TheCadien\Bundle\SuluNewsBundle\Admin\DoctrineListRepresentationFactory">
             <argument type="service" id="sulu_core.rest_helper"/>
             <argument type="service" id="sulu_core.doctrine_list_builder_factory"/>
@@ -94,7 +94,6 @@
             <argument type="service" id="sulu_news.repository"/>
         </service>
         <service id="sulu_contact.twig" class="TheCadien\Bundle\SuluNewsBundle\Twig\NewsTwigExtension">
-            <argument type="service" id="sulu_contact.twig.cache"/>
             <argument type="service" id="sulu_news.repository"/>
             <tag name="twig.extension"/>
         </service>

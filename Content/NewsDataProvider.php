@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Content;
 
+use JMS\Serializer\Context;
+use JMS\Serializer\SerializationContext;
 use Sulu\Component\SmartContent\Orm\BaseDataProvider;
 
 class NewsDataProvider extends BaseDataProvider
@@ -28,8 +30,7 @@ class NewsDataProvider extends BaseDataProvider
                         ['column' => 'news_translation.title', 'title' => 'sulu_admin.title'],
                     ]
                 )
-                ->getConfiguration()
-            ;
+                ->getConfiguration();
         }
 
         return parent::getConfiguration();
@@ -37,15 +38,13 @@ class NewsDataProvider extends BaseDataProvider
 
     protected function decorateDataItems(array $data)
     {
-        return array_map(
-            function ($item) {
-                return new NewsDataItem($item);
-            },
+        return \array_map(
+            fn ($item) => new NewsDataItem($item),
             $data
         );
     }
 
-    protected function getSerializationContext()
+    protected function getSerializationContext(): Context|SerializationContext
     {
         return parent::getSerializationContext()->setGroups(['fullNews']);
     }

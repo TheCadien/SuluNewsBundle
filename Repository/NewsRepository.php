@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of TheCadien/SuluNewsBundle.
  *
- * (c) Oliver Kossin
+ * by Oliver Kossin and contributors.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -39,9 +39,8 @@ class NewsRepository extends EntityRepository implements DataProviderRepositoryI
             ->from('NewsBundle:News', 'n')
             ->where('n.enabled = 1')
             ->andWhere('n.publishedAt <= :created')
-            ->setParameter('created', date('Y-m-d H:i:s'))
-            ->orderBy('n.publishedAt', 'DESC')
-        ;
+            ->setParameter('created', \date('Y-m-d H:i:s'))
+            ->orderBy('n.publishedAt', 'DESC');
 
         $news = $qb->getQuery()->getResult();
 
