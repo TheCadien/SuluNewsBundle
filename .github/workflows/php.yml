@@ -9,10 +9,29 @@ env:
   DATABASE_URL: mysql://root@127.0.0.1:33306/su_news_test?serverVersion=5.7
 
 jobs:
-
-  tests:
-    name: Test Application
+  test:
+    name: 'PHP ${{ matrix.php-version }} (${{ matrix.dependency-versions }}, Lint ${{ matrix.lint }})'
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php-version: '8.0'
+            lint: false
+            coverage: false
+            dependency-versions: 'highest'
+            tools: 'composer:v2'
+            env:
+              SYMFONY_DEPRECATIONS_HELPER: weak
+
+          - php-version: '8.1'
+            lint: false
+            coverage: false
+            dependency-versions: 'highest'
+            tools: 'composer:v2'
+            env:
+              SYMFONY_DEPRECATIONS_HELPER: weak
 
     services:
       mysql:
@@ -25,25 +44,21 @@ jobs:
 
     steps:
       - name: Checkout project
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
-      - name: Validate composer.json and composer.lock
-        run: composer validate
-
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - uses: actions/cache@v1
+      - name: Install and configure PHP
+        uses: shivammathur/setup-php@v2
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+          php-version: ${{ matrix.php-version }}
+          extensions: ctype, iconv, mysql
+          coverage: pcov
+          tools: ${{ matrix.tools }}
 
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Install composer dependencies
+        uses: ramsey/composer-install@v1
+        with:
+          dependency-versions: ${{ matrix.dependency-versions }}
+          composer-options: ${{ matrix.composer-options }}
 
       - name: bootstrap test environment
         run: composer bootstrap-test-environment
