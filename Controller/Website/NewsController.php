@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace TheCadien\Bundle\SuluNewsBundle\Controller;
+namespace TheCadien\Bundle\SuluNewsBundle\Controller\Website;
 
 use Sulu\Bundle\PreviewBundle\Preview\Preview;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +22,7 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 /**
  * Class NewsWebsiteController.
  */
-class NewsWebsiteController extends AbstractController
+class NewsController extends AbstractController
 {
     public function indexAction(News $news, $attributes = [], $preview = false, $partial = false): Response
     {

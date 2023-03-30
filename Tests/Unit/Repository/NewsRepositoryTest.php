@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Repository;
 
-use DateTime;
 use Doctrine\ORM\EntityManager;
 use Sulu\Bundle\TestBundle\Testing\PurgeDatabaseTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
@@ -86,7 +85,7 @@ final class NewsRepositoryTest extends SuluTestCase
         $this->newsRepository->save($newsTestData);
         /** not published example in */
         $secondNewsTestData = $this->generateSecondNewsWithContent();
-        $secondNewsTestData->setPublishedAt(new DateTime('tomorrow'));
+        $secondNewsTestData->setPublishedAt(new \DateTime('tomorrow'));
         $this->newsRepository->save($secondNewsTestData);
 
         $result = $this->newsRepository->getPublishedNews();

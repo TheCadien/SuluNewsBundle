@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity;
 
-use DateTime;
 use Sulu\Bundle\RouteBundle\Entity\Route;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
@@ -39,7 +38,7 @@ trait NewsTrait
         $news->setEnabled($contentArray['enable']);
         $news->setLocale($contentArray['locale']);
         $news->setRoute($contentArray['route']);
-        $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
+        $news->setPublishedAt(\DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
     }
@@ -79,7 +78,7 @@ trait NewsTrait
         $news->setEnabled($contentArray['enable']);
         $news->setLocale($contentArray['locale']);
         $news->setRoute($contentArray['route']);
-        $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
+        $news->setPublishedAt(\DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
     }

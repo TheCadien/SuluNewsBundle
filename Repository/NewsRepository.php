@@ -13,15 +13,21 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 /**
  * Class NewsRepository.
  */
-class NewsRepository extends EntityRepository implements DataProviderRepositoryInterface
+class NewsRepository extends ServiceEntityRepository implements DataProviderRepositoryInterface
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, News::class);
+    }
+
     /**
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

@@ -43,7 +43,7 @@ project:
 
 ```bash
 
-composer require thecadien/sulu-news-bundle --with-all-dependencies
+composer require thecadien/sulu-news-bundle
 
 ```
 Afterwards, visit the [bundle documentation](Resources/docs) to find out how to set up and configure the SuluNewsBundle to your specific needs.

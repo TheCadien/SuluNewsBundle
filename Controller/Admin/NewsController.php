@@ -13,46 +13,28 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Controller\Admin;
 
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
-use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Routing\ClassResourceInterface;
-use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandlerInterface;
-use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use TheCadien\Bundle\SuluNewsBundle\Admin\DoctrineListRepresentationFactory;
+use Symfony\Component\Routing\Annotation\Route;
 use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
+use TheCadien\Bundle\SuluNewsBundle\Common\DoctrineListRepresentationFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService;
 
-class NewsController extends AbstractRestController implements ClassResourceInterface
+final class NewsController extends AbstractController
 {
-    // serialization groups for contact
-    protected static $oneNewsSerializationGroups = [
-        'partialMedia',
-        'fullNews',
-    ];
-
-    /**
-     * NewsController constructor.
-     */
     public function __construct(
-        ViewHandlerInterface $viewHandler,
-        TokenStorageInterface $tokenStorage,
         private readonly NewsRepository $repository,
         private readonly NewsService $newsService,
         private readonly DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
     ) {
-        parent::__construct($viewHandler, $tokenStorage);
     }
 
+    #[Route('/news', name: 'app.cget_news', methods: ['GET'])]
     public function cgetAction(Request $request): Response
     {
         $locale = $request->query->get('locale');
@@ -62,40 +44,29 @@ class NewsController extends AbstractRestController implements ClassResourceInte
             ['locale' => $locale]
         );
 
-        return $this->handleView($this->view($listRepresentation));
+        return $this->json($listRepresentation->toArray());
     }
 
+    #[Route('/news/{id}', name: 'app.get_news', methods: ['GET'])]
     public function getAction(int $id, Request $request): Response
     {
         if (($entity = $this->repository->findById($id)) === null) {
             throw new NotFoundHttpException();
         }
-
-        $apiEntity = $this->generateApiNewsEntity($entity, $this->getLocale($request));
-
-        $view = $this->generateViewContent($apiEntity);
-
-        return $this->handleView($view);
+        $apiEntity = $this->generateApiNewsEntity($entity, $request->query->get('locale'));
+        return $this->json($apiEntity);
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+    #[Route('/news', name: 'app.post_news', methods: ['POST'])]
     public function postAction(Request $request): Response
     {
-        $news = $this->newsService->saveNewNews($request->request->all(), $this->getLocale($request));
+        $news = $this->newsService->saveNewNews($request->request->all(), $request->query->get('locale'));
 
-        $apiEntity = $this->generateApiNewsEntity($news, $this->getLocale($request));
-
-        $view = $this->generateViewContent($apiEntity);
-
-        return $this->handleView($view);
+        $apiEntity = $this->generateApiNewsEntity($news, $request->query->get('locale'));
+        return $this->json($apiEntity);
     }
 
-    /**
-     * @Rest\Post("/news/{id}")
-     */
+    #[Route('/news/{id}', name: 'app.post_news_trigger', methods: ['POST'])]
     public function postTriggerAction(int $id, Request $request): Response
     {
         $news = $this->repository->findById($id);
@@ -105,16 +76,14 @@ class NewsController extends AbstractRestController implements ClassResourceInte
 
         $news = $this->newsService->updateNewsPublish($news, $request->query->all());
 
-        $apiEntity = $this->generateApiNewsEntity($news, $this->getLocale($request));
-        $view = $this->generateViewContent($apiEntity);
+        $apiEntity = $this->generateApiNewsEntity($news, $request->query->get(
+            'locale'
+        ));
 
-        return $this->handleView($view);
+        return $this->json($apiEntity);
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+    #[Route('/news/{id}', name: 'app.put_news', methods: ['PUT'])]
     public function putAction(int $id, Request $request): Response
     {
         $entity = $this->repository->findById($id);
@@ -122,31 +91,22 @@ class NewsController extends AbstractRestController implements ClassResourceInte
             throw new NotFoundHttpException();
         }
 
-        $updatedEntity = $this->newsService->updateNews($request->request->all(), $entity, $this->getLocale($request));
-        $apiEntity = $this->generateApiNewsEntity($updatedEntity, $this->getLocale($request));
-        $view = $this->generateViewContent($apiEntity);
+        $updatedEntity = $this->newsService->updateNews($request->request->all(), $entity, $request->query->get('locale'));
+        $apiEntity = $this->generateApiNewsEntity($updatedEntity, $request->query->get('locale'));
 
-        return $this->handleView($view);
+        return $this->json($apiEntity);
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+    #[Route('/news/{id}', name: 'app.delete_news', methods: ['DELETE'])]
     public function deleteAction(int $id): Response
     {
         try {
             $this->newsService->removeNews($id);
         } catch (\Exception) {
-            throw new EntityNotFoundException(self::$entityName, $id);
+            throw new EntityNotFoundException(News::class, $id);
         }
 
-        return $this->handleView($this->view());
-    }
-
-    public static function getPriority(): int
-    {
-        return 0;
+        return $this->json(null, 204);
     }
 
     protected function generateApiNewsEntity(News $entity, string $locale): NewsApi
@@ -154,12 +114,8 @@ class NewsController extends AbstractRestController implements ClassResourceInte
         return new NewsApi($entity, $locale);
     }
 
-    protected function generateViewContent(NewsApi $entity): View
+    public function getPriority(): int
     {
-        $view = $this->view($entity);
-        $context = new Context();
-        $context->setGroups(static::$oneNewsSerializationGroups);
-
-        return $view->setContext($context);
+        return 0;
     }
 }

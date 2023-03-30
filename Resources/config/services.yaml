@@ -1,0 +1,35 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  TheCadien\Bundle\SuluNewsBundle\:
+    resource: '../../*'
+    exclude: '../../{DependencyInjection,Tests,Vendor,rector.php}'
+
+  TheCadien\Bundle\SuluNewsBundle\Admin\:
+    resource: '../../Admin'
+    tags: [ 'sulu.admin', { name: 'sulu.context', context: 'admin' } ]
+
+  TheCadien\Bundle\SuluNewsBundle\Controller\Admin\:
+    resource: '../../Controller/Admin'
+    tags: [ 'controller.service_arguments', { name: 'sulu.context', context: 'admin' } ]
+
+  TheCadien\Bundle\SuluNewsBundle\Controller\Website\:
+    resource: '../../Controller/Website'
+    tags: [ 'controller.service_arguments', { name: 'sulu.context', context: 'website' } ]
+
+  TheCadien\Bundle\SuluNewsBundle\Twig\NewsTwigExtension:
+    tags: [ 'twig.extension' ]
+
+  TheCadien\Bundle\SuluNewsBundle\Content\NewsSelectionContentType:
+    tags: [ { name: 'sulu.content.type', alias: 'news_selection' } ]
+
+  TheCadien\Bundle\SuluNewsBundle\Routing\NewsRouteDefaultProvider:
+    tags: [ 'sulu_route.defaults_provider' ]
+
+  TheCadien\Bundle\SuluNewsBundle\Preview\NewsObjectProvider:
+    tags: [ { name: 'sulu.context', context: 'admin' }, { name: 'sulu_preview.object_provider', provider-key: 'news'} ]
+
+  TheCadien\Bundle\SuluNewsBundle\Content\NewsDataProvider:
+    tags: [{ name: 'sulu.smart_content.data_provider', alias: 'news' }]
