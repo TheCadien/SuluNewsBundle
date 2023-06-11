@@ -21,14 +21,26 @@ use TheCadien\Bundle\SuluNewsBundle\Api\News as ApiNews;
 trait NewsTrait
 {
     use \TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity\NewsTrait;
-
-    public function generateEmptyApiNews(): ApiNews
+    
+    public function generateApiNews(): ApiNews
     {
-        return new ApiNews($this->generateEmptyNews(), 'de');
-    }
-
-    public function generateApiNewsWithContent(): ApiNews
-    {
-        return new ApiNews($this->generateNewsWithContent(), 'de');
+        return new ApiNews(
+            $this->generateNews()->getId(),
+            $this->generateNews()->getTitle(),
+            $this->generateNews()->getTeaser(),
+            $this->generateNews()->getContent(),
+            $this->generateNews()->isEnabled(),
+            $this->generateNews()->getPublishedAt(),
+            $this->generateNews()->getRoute()?->getPath(),
+            $this->generateNews()->getTagNameArray(),
+            [
+                'id' => $this->generateNews()->getHeader()?->getId(),
+            ],
+            $this->generateNews()->getCreated(),
+            $this->generateNews()->getCreated(),
+            $this->generateNews()->getChanged(),
+            $this->generateNews()->getCreator()?->getId(),
+            $this->generateNews()->getSeo()
+        );
     }
 }

@@ -49,7 +49,7 @@ final class NewsRepositoryTest extends SuluTestCase
 
     public function testSave(): void
     {
-        $newsTestData = $this->generateNewsWithContent();
+        $newsTestData = $this->generateNews();
         $this->newsRepository->save($newsTestData);
 
         $newsResult = $this->newsRepository->findOneBy(['title' => $newsTestData->getTitle()]);
@@ -59,7 +59,7 @@ final class NewsRepositoryTest extends SuluTestCase
 
     public function testGetPublishedNewsWithResult(): void
     {
-        $newsTestData = $this->generateNewsWithContent();
+        $newsTestData = $this->generateNews();
         $this->newsRepository->save($newsTestData);
         $secondNewsTestData = $this->generateSecondNewsWithContent();
         $this->newsRepository->save($secondNewsTestData);
@@ -80,7 +80,7 @@ final class NewsRepositoryTest extends SuluTestCase
     public function testGetPublishedNewsWithoutPublishedResult(): void
     {
         /** not enabled example in   */
-        $newsTestData = $this->generateNewsWithContent();
+        $newsTestData = $this->generateNews();
         $newsTestData->setEnabled(false);
         $this->newsRepository->save($newsTestData);
         /** not published example in */

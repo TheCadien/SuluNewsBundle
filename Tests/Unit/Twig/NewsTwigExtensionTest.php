@@ -14,7 +14,7 @@ class NewsTwigExtensionTest extends TestCase
     public function testResolveNewsFunction()
     {
         $repoMock = $this->createMock(NewsRepository::class);
-        $repoMock->method('find')->willReturn($this->generateNewsWithContent());
+        $repoMock->method('find')->willReturn($this->generateNews());
         $newsTwigExtension = new NewsTwigExtension($repoMock);
         $news = $newsTwigExtension->resolveNewsFunction(1);
 

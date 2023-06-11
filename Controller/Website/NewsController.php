@@ -16,13 +16,12 @@ namespace TheCadien\Bundle\SuluNewsBundle\Controller\Website;
 use Sulu\Bundle\PreviewBundle\Preview\Preview;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
-/**
- * Class NewsWebsiteController.
- */
-class NewsController extends AbstractController
+#[AsController]
+final class NewsController extends AbstractController
 {
     public function indexAction(News $news, $attributes = [], $preview = false, $partial = false): Response
     {

@@ -27,13 +27,21 @@ final class NewsTest extends TestCase
 
     public function testEmptyApiDto(): void
     {
-        $news = $this->generateEmptyNews();
+        $news = $this->generateNews();
 
-        static::assertNull($news->getId());
-        static::assertNull($news->getTitle());
-        static::assertNull($news->getTeaser());
-        static::assertNull($news->getHeader());
-        static::assertSame([], $news->getContent());
-        static::assertNull($news->getPublishedAt());
+        static::assertSame($news->getId(), 1);
+        static::assertSame($news->getTitle(), 'Test Title');
+        static::assertSame($news->getTeaser(), 'Test Teaser');
+        static::assertSame([
+            [
+                'type' => 'title',
+                'title' => 'Test',
+            ],
+            [
+                'type' => 'editor',
+                'text' => '<p>Test Editor</p>',
+            ],
+        ], $news->getContent());
+        static::assertSame('2031-08-31 00:00:00', $news->getPublishedAt()->format('Y-m-d H:i:s'));
     }
 }

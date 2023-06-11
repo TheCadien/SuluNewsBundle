@@ -17,20 +17,24 @@ use Sulu\Component\Rest\Exception\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use TheCadien\Bundle\SuluNewsBundle\Api\Factory\NewsApiDtoFactory;
 use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
 use TheCadien\Bundle\SuluNewsBundle\Common\DoctrineListRepresentationFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
 use TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService;
 
+#[AsController]
 final class NewsController extends AbstractController
 {
     public function __construct(
         private readonly NewsRepository $repository,
         private readonly NewsService $newsService,
         private readonly DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
+        private readonly NewsApiDtoFactory $apiDtoFactory
     ) {
     }
 
@@ -54,7 +58,8 @@ final class NewsController extends AbstractController
             throw new NotFoundHttpException();
         }
         $apiEntity = $this->generateApiNewsEntity($entity, $request->query->get('locale'));
-        return $this->json($apiEntity);
+
+        return $this->json($apiEntity, 200, []);
     }
 
     #[Route('/news', name: 'app.post_news', methods: ['POST'])]
@@ -63,7 +68,8 @@ final class NewsController extends AbstractController
         $news = $this->newsService->saveNewNews($request->request->all(), $request->query->get('locale'));
 
         $apiEntity = $this->generateApiNewsEntity($news, $request->query->get('locale'));
-        return $this->json($apiEntity);
+
+        return $this->json($apiEntity, 200, [], ['fullNews']);
     }
 
     #[Route('/news/{id}', name: 'app.post_news_trigger', methods: ['POST'])]
@@ -111,7 +117,7 @@ final class NewsController extends AbstractController
 
     protected function generateApiNewsEntity(News $entity, string $locale): NewsApi
     {
-        return new NewsApi($entity, $locale);
+        return $this->apiDtoFactory->generate($entity);
     }
 
     public function getPriority(): int

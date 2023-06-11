@@ -67,10 +67,6 @@ class DoctrineListRepresentationFactory
         );
     }
 
-    /**
-     * Takes an array of contacts and resets the avatar containing the media id with
-     * the actual urls to the avatars thumbnail.
-     */
     private function addHeader(array $news, string $locale): array
     {
         $ids = \array_filter(\array_column($news, 'header'));

@@ -21,12 +21,7 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
  */
 trait NewsTrait
 {
-    public function generateEmptyNews(): News
-    {
-        return new News();
-    }
-
-    public function generateNewsWithContent(): News
+    public function generateNews(): News
     {
         $news = new News();
         $contentArray = $this->generateNewsContentArray();
@@ -62,7 +57,7 @@ trait NewsTrait
             'locale' => 'en',
             'route' => new Route('/test-1', 1, News::class, 'en'),
             'enable' => true,
-            'publishedAt' => '2017-08-31 00:00:00',
+            'publishedAt' => '2031-08-31 00:00:00',
         ];
     }
 

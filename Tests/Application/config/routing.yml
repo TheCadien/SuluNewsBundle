@@ -1,9 +1,7 @@
 sulu_admin:
   resource: "@SuluAdminBundle/Resources/config/routing.yml"
   prefix: /admin
-
-app_news:
+sulu_news.admin:
+  resource: "@NewsBundle/Resources/config/routes_admin.yaml"
   type: rest
-  resource: sulu_news.rest.controller
   prefix: /admin/api
-  name_prefix: news.

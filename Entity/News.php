@@ -230,7 +230,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         $this->changer = $changer;
     }
 
-    public function getChanged(): \DateTime
+    public function getChanged(): ?\DateTime
     {
         return $this->changed;
     }
