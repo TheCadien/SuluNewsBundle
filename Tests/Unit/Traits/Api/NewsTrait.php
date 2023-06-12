@@ -21,7 +21,7 @@ use TheCadien\Bundle\SuluNewsBundle\Api\News as ApiNews;
 trait NewsTrait
 {
     use \TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity\NewsTrait;
-    
+
     public function generateApiNews(): ApiNews
     {
         return new ApiNews(

@@ -24,6 +24,7 @@ use TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Api\NewsTrait;
 final class NewsApiTest extends TestCase
 {
     use NewsTrait;
+
     public function testApiDto(): void
     {
         $apiDto = $this->generateApiNews();
