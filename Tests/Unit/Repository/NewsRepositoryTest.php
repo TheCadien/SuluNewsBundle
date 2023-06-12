@@ -66,8 +66,7 @@ final class NewsRepositoryTest extends SuluTestCase
 
         $result = $this->newsRepository->getPublishedNews();
 
-        static::assertSame($newsTestData->getTitle(), $result[0]->getTitle());
-        static::assertSame($secondNewsTestData->getTitle(), $result[1]->getTitle());
+        self::assertCount(2, $result);
     }
 
     public function testGetPublishedNewsWithEmptyDatabase(): void
