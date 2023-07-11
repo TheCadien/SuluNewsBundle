@@ -13,6 +13,14 @@ jobs:
   build:
     name: Test Application
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       -   name: Setup PHP
           uses: shivammathur/setup-php@v2
