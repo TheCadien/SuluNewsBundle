@@ -1,4 +1,4 @@
-name: PHP
+name: Tests
 
 on:
   pull_request:
@@ -6,47 +6,157 @@ on:
     branches:
       - master
 env:
+  php_version: '8.1'
   DATABASE_URL: mysql://root@127.0.0.1:33306/su_news_test?serverVersion=5.7
 
 jobs:
-
-  tests:
+  build:
     name: Test Application
     runs-on: ubuntu-latest
-
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-        ports:
-          - 33306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     steps:
-      - name: Checkout project
-        uses: actions/checkout@v1
+      -   name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ env.php_version }}
 
-      - name: Validate composer.json and composer.lock
-        run: composer validate
+      -   uses: actions/checkout@v3
 
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      -   name: Validate composer.json and composer.lock
+          run: composer validate  --strict
 
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+      -   name: Cache the vulnerability database to speed up security checks
+          uses: actions/cache@v3
+          id: cache-db
+          with:
+            path: ~/.symfony/cache
+            key: db
 
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+      -   name: Checks security issues
+          uses: symfonycorp/security-checker-action@v4
 
-      - name: bootstrap test environment
-        run: composer bootstrap-test-environment
+      -   name: Cache Composer packages
+          id: composer-cache
+          uses: actions/cache@v3
+          with:
+            path: vendor
+            key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+            restore-keys: |
+              ${{ runner.os }}-php-
 
-      - name: Run unit tests
-        run: composer phpunit -- Tests/Unit --coverage-php var/coverage.php --coverage-html coverage-report --log-junit var/junit.xml
+      -   name: Install php dependencies
+          if: steps.composer-cache.outputs.cache-hit != 'true'
+          run: composer install --prefer-dist --no-progress
+
+      -   name: Clear cache
+          run: php bin/console cache:clear
+
+      -   name: Archive application
+          working-directory: ../
+          run: |
+            tar -czf application.tar.gz --exclude=".git" -C ${{ github.workspace }} .
+            mv application.tar.gz ${{ github.workspace }}/
+
+      -   name: Upload prepared application
+          uses: actions/upload-artifact@v3
+          with:
+            name: applicationArchive
+            path: application.tar.gz
+            if-no-files-found: error
+            retention-days: 1
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      -   name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ env.php_version }}
+
+      -   name: Download prepared application
+          uses: actions/download-artifact@v3
+          with:
+            name: applicationArchive
+
+      -   name: Unpack application
+          run: tar -xzf application.tar.gz --strip=1
+
+      -   name: Validate container
+          run: php bin/console lint:container
+
+      -   name: Validate twig templates
+          run: php bin/console lint:twig templates
+
+      -   name: Validate yaml files
+          run: php bin/console lint:yaml config
+
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      -   name: Download prepared application
+          uses: actions/download-artifact@v3
+          with:
+            name: applicationArchive
+
+      -   name: Unpack application
+          run: tar -xzf application.tar.gz --strip=1
+
+      -   name: Run cs fixer
+          run: make cs-check
+
+  phpstan:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      -   name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ env.php_version }}
+
+      -   name: Download prepared application
+          uses: actions/download-artifact@v3
+          with:
+            name: applicationArchive
+
+      -   name: Unpack application
+          run: tar -xzf application.tar.gz --strip=1
+
+      -   name: Run phpstan
+          run: php vendor/bin/phpstan analyze
+
+  phpunit:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      -   name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ env.php_version }}
+
+      -   name: Download prepared application
+          uses: actions/download-artifact@v3
+          with:
+            name: applicationArchive
+
+      -   name: Unpack application
+          run: tar -xzf application.tar.gz --strip=1
+
+      -   name: Run test suite
+          run: php bin/phpunit --testdox
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - lint
+      - php-cs-fixer
+      - phpstan
+      - phpunit
+    if: ${{ always() }}
+    steps:
+      -   name: Delete unecessary artifacts
+          uses: geekyeggo/delete-artifact@v2
+          with:
+            name: applicationArchive
+            failOnError: false
