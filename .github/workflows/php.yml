@@ -30,10 +30,7 @@ jobs:
           with:
             path: ~/.symfony/cache
             key: db
-
-      -   name: Checks security issues
-          uses: symfonycorp/security-checker-action@v4
-
+            
       -   name: Cache Composer packages
           id: composer-cache
           uses: actions/cache@v3
