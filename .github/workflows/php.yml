@@ -22,104 +22,107 @@ jobs:
           - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      -   name: Setup PHP
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: ${{ env.php_version }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
 
-      -   uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      -   name: Validate composer.json and composer.lock
-          run: composer validate  --strict
+      - name: Validate composer.json and composer.lock
+        run: composer validate  --strict
 
-      -   name: Cache the vulnerability database to speed up security checks
-          uses: actions/cache@v3
-          id: cache-db
-          with:
-            path: ~/.symfony/cache
-            key: db
+      - name: Cache the vulnerability database to speed up security checks
+        uses: actions/cache@v3
+        id: cache-db
+        with:
+          path: ~/.symfony/cache
+          key: db
 
-      -   name: Cache Composer packages
-          id: composer-cache
-          uses: actions/cache@v3
-          with:
-            path: vendor
-            key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-            restore-keys: |
-              ${{ runner.os }}-php-
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-      -   name: Install php dependencies
-          if: steps.composer-cache.outputs.cache-hit != 'true'
-          run: composer install --prefer-dist --no-progress
+      - name: Install php dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress
 
-      -   name: Archive application
-          working-directory: ../
-          run: |
-            tar -czf application.tar.gz --exclude=".git" -C ${{ github.workspace }} .
-            mv application.tar.gz ${{ github.workspace }}/
+      - name: Archive application
+        working-directory: ../
+        run: |
+          tar -czf application.tar.gz --exclude=".git" -C ${{ github.workspace }} .
+          mv application.tar.gz ${{ github.workspace }}/
 
-      -   name: Upload prepared application
-          uses: actions/upload-artifact@v3
-          with:
-            name: applicationArchive
-            path: application.tar.gz
-            if-no-files-found: error
-            retention-days: 1
+      - name: Upload prepared application
+        uses: actions/upload-artifact@v3
+        with:
+          name: applicationArchive
+          path: application.tar.gz
+          if-no-files-found: error
+          retention-days: 1
 
   php-cs-fixer:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      -   name: Download prepared application
-          uses: actions/download-artifact@v3
-          with:
-            name: applicationArchive
+      - name: Download prepared application
+        uses: actions/download-artifact@v3
+        with:
+          name: applicationArchive
 
-      -   name: Unpack application
-          run: tar -xzf application.tar.gz --strip=1
+      - name: Unpack application
+        run: tar -xzf application.tar.gz --strip=1
 
-      -   name: Run cs fixer
-          run: composer php-cs-fixer
+      - name: Run cs fixer
+        run: composer php-cs-fixer
 
   phpstan:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      -   name: Setup PHP
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: ${{ env.php_version }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
 
-      -   name: Download prepared application
-          uses: actions/download-artifact@v3
-          with:
-            name: applicationArchive
+      - name: Download prepared application
+        uses: actions/download-artifact@v3
+        with:
+          name: applicationArchive
 
-      -   name: Unpack application
-          run: tar -xzf application.tar.gz --strip=1
+      - name: Unpack application
+        run: tar -xzf application.tar.gz --strip=1
 
-      -   name: Run phpstan
-          run: composer phpstan
+      - name: Run phpstan
+        run: composer phpstan
 
   phpunit:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      -   name: Setup PHP
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: ${{ env.php_version }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
 
-      -   name: Download prepared application
-          uses: actions/download-artifact@v3
-          with:
-            name: applicationArchive
+      - name: Download prepared application
+        uses: actions/download-artifact@v3
+        with:
+          name: applicationArchive
 
-      -   name: Unpack application
-          run: tar -xzf application.tar.gz --strip=1
+      - name: Unpack application
+        run: tar -xzf application.tar.gz --strip=1
 
-      -   name: Run test suite
-          run: composer phpunit
+      - name: bootstrap test environment
+        run: composer bootstrap-test-environment
+
+      - name: Run test suite
+        run: composer phpunit
 
   cleanup:
     runs-on: ubuntu-latest
@@ -130,8 +133,8 @@ jobs:
       - phpunit
     if: ${{ always() }}
     steps:
-      -   name: Delete unecessary artifacts
-          uses: geekyeggo/delete-artifact@v2
-          with:
-            name: applicationArchive
-            failOnError: false
+      - name: Delete unecessary artifacts
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: applicationArchive
+          failOnError: false
