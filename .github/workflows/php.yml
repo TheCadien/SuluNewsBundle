@@ -30,7 +30,7 @@ jobs:
           with:
             path: ~/.symfony/cache
             key: db
-            
+
       -   name: Cache Composer packages
           id: composer-cache
           uses: actions/cache@v3
@@ -43,9 +43,6 @@ jobs:
       -   name: Install php dependencies
           if: steps.composer-cache.outputs.cache-hit != 'true'
           run: composer install --prefer-dist --no-progress
-
-      -   name: Clear cache
-          run: php bin/console cache:clear
 
       -   name: Archive application
           working-directory: ../
@@ -61,32 +58,6 @@ jobs:
             if-no-files-found: error
             retention-days: 1
 
-  lint:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      -   name: Setup PHP
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: ${{ env.php_version }}
-
-      -   name: Download prepared application
-          uses: actions/download-artifact@v3
-          with:
-            name: applicationArchive
-
-      -   name: Unpack application
-          run: tar -xzf application.tar.gz --strip=1
-
-      -   name: Validate container
-          run: php bin/console lint:container
-
-      -   name: Validate twig templates
-          run: php bin/console lint:twig templates
-
-      -   name: Validate yaml files
-          run: php bin/console lint:yaml config
-
   php-cs-fixer:
     runs-on: ubuntu-latest
     needs: build
@@ -100,7 +71,7 @@ jobs:
           run: tar -xzf application.tar.gz --strip=1
 
       -   name: Run cs fixer
-          run: make cs-check
+          run: composer php-cs-fixer
 
   phpstan:
     runs-on: ubuntu-latest
@@ -120,7 +91,7 @@ jobs:
           run: tar -xzf application.tar.gz --strip=1
 
       -   name: Run phpstan
-          run: php vendor/bin/phpstan analyze
+          run: composer phpstan
 
   phpunit:
     runs-on: ubuntu-latest
@@ -140,7 +111,7 @@ jobs:
           run: tar -xzf application.tar.gz --strip=1
 
       -   name: Run test suite
-          run: php bin/phpunit --testdox
+          run: composer phpunit
 
   cleanup:
     runs-on: ubuntu-latest

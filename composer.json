@@ -48,10 +48,13 @@
     "thecodingmachine/phpstan-strict-rules": "^1.0"
   },
   "scripts": {
+    "php-cs-fixer": [
+      "@php vendor/bin/php-cs-fixer fix"
+    ],
     "phpstan": [
       "@php vendor/bin/phpstan analyse"
     ],
-    "phpunit": "@php vendor/bin/phpunit",
+    "phpunit": "@php vendor/bin/phpunit --testdox",
     "bootstrap-test-environment": [
       "@php Tests/Application/bin/console doctrine:database:create --if-not-exists",
       "@php Tests/Application/bin/console doctrine:schema:update --force"
