@@ -57,8 +57,9 @@
     ],
     "phpunit": "@php vendor/bin/phpunit --testdox",
     "bootstrap-test-environment": [
-      "@php Tests/Application/bin/console doctrine:database:create --if-not-exists",
-      "@php Tests/Application/bin/console doctrine:schema:update --force"
+      "@php Tests/Application/bin/adminconsole doctrine:database:drop --if-exists --force --env test",
+      "@php Tests/Application/bin/adminconsole doctrine:database:create --env test",
+      "@php Tests/Application/bin/adminconsole doctrine:schema:update --force --env test"
     ]
   },
   "autoload": {
