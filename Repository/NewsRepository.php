@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Repository;
 
-use Doctrine\ORM\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;

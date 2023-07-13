@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Repository;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManager;
 use Sulu\Bundle\TestBundle\Testing\PurgeDatabaseTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
