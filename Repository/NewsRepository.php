@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Repository;
 
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
@@ -29,8 +31,8 @@ class NewsRepository extends ServiceEntityRepository implements DataProviderRepo
     }
 
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(News $news): void
     {
@@ -48,13 +50,7 @@ class NewsRepository extends ServiceEntityRepository implements DataProviderRepo
             ->setParameter('created', \date('Y-m-d H:i:s'))
             ->orderBy('n.publishedAt', 'DESC');
 
-        $news = $qb->getQuery()->getResult();
-
-        if (!$news) {
-            return [];
-        }
-
-        return $news;
+        return $qb->getQuery()->getResult();
     }
 
     public function findById(int $id): ?News
@@ -68,8 +64,8 @@ class NewsRepository extends ServiceEntityRepository implements DataProviderRepo
     }
 
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function remove(int $id): void
     {

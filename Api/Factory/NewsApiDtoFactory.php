@@ -16,16 +16,16 @@ final class NewsApiDtoFactory
             $entity->getContent(),
             $entity->isEnabled(),
             $entity->getPublishedAt(),
-            $entity->getRoute()?->getPath(),
-            $entity->getTagNameArray(),
-            [
+            route: $entity->getRoute()?->getPath(),
+            tags: $entity->getTagNameArray(),
+            header: [
                 'id' => $entity->getHeader()?->getId(),
             ],
-            $entity->getCreated(),
-            $entity->getCreated(),
-            $entity->getChanged(),
-            $entity->getCreator()?->getId(),
-            $entity->getSeo()
+            authored: $entity->getCreated(),
+            created: $entity->getCreated(),
+            changed: $entity->getChanged(),
+            author: $entity->getCreator()?->getId(),
+            ext: $entity->getSeo()
         );
     }
 }

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Repository;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 use Sulu\Bundle\TestBundle\Testing\PurgeDatabaseTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
@@ -33,12 +35,12 @@ final class NewsRepositoryTest extends SuluTestCase
     /**
      * @var EntityManager
      */
-    private \Doctrine\ORM\EntityManagerInterface $em;
+    private EntityManagerInterface $em;
 
     /**
      * @var NewsRepository
      */
-    private \Doctrine\ORM\EntityRepository $newsRepository;
+    private EntityRepository $newsRepository;
 
     protected function setUp(): void
     {
