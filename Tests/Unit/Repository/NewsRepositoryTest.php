@@ -68,7 +68,7 @@ final class NewsRepositoryTest extends SuluTestCase
 
         $result = $this->newsRepository->getPublishedNews();
 
-        self::assertCount(2, $result);
+        self::assertCount(1, $result);
     }
 
     public function testGetPublishedNewsWithEmptyDatabase(): void
