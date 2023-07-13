@@ -1,0 +1,516 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Sulu\\\\Bundle\\\\AdminBundle\\\\Admin\\\\View\\\\PreviewFormViewBuilderInterface\\:\\:disablePreviewWebspaceChooser\\(\\)\\.$#"
+			count: 1
+			path: Admin/NewsAdmin.php
+
+		-
+			message: "#^Cannot call method getId\\(\\) on mixed\\.$#"
+			count: 2
+			path: Api/Factory/NewsApiDtoFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of class TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Api\\\\News constructor expects int, int\\|null given\\.$#"
+			count: 1
+			path: Api/Factory/NewsApiDtoFactory.php
+
+		-
+			message: "#^Using nullsafe method call on non\\-nullable type Sulu\\\\Bundle\\\\RouteBundle\\\\Model\\\\RouteInterface\\. Use \\-\\> instead\\.$#"
+			count: 1
+			path: Api/Factory/NewsApiDtoFactory.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Api\\\\News\\:\\:__construct\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Api/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Api\\\\News\\:\\:__construct\\(\\) has parameter \\$header with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Api/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Api\\\\News\\:\\:__construct\\(\\) has parameter \\$tags with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Api/News.php
+
+		-
+			message: "#^Call to an undefined method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListBuilderInterface\\:\\:setParameter\\(\\)\\.$#"
+			count: 1
+			path: Common/DoctrineListRepresentationFactory.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Common\\\\DoctrineListRepresentationFactory\\:\\:addHeader\\(\\) has parameter \\$news with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Common/DoctrineListRepresentationFactory.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Common\\\\DoctrineListRepresentationFactory\\:\\:addHeader\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Common/DoctrineListRepresentationFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Common\\\\DoctrineListRepresentationFactory\\:\\:addHeader\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Common/DoctrineListRepresentationFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\ListBuilderInterface\\:\\:where\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Common/DoctrineListRepresentationFactory.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Content\\\\NewsDataItem\\:\\:getId\\(\\) should return string but returns int\\|null\\.$#"
+			count: 1
+			path: Content/NewsDataItem.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Content\\\\NewsDataItem\\:\\:getImage\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: Content/NewsDataItem.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Content\\\\NewsDataItem\\:\\:getTitle\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: Content/NewsDataItem.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Content\\\\NewsDataProvider\\:\\:decorateDataItems\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Content/NewsDataProvider.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Controller\\\\Admin\\\\NewsController\\:\\:generateApiNewsEntity\\(\\) expects string, string\\|null given\\.$#"
+			count: 4
+			path: Controller/Admin/NewsController.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Service\\\\News\\\\NewsService\\:\\:saveNewNews\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Controller/Admin/NewsController.php
+
+		-
+			message: "#^Parameter \\#3 \\$locale of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Service\\\\News\\\\NewsService\\:\\:updateNews\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Controller/Admin/NewsController.php
+
+		-
+			message: "#^Cannot call method load\\(\\) on mixed\\.$#"
+			count: 1
+			path: Controller/Website/NewsController.php
+
+		-
+			message: "#^Cannot call method mergeGlobals\\(\\) on mixed\\.$#"
+			count: 1
+			path: Controller/Website/NewsController.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Controller\\\\Website\\\\NewsController\\:\\:indexAction\\(\\) has parameter \\$attributes with no type specified\\.$#"
+			count: 1
+			path: Controller/Website/NewsController.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Controller\\\\Website\\\\NewsController\\:\\:indexAction\\(\\) has parameter \\$partial with no type specified\\.$#"
+			count: 1
+			path: Controller/Website/NewsController.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Controller\\\\Website\\\\NewsController\\:\\:indexAction\\(\\) has parameter \\$preview with no type specified\\.$#"
+			count: 1
+			path: Controller/Website/NewsController.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Controller\\\\Website\\\\NewsController\\:\\:renderBlock\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Controller/Website/NewsController.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Controller\\\\Website\\\\NewsController\\:\\:renderPreview\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Controller/Website/NewsController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: Controller/Website/NewsController.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\AbstractFactory\\:\\:getProperty\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Entity/Factory/AbstractFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of method Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaRepositoryInterface\\:\\:findMediaById\\(\\) expects int, mixed given\\.$#"
+			count: 1
+			path: Entity/Factory/MediaFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$id of class Sulu\\\\Component\\\\Rest\\\\Exception\\\\EntityNotFoundException constructor expects int\\|string, mixed given\\.$#"
+			count: 1
+			path: Entity/Factory/MediaFactory.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\MediaFactoryInterface\\:\\:generateMedia\\(\\) has parameter \\$header with no type specified\\.$#"
+			count: 1
+			path: Entity/Factory/MediaFactoryInterface.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\NewsFactory\\:\\:generateNewsFromRequest\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Entity/Factory/NewsFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$datetime of class DateTime constructor expects string, mixed given\\.$#"
+			count: 2
+			path: Entity/Factory/NewsFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$enabled of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:setEnabled\\(\\) expects bool, mixed given\\.$#"
+			count: 1
+			path: Entity/Factory/NewsFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$teaser of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:setTeaser\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Entity/Factory/NewsFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$title of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:setTitle\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Entity/Factory/NewsFactory.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\NewsFactoryInterface\\:\\:generateNewsFromRequest\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Entity/Factory/NewsFactoryInterface.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\NewsRouteFactory\\:\\:updateNewsRoute\\(\\) should return Sulu\\\\Bundle\\\\RouteBundle\\\\Model\\\\RouteInterface but returns Sulu\\\\Bundle\\\\RouteBundle\\\\Model\\\\RouteInterface\\|null\\.$#"
+			count: 1
+			path: Entity/Factory/NewsRouteFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Sulu\\\\Bundle\\\\TagBundle\\\\Tag\\\\TagManagerInterface\\:\\:findOrCreateByName\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Entity/Factory/TagFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$requestEntities of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\TagFactory\\:\\:processSubEntities\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: Entity/Factory/TagFactory.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\TagFactoryInterface\\:\\:processTags\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Entity/Factory/TagFactoryInterface.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\TagFactoryInterface\\:\\:processTags\\(\\) has parameter \\$tags with no type specified\\.$#"
+			count: 1
+			path: Entity/Factory/TagFactoryInterface.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on mixed\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:addTag\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:getContent\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:getLocale\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:getRoute\\(\\) should return Sulu\\\\Bundle\\\\RouteBundle\\\\Model\\\\RouteInterface but returns Sulu\\\\Bundle\\\\RouteBundle\\\\Model\\\\RouteInterface\\|null\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:getSeo\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:getTagNameArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:getTags\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:setContent\\(\\) has parameter \\$content with no type specified\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:setSeo\\(\\) has parameter \\$seo with no type specified\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$changed type mapping mismatch\\: property can contain DateTime\\|null but database expects DateTimeInterface\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$changer \\(TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\ContactInterface\\) does not accept mixed\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$changer has unknown class TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\ContactInterface as its type\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$changer type mapping mismatch\\: database can contain Sulu\\\\Bundle\\\\ContactBundle\\\\Entity\\\\Contact\\|null but property expects TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\ContactInterface\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$changer type mapping mismatch\\: property can contain TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\ContactInterface but database expects Sulu\\\\Bundle\\\\ContactBundle\\\\Entity\\\\Contact\\|null\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$created type mapping mismatch\\: property can contain DateTime\\|null but database expects DateTimeInterface\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$creator \\(TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\ContactInterface\\) does not accept mixed\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$creator has unknown class TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\ContactInterface as its type\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$creator type mapping mismatch\\: database can contain Sulu\\\\Bundle\\\\ContactBundle\\\\Entity\\\\Contact\\|null but property expects TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\ContactInterface\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$creator type mapping mismatch\\: property can contain TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\ContactInterface but database expects Sulu\\\\Bundle\\\\ContactBundle\\\\Entity\\\\Contact\\|null\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$header \\(Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaInterface\\) does not accept mixed\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$header type mapping mismatch\\: database can contain Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\Media\\|null but property expects Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaInterface\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$header type mapping mismatch\\: property can contain Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\MediaInterface but database expects Sulu\\\\Bundle\\\\MediaBundle\\\\Entity\\\\Media\\|null\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$locale type mapping mismatch\\: property can contain string\\|null but database expects string\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$publishedAt type mapping mismatch\\: property can contain DateTime\\|null but database expects DateTimeInterface\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$route type mapping mismatch\\: property can contain Sulu\\\\Bundle\\\\RouteBundle\\\\Model\\\\RouteInterface\\|null but database expects Sulu\\\\Bundle\\\\RouteBundle\\\\Entity\\\\Route\\|null\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$tags has no type specified\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\:\\:\\$title type mapping mismatch\\: property can contain string\\|null but database expects string\\.$#"
+			count: 1
+			path: Entity/News.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\NewsInterface\\:\\:getContent\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Entity/NewsInterface.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\NewsInterface\\:\\:getCreator\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Entity/NewsInterface.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Event\\\\NewsCreatedActivityEvent\\:\\:__construct\\(\\) has parameter \\$payload with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Event/NewsCreatedActivityEvent.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Event\\\\NewsModifiedActivityEvent\\:\\:__construct\\(\\) has parameter \\$payload with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Event/NewsModifiedActivityEvent.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Event\\\\NewsRemovedActivityEvent\\:\\:__construct\\(\\) has parameter \\$payload with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Event/NewsRemovedActivityEvent.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Preview\\\\NewsObjectProvider\\:\\:deserialize\\(\\) should return TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News but returns mixed\\.$#"
+			count: 1
+			path: Preview/NewsObjectProvider.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Preview\\\\NewsObjectProvider\\:\\:getId\\(\\) has parameter \\$object with no type specified\\.$#"
+			count: 1
+			path: Preview/NewsObjectProvider.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Preview\\\\NewsObjectProvider\\:\\:serialize\\(\\) has parameter \\$object with no type specified\\.$#"
+			count: 1
+			path: Preview/NewsObjectProvider.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Preview\\\\NewsObjectProvider\\:\\:setContext\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Preview/NewsObjectProvider.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Preview\\\\NewsObjectProvider\\:\\:setContext\\(\\) has parameter \\$object with no type specified\\.$#"
+			count: 1
+			path: Preview/NewsObjectProvider.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Preview\\\\NewsObjectProvider\\:\\:setValues\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Preview/NewsObjectProvider.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Preview\\\\NewsObjectProvider\\:\\:setValues\\(\\) has parameter \\$object with no type specified\\.$#"
+			count: 1
+			path: Preview/NewsObjectProvider.php
+
+		-
+			message: "#^Class TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Repository\\\\NewsRepository extends generic class Doctrine\\\\Bundle\\\\DoctrineBundle\\\\Repository\\\\ServiceEntityRepository but does not specify its types\\: TEntityClass$#"
+			count: 1
+			path: Repository/NewsRepository.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Repository\\\\NewsRepository\\:\\:findByFilters\\(\\) has parameter \\$filters with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Repository/NewsRepository.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Repository\\\\NewsRepository\\:\\:findById\\(\\) should return TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\|null but returns object\\.$#"
+			count: 1
+			path: Repository/NewsRepository.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Repository\\\\NewsRepository\\:\\:getPublishedNews\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Repository/NewsRepository.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:remove\\(\\) expects object, object\\|null given\\.$#"
+			count: 1
+			path: Repository/NewsRepository.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Routing\\\\NewsRouteDefaultProvider\\:\\:getByEntity\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Routing/NewsRouteDefaultProvider.php
+
+		-
+			message: "#^Cannot access offset 'route' on mixed\\.$#"
+			count: 2
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^Cannot call method getContact\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null\\.$#"
+			count: 3
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^Do not throw the \\\\Exception base class\\. Instead, extend the \\\\Exception base class\\. More info\\: http\\://bit\\.ly/subtypeexception$#"
+			count: 1
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^Empty catch block\\. If you are sure this is meant to be empty, please add a \"// @ignoreException\" comment in the catch block\\.$#"
+			count: 2
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^In method \"TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Service\\\\News\\\\NewsService\\:\\:saveNewNews\", caught \"Exception\" must be rethrown\\. Either catch a more specific exception or add a \"throw\" clause in the \"catch\" block to propagate the exception\\. More info\\: http\\://bit\\.ly/failloud$#"
+			count: 1
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^In method \"TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Service\\\\News\\\\NewsService\\:\\:updateNews\", caught \"Exception\" must be rethrown\\. Either catch a more specific exception or add a \"throw\" clause in the \"catch\" block to propagate the exception\\. More info\\: http\\://bit\\.ly/failloud$#"
+			count: 1
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Service\\\\News\\\\NewsService\\:\\:saveNewNews\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Service\\\\News\\\\NewsService\\:\\:updateNewsPublish\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^PHPDoc tag @var for property TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Service\\\\News\\\\NewsService\\:\\:\\$loginUser with type object\\|string is not subtype of native type Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null\\.$#"
+			count: 1
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^Parameter \\#1 \\$message of class Exception constructor expects string, int given\\.$#"
+			count: 1
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^Parameter \\#2 \\$data of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\NewsFactory\\:\\:generateNewsFromRequest\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^Parameter \\#2 \\$routePath of method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\Factory\\\\NewsRouteFactory\\:\\:updateNewsRoute\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Service/News/NewsService.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Service\\\\News\\\\NewsServiceInterface\\:\\:saveNewNews\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Service/News/NewsServiceInterface.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Service\\\\News\\\\NewsServiceInterface\\:\\:updateNews\\(\\) has parameter \\$data with no type specified\\.$#"
+			count: 1
+			path: Service/News/NewsServiceInterface.php
+
+		-
+			message: "#^Method TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Twig\\\\NewsTwigExtension\\:\\:resolveNewsFunction\\(\\) should return TheCadien\\\\Bundle\\\\SuluNewsBundle\\\\Entity\\\\News\\|null but returns object\\|null\\.$#"
+			count: 1
+			path: Twig/NewsTwigExtension.php
