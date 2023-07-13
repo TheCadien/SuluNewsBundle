@@ -10,7 +10,6 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace Functional\Admin;
 
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
@@ -24,11 +23,11 @@ final class AdminBackendTest extends SuluTestCase
 {
     public function testListMetadataAction(): void
     {
-        $client = $this->createAuthenticatedClient();
+        $client = self::createAuthenticatedClient();
 
-        $client->request('GET', '/admin/metadata/list/news');
+        $client->jsonRequest('GET', 'admin/metadata/list/news');
 
-        $this->assertHttpStatusCode(200, $client->getResponse());
+        self::assertHttpStatusCode(200, $client->getResponse());
         $response = \json_decode($client->getResponse()->getContent(), null, 512, \JSON_THROW_ON_ERROR);
 
         static::assertObjectHasAttribute('title', $response);
