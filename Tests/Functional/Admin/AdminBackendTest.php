@@ -27,7 +27,6 @@ final class AdminBackendTest extends SuluTestCase
         $client = self::createAuthenticatedClient();
 
         $client->jsonRequest('GET', 'admin/metadata/list/news');
-
         self::assertHttpStatusCode(200, $client->getResponse());
         $response = \json_decode($client->getResponse()->getContent(), null, 512, \JSON_THROW_ON_ERROR);
 
@@ -45,7 +44,7 @@ final class AdminBackendTest extends SuluTestCase
 
     public function testFormMetadataAction(): void
     {
-        $client = $this->createAuthenticatedClient();
+        $client = self::createAuthenticatedClient();
 
         $client->request('GET', '/admin/metadata/form/news_details_add');
 

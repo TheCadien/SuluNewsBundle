@@ -8,7 +8,7 @@ class NewsControllerTest extends SuluTestCase
 {
     public function testAppGetNews()
     {
-        $client = static::createClient();
+        $client = static::createAuthenticatedClient();
         $client->request('get', '/admin/api/news/1');
 
         $response = $client->getResponse();
