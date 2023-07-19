@@ -17,6 +17,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsRouteFactory;
@@ -43,7 +44,7 @@ class NewsService implements NewsServiceInterface
         TokenStorageInterface $tokenStorage,
         private readonly DomainEventCollectorInterface $domainEventCollector
     ) {
-        if (null !== $tokenStorage->getToken()) {
+        if ($tokenStorage->getToken() instanceof TokenInterface) {
             $this->loginUser = $tokenStorage->getToken()->getUser();
         }
     }

@@ -15,13 +15,14 @@ namespace TheCadien\Bundle\SuluNewsBundle\Content;
 
 use JMS\Serializer\Context;
 use JMS\Serializer\SerializationContext;
+use Sulu\Component\SmartContent\Configuration\ProviderConfigurationInterface;
 use Sulu\Component\SmartContent\Orm\BaseDataProvider;
 
 class NewsDataProvider extends BaseDataProvider
 {
     public function getConfiguration()
     {
-        if (null === $this->configuration) {
+        if (!$this->configuration instanceof ProviderConfigurationInterface) {
             $this->configuration = self::createConfigurationBuilder()
                 ->enableLimit()
                 ->enablePagination()

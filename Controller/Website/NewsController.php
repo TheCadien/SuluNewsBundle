@@ -23,7 +23,7 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 #[AsController]
 final class NewsController extends AbstractController
 {
-    public function indexAction(News $news, $attributes = [], $preview = false, $partial = false): Response
+    public function index(News $news, $attributes = [], $preview = false, $partial = false): Response
     {
         if (!$news) {
             throw new NotFoundHttpException();

@@ -39,7 +39,7 @@ final class NewsController extends AbstractController
     }
 
     #[Route('/news', name: 'app.cget_news', methods: ['GET'])]
-    public function cgetAction(Request $request): Response
+    public function cget(Request $request): Response
     {
         $locale = $request->query->get('locale');
         $listRepresentation = $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
@@ -52,9 +52,9 @@ final class NewsController extends AbstractController
     }
 
     #[Route('/news/{id}', name: 'app.get_news', methods: ['GET'])]
-    public function getAction(int $id, Request $request): Response
+    public function get(int $id, Request $request): Response
     {
-        if (($entity = $this->repository->findById($id)) === null) {
+        if (!($entity = $this->repository->findById($id)) instanceof \TheCadien\Bundle\SuluNewsBundle\Entity\News) {
             throw new NotFoundHttpException();
         }
         $apiEntity = $this->generateApiNewsEntity($entity, $request->query->get('locale'));
@@ -63,7 +63,7 @@ final class NewsController extends AbstractController
     }
 
     #[Route('/news', name: 'app.post_news', methods: ['POST'])]
-    public function postAction(Request $request): Response
+    public function post(Request $request): Response
     {
         $news = $this->newsService->saveNewNews($request->request->all(), $request->query->get('locale'));
 
@@ -73,7 +73,7 @@ final class NewsController extends AbstractController
     }
 
     #[Route('/news/{id}', name: 'app.post_news_trigger', methods: ['POST'])]
-    public function postTriggerAction(int $id, Request $request): Response
+    public function postTrigger(int $id, Request $request): Response
     {
         $news = $this->repository->findById($id);
         if (!$news instanceof News) {
@@ -90,7 +90,7 @@ final class NewsController extends AbstractController
     }
 
     #[Route('/news/{id}', name: 'app.put_news', methods: ['PUT'])]
-    public function putAction(int $id, Request $request): Response
+    public function put(int $id, Request $request): Response
     {
         $entity = $this->repository->findById($id);
         if (!$entity instanceof News) {
@@ -104,7 +104,7 @@ final class NewsController extends AbstractController
     }
 
     #[Route('/news/{id}', name: 'app.delete_news', methods: ['DELETE'])]
-    public function deleteAction(int $id): Response
+    public function delete(int $id): Response
     {
         try {
             $this->newsService->removeNews($id);

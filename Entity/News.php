@@ -195,7 +195,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
     {
         $tags = [];
 
-        if (null !== $this->getTags()) {
+        if ($this->getTags() instanceof Collection) {
             foreach ($this->getTags() as $tag) {
                 $tags[] = $tag->getName();
             }
