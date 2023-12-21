@@ -17,5 +17,6 @@
   </testsuites>
   <php>
     <env name="KERNEL_CLASS" value="TheCadien\Bundle\SuluNewsBundle\Tests\Application\Kernel"/>
+    <env name="APP_ENV" value="test" force="true"/>
   </php>
 </phpunit>
