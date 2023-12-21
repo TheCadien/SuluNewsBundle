@@ -30,7 +30,7 @@ final class NewsController extends AbstractController
         }
 
         if ($partial) {
-            $content = $this->renderBlock(
+            $content = $this->renderBlockView(
                 'news/index.html.twig',
                 'content',
                 ['news' => $news]
@@ -61,7 +61,7 @@ final class NewsController extends AbstractController
     /**
      * Returns rendered part of template specified by block.
      */
-    protected function renderBlock(mixed $template, mixed $block, mixed $attributes = [])
+    protected function renderBlockView(mixed $template, mixed $block, mixed $attributes = []): string
     {
         $twig = $this->container->get('twig');
         $attributes = $twig->mergeGlobals($attributes);
@@ -72,7 +72,7 @@ final class NewsController extends AbstractController
         \ob_start();
 
         try {
-            $rendered = $template->renderBlock($block, $attributes);
+            $rendered = $template->renderBlockView($block, $attributes);
             \ob_end_clean();
 
             return $rendered;
