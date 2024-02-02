@@ -13,18 +13,26 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Doctrine\Persistence\ManagerRegistry;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 /**
  * Class NewsRepository.
  */
-class NewsRepository extends EntityRepository implements DataProviderRepositoryInterface
+class NewsRepository extends ServiceEntityRepository implements DataProviderRepositoryInterface
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, News::class);
+    }
+
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(News $news): void
     {
@@ -38,17 +46,11 @@ class NewsRepository extends EntityRepository implements DataProviderRepositoryI
         $qb->select('n')
             ->from('NewsBundle:News', 'n')
             ->where('n.enabled = 1')
-            ->andWhere('n.publishedAt <= :created')
-            ->setParameter('created', \date('Y-m-d H:i:s'))
+            ->andWhere('n.publishedAt <= :published')
+            ->setParameter('published', \date('Y-m-d H:i:s'))
             ->orderBy('n.publishedAt', 'DESC');
 
-        $news = $qb->getQuery()->getResult();
-
-        if (!$news) {
-            return [];
-        }
-
-        return $news;
+        return $qb->getQuery()->getResult();
     }
 
     public function findById(int $id): ?News
@@ -62,8 +64,8 @@ class NewsRepository extends EntityRepository implements DataProviderRepositoryI
     }
 
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function remove(int $id): void
     {

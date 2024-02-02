@@ -13,16 +13,13 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
-use Sulu\Bundle\RouteBundle\Manager\RouteManager;
+use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 class NewsRouteFactory implements NewsRouteFactoryInterface
 {
-    /**
-     * NewsFactory constructor.
-     */
-    public function __construct(private readonly RouteManager $routeManager)
+    public function __construct(private readonly RouteManagerInterface $routeManager)
     {
     }
 

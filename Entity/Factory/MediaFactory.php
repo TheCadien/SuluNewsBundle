@@ -17,7 +17,7 @@ use Sulu\Bundle\MediaBundle\Entity\Media;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
 use Sulu\Component\Rest\Exception\EntityNotFoundException;
 
-class MediaFactory extends AbstractFactory implements MediaFactoryInterface
+class MediaFactory implements MediaFactoryInterface
 {
     /**
      * NewsFactory constructor.

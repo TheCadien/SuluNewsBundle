@@ -11,27 +11,26 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace TheCadien\Bundle\SuluNewsBundle\Controller;
+namespace TheCadien\Bundle\SuluNewsBundle\Controller\Website;
 
 use Sulu\Bundle\PreviewBundle\Preview\Preview;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
-/**
- * Class NewsWebsiteController.
- */
-class NewsWebsiteController extends AbstractController
+#[AsController]
+final class NewsController extends AbstractController
 {
-    public function indexAction(News $news, $attributes = [], $preview = false, $partial = false): Response
+    public function index(News $news, $attributes = [], $preview = false, $partial = false): Response
     {
         if (!$news) {
             throw new NotFoundHttpException();
         }
 
         if ($partial) {
-            $content = $this->renderBlock(
+            $content = $this->renderBlockView(
                 'news/index.html.twig',
                 'content',
                 ['news' => $news]
@@ -62,7 +61,7 @@ class NewsWebsiteController extends AbstractController
     /**
      * Returns rendered part of template specified by block.
      */
-    protected function renderBlock(mixed $template, mixed $block, mixed $attributes = [])
+    protected function renderBlockView(mixed $template, mixed $block, mixed $attributes = []): string
     {
         $twig = $this->container->get('twig');
         $attributes = $twig->mergeGlobals($attributes);
@@ -73,7 +72,7 @@ class NewsWebsiteController extends AbstractController
         \ob_start();
 
         try {
-            $rendered = $template->renderBlock($block, $attributes);
+            $rendered = $template->renderBlockView($block, $attributes);
             \ob_end_clean();
 
             return $rendered;

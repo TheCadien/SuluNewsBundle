@@ -13,153 +13,92 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Controller\Admin;
 
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
-use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Routing\ClassResourceInterface;
-use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandlerInterface;
-use Sulu\Component\Rest\AbstractRestController;
-use Sulu\Component\Rest\Exception\EntityNotFoundException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use TheCadien\Bundle\SuluNewsBundle\Admin\DoctrineListRepresentationFactory;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Routing\Annotation\Route;
+use TheCadien\Bundle\SuluNewsBundle\Api\Factory\NewsApiDtoFactory;
 use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
+use TheCadien\Bundle\SuluNewsBundle\Common\DoctrineListRepresentationFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
-use TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository;
+use TheCadien\Bundle\SuluNewsBundle\Exception\NewsException;
 use TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService;
 
-class NewsController extends AbstractRestController implements ClassResourceInterface
+#[AsController]
+final class NewsController extends AbstractController
 {
-    // serialization groups for contact
-    protected static $oneNewsSerializationGroups = [
-        'partialMedia',
-        'fullNews',
-    ];
-
-    /**
-     * NewsController constructor.
-     */
     public function __construct(
-        ViewHandlerInterface $viewHandler,
-        TokenStorageInterface $tokenStorage,
-        private readonly NewsRepository $repository,
         private readonly NewsService $newsService,
         private readonly DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
+        private readonly NewsApiDtoFactory $apiDtoFactory
     ) {
-        parent::__construct($viewHandler, $tokenStorage);
     }
 
-    public function cgetAction(Request $request): Response
+    #[Route('/news', name: 'app.cget_news', methods: ['GET'])]
+    public function cget(Request $request): Response
     {
-        $locale = $request->query->get('locale');
         $listRepresentation = $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
             News::RESOURCE_KEY,
             [],
-            ['locale' => $locale]
+            ['locale' => $request->query->get('locale')]
         );
 
-        return $this->handleView($this->view($listRepresentation));
+        return $this->json($listRepresentation->toArray());
     }
 
-    public function getAction(int $id, Request $request): Response
+    #[Route('/news/{id}', name: 'app.get_news', methods: ['GET'])]
+    public function get(News $news, Request $request): Response
     {
-        if (($entity = $this->repository->findById($id)) === null) {
-            throw new NotFoundHttpException();
-        }
-
-        $apiEntity = $this->generateApiNewsEntity($entity, $this->getLocale($request));
-
-        $view = $this->generateViewContent($apiEntity);
-
-        return $this->handleView($view);
+        return $this->json($this->apiDtoFactory->generate($news, $request->query->get('locale')));
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function postAction(Request $request): Response
-    {
-        $news = $this->newsService->saveNewNews($request->request->all(), $this->getLocale($request));
-
-        $apiEntity = $this->generateApiNewsEntity($news, $this->getLocale($request));
-
-        $view = $this->generateViewContent($apiEntity);
-
-        return $this->handleView($view);
-    }
-
-    /**
-     * @Rest\Post("/news/{id}")
-     */
-    public function postTriggerAction(int $id, Request $request): Response
-    {
-        $news = $this->repository->findById($id);
-        if (!$news instanceof News) {
-            throw new NotFoundHttpException();
-        }
-
-        $news = $this->newsService->updateNewsPublish($news, $request->query->all());
-
-        $apiEntity = $this->generateApiNewsEntity($news, $this->getLocale($request));
-        $view = $this->generateViewContent($apiEntity);
-
-        return $this->handleView($view);
-    }
-
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function putAction(int $id, Request $request): Response
-    {
-        $entity = $this->repository->findById($id);
-        if (!$entity instanceof News) {
-            throw new NotFoundHttpException();
-        }
-
-        $updatedEntity = $this->newsService->updateNews($request->request->all(), $entity, $this->getLocale($request));
-        $apiEntity = $this->generateApiNewsEntity($updatedEntity, $this->getLocale($request));
-        $view = $this->generateViewContent($apiEntity);
-
-        return $this->handleView($view);
-    }
-
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function deleteAction(int $id): Response
+    #[Route('/news', name: 'app.post_news', methods: ['POST'])]
+    public function post(#[MapRequestPayload(acceptFormat: 'json')] NewsApi $newsApi, Request $request): Response
     {
         try {
-            $this->newsService->removeNews($id);
-        } catch (\Exception) {
-            throw new EntityNotFoundException(self::$entityName, $id);
+            $news = $this->newsService->saveNewNews($newsApi, $request->query->get('locale'));
+        } catch (NewsException) {
+            throw new NewsException();
         }
 
-        return $this->handleView($this->view());
+        return $this->json($this->apiDtoFactory->generate($news, $request->query->get('locale')), 200, [], ['fullNews']);
     }
 
-    public static function getPriority(): int
+    #[Route('/news/{id}', name: 'app.post_news_trigger', methods: ['POST'])]
+    public function postTrigger(News $news, Request $request): Response
     {
-        return 0;
+        try {
+            $news = $this->newsService->updateNewsPublish($news, $request->query->all());
+        } catch (NewsException) {
+            throw new NewsException();
+        }
+
+        return $this->json($this->apiDtoFactory->generate($news, $request->query->get('locale')));
     }
 
-    protected function generateApiNewsEntity(News $entity, string $locale): NewsApi
+    #[Route('/news/{id}', name: 'app.put_news', methods: ['PUT'])]
+    public function put(News $news, #[MapRequestPayload(acceptFormat: 'json')] NewsApi $newsApi, Request $request): Response
     {
-        return new NewsApi($entity, $locale);
+        try {
+            $updatedEntity = $this->newsService->updateNews($newsApi, $news, $request->query->get('locale'));
+        } catch (NewsException) {
+            throw new NewsException();
+        }
+
+        return $this->json($this->apiDtoFactory->generate($updatedEntity, $request->query->get('locale')));
     }
 
-    protected function generateViewContent(NewsApi $entity): View
+    #[Route('/news/{id}', name: 'app.delete_news', methods: ['DELETE'])]
+    public function delete(News $news): Response
     {
-        $view = $this->view($entity);
-        $context = new Context();
-        $context->setGroups(static::$oneNewsSerializationGroups);
+        try {
+            $this->newsService->removeNews($news->getId());
+        } catch (NewsException) {
+            throw new NewsException();
+        }
 
-        return $view->setContext($context);
+        return $this->json(null, 204);
     }
 }

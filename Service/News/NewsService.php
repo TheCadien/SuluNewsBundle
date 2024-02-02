@@ -17,7 +17,9 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsRouteFactory;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
@@ -43,7 +45,7 @@ class NewsService implements NewsServiceInterface
         TokenStorageInterface $tokenStorage,
         private readonly DomainEventCollectorInterface $domainEventCollector
     ) {
-        if (null !== $tokenStorage->getToken()) {
+        if ($tokenStorage->getToken() instanceof TokenInterface) {
             $this->loginUser = $tokenStorage->getToken()->getUser();
         }
     }
@@ -52,7 +54,7 @@ class NewsService implements NewsServiceInterface
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function saveNewNews(array $data, string $locale): News
+    public function saveNewNews(NewsApi $data, string $locale): News
     {
         $news = null;
         try {
@@ -82,7 +84,7 @@ class NewsService implements NewsServiceInterface
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function updateNews($data, News $news, string $locale): News
+    public function updateNews(NewsApi $data, News $news, string $locale): News
     {
         try {
             $news = $this->newsFactory->generateNewsFromRequest($news, $data, $locale);
@@ -91,8 +93,8 @@ class NewsService implements NewsServiceInterface
 
         $news->setchanger($this->loginUser->getContact());
 
-        if ($news->getRoute()->getPath() !== $data['route']) {
-            $route = $this->routeFactory->updateNewsRoute($news, $data['route']);
+        if ($news->getRoute()->getPath() !== $data->route && $data->route) {
+            $route = $this->routeFactory->updateNewsRoute($news, $data->route);
             $news->setRoute($route);
         }
 

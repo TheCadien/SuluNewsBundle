@@ -1,0 +1,88 @@
+services:
+
+  TheCadien\Bundle\SuluNewsBundle\Admin\NewsAdmin:
+    arguments:
+      - '@sulu_admin.view_builder_factory'
+      - '@sulu_core.webspace.webspace_manager'
+      - '@sulu_security.security_checker'
+      - '@sulu_activity.activity_list_view_builder_factory'
+    tags: [ 'sulu.admin', { name: 'sulu.context', context: 'admin' } ]
+
+  TheCadien\Bundle\SuluNewsBundle\Controller\Admin\NewsController:
+    arguments:
+      - '@TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService'
+      - '@TheCadien\Bundle\SuluNewsBundle\Common\DoctrineListRepresentationFactory'
+      - '@TheCadien\Bundle\SuluNewsBundle\Api\Factory\NewsApiDtoFactory'
+    autoconfigure: true;
+    autowire: true;
+    tags: [ 'controller.service_arguments', { name: 'sulu.context', context: 'admin' } ]
+
+  TheCadien\Bundle\SuluNewsBundle\Controller\Website\NewsController:
+    tags: [ 'controller.service_arguments', { name: 'sulu.context', context: 'website' } ]
+    autoconfigure: true;
+    autowire: true;
+
+
+  TheCadien\Bundle\SuluNewsBundle\Twig\NewsTwigExtension:
+    tags: [ 'twig.extension' ]
+    arguments:
+      - '@TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository'
+
+  TheCadien\Bundle\SuluNewsBundle\Content\NewsSelectionContentType:
+    tags: [ { name: 'sulu.content.type', alias: 'news_selection' } ]
+    arguments:
+      - '@TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository'
+
+  TheCadien\Bundle\SuluNewsBundle\Routing\NewsRouteDefaultProvider:
+    tags: [ 'sulu_route.defaults_provider' ]
+    arguments:
+      - '@TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository'
+
+  TheCadien\Bundle\SuluNewsBundle\Preview\NewsObjectProvider:
+    tags: [ { name: 'sulu.context', context: 'admin' }, { name: 'sulu_preview.object_provider', provider-key: 'news' } ]
+    arguments:
+      - '@TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository'
+      -
+  TheCadien\Bundle\SuluNewsBundle\Content\NewsDataProvider:
+    tags: [ { name: 'sulu_website.data_provider', alias: 'news' } ]
+    arguments:
+
+  TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository:
+    tags: [ 'doctrine.repository_service' ]
+    arguments:
+      - '@Doctrine\Persistence\ManagerRegistry'
+
+  TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService:
+    arguments:
+      - '@TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository'
+      - '@TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory'
+      - '@TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsRouteFactory'
+      - '@security.untracked_token_storage'
+      - '@sulu_activity.domain_event_collector'
+
+  TheCadien\Bundle\SuluNewsBundle\Common\DoctrineListRepresentationFactory:
+    arguments:
+      - '@sulu_core.doctrine_rest_helper'
+      - '@sulu_core.doctrine_list_builder_factory'
+      - '@sulu_core.list_builder.field_descriptor_factory'
+      - '@sulu_media.media_manager'
+
+  TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsFactory:
+    arguments:
+      - '@TheCadien\Bundle\SuluNewsBundle\Entity\Factory\MediaFactory'
+      - '@TheCadien\Bundle\SuluNewsBundle\Entity\Factory\TagFactory'
+      - '@sulu.repository.contact'
+
+  TheCadien\Bundle\SuluNewsBundle\Entity\Factory\NewsRouteFactory:
+    arguments:
+      - '@sulu_route.manager.route_manager'
+
+  TheCadien\Bundle\SuluNewsBundle\Entity\Factory\TagFactory:
+    arguments:
+      - '@sulu_tag.tag_manager'
+
+  TheCadien\Bundle\SuluNewsBundle\Entity\Factory\MediaFactory:
+    arguments:
+      - '@sulu.repository.media'
+
+  TheCadien\Bundle\SuluNewsBundle\Api\Factory\NewsApiDtoFactory:

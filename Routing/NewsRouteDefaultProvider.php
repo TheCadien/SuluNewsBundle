@@ -26,7 +26,7 @@ class NewsRouteDefaultProvider implements RouteDefaultsProviderInterface
     public function getByEntity($entityClass, $id, $locale, $object = null)
     {
         return [
-            '_controller' => 'sulu_news.controller::indexAction',
+            '_controller' => 'TheCadien\Bundle\SuluNewsBundle\Controller\Website\NewsController::indexAction',
             'news' => $object ?: $this->newsRepository->findById((int) $id),
         ];
     }

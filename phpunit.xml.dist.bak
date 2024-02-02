@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="Tests/bootstrap.php">
+    <testsuites>
+        <testsuite name="Sulu News Bundle">
+            <directory>Tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory>.</directory>
+            <exclude>
+                <directory>Resources/</directory>
+                <directory>Tests/</directory>
+                <directory>vendor/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <php>
+        <env name="KERNEL_CLASS" value="TheCadien\Bundle\SuluNewsBundle\Tests\Application\Kernel"/>
+    </php>
+</phpunit>

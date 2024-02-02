@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\Accessor;
@@ -103,9 +102,6 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         $this->enabled = $enabled;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -121,33 +117,27 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         return $this->content ?: [];
     }
 
-    public function setContent($content): void
+    public function setContent(mixed $content): void
     {
         $this->content = $content;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getCreated(): ?DateTime
+    public function getCreated(): ?\DateTime
     {
         return $this->created;
     }
 
-    public function setCreated(DateTime $created): void
+    public function setCreated(\DateTime $created): void
     {
         $this->created = $created;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getPublishedAt(): ?DateTime
+    public function getPublishedAt(): ?\DateTime
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(DateTime $publishedAt): void
+    public function setPublishedAt(\DateTime $publishedAt): void
     {
         $this->publishedAt = $publishedAt;
     }
@@ -157,7 +147,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         return $this->teaser;
     }
 
-    public function setTeaser(string $teaser): void
+    public function setTeaser(?string $teaser): void
     {
         $this->teaser = $teaser;
     }
@@ -196,7 +186,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
     {
         $tags = [];
 
-        if (null !== $this->getTags()) {
+        if ($this->getTags() instanceof Collection) {
             foreach ($this->getTags() as $tag) {
                 $tags[] = $tag->getName();
             }
@@ -231,12 +221,12 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         $this->changer = $changer;
     }
 
-    public function getChanged(): DateTime
+    public function getChanged(): ?\DateTime
     {
         return $this->changed;
     }
 
-    public function setChanged(DateTime $changed): void
+    public function setChanged(\DateTime $changed): void
     {
         $this->changed = $changed;
     }

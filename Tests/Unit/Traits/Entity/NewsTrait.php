@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Traits\Entity;
 
-use DateTime;
 use Sulu\Bundle\RouteBundle\Entity\Route;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
@@ -22,12 +21,7 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News;
  */
 trait NewsTrait
 {
-    public function generateEmptyNews(): News
-    {
-        return new News();
-    }
-
-    public function generateNewsWithContent(): News
+    public function generateNews(): News
     {
         $news = new News();
         $contentArray = $this->generateNewsContentArray();
@@ -39,7 +33,7 @@ trait NewsTrait
         $news->setEnabled($contentArray['enable']);
         $news->setLocale($contentArray['locale']);
         $news->setRoute($contentArray['route']);
-        $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
+        $news->setPublishedAt(\DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
     }
@@ -63,7 +57,7 @@ trait NewsTrait
             'locale' => 'en',
             'route' => new Route('/test-1', 1, News::class, 'en'),
             'enable' => true,
-            'publishedAt' => '2017-08-31 00:00:00',
+            'publishedAt' => '2031-08-31 00:00:00',
         ];
     }
 
@@ -79,7 +73,7 @@ trait NewsTrait
         $news->setEnabled($contentArray['enable']);
         $news->setLocale($contentArray['locale']);
         $news->setRoute($contentArray['route']);
-        $news->setPublishedAt(DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
+        $news->setPublishedAt(\DateTime::createFromFormat('Y-m-d H:i:s', $contentArray['publishedAt']));
 
         return $news;
     }

@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
+use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 interface NewsFactoryInterface
 {
-    public function generateNewsFromRequest(News $news, array $data, string $locale): News;
+    public function generateNewsFromRequest(News $news, NewsApi $data, string $locale): News;
 }

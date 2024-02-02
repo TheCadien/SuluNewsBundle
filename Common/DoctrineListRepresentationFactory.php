@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace TheCadien\Bundle\SuluNewsBundle\Admin;
+namespace TheCadien\Bundle\SuluNewsBundle\Common;
 
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
@@ -67,10 +67,6 @@ class DoctrineListRepresentationFactory
         );
     }
 
-    /**
-     * Takes an array of contacts and resets the avatar containing the media id with
-     * the actual urls to the avatars thumbnail.
-     */
     private function addHeader(array $news, string $locale): array
     {
         $ids = \array_filter(\array_column($news, 'header'));

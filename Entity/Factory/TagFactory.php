@@ -17,7 +17,7 @@ use Sulu\Bundle\TagBundle\Tag\TagManagerInterface;
 use Sulu\Component\Persistence\RelationTrait;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
-class TagFactory extends AbstractFactory implements TagFactoryInterface
+class TagFactory implements TagFactoryInterface
 {
     use RelationTrait;
 
@@ -35,17 +35,25 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
      */
     public function processTags(News $news, $tags)
     {
-        $get = fn ($tag) => $tag->getId();
+        $get = function ($tag) {
+            return $tag->getId();
+        };
 
-        $delete = fn ($tag) => $news->removeTag($tag);
+        $delete = function ($tag) use ($news) {
+            return $news->removeTag($tag);
+        };
 
-        $update = fn () => true;
+        $update = function () {
+            return true;
+        };
 
-        $add = fn ($tag) => $this->addTag($news, $tag);
+        $add = function ($tag) use ($news) {
+            return $this->addTag($news, $tag);
+        };
 
         $entities = $news->getTags();
 
-        return $this->processSubEntities(
+        $result = $this->processSubEntities(
             $entities,
             $tags,
             $get,
@@ -53,6 +61,10 @@ class TagFactory extends AbstractFactory implements TagFactoryInterface
             $update,
             $delete
         );
+
+        $this->resetIndexOfSubentites($entities);
+
+        return $result;
     }
 
     /**

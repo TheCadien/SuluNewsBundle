@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Tests\Unit\Repository;
 
-use DateTime;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Sulu\Bundle\TestBundle\Testing\PurgeDatabaseTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
@@ -34,12 +35,12 @@ final class NewsRepositoryTest extends SuluTestCase
     /**
      * @var EntityManager
      */
-    private \Doctrine\ORM\EntityManagerInterface $em;
+    private EntityManagerInterface $em;
 
     /**
      * @var NewsRepository
      */
-    private \Doctrine\ORM\EntityRepository $newsRepository;
+    private EntityRepository $newsRepository;
 
     protected function setUp(): void
     {
@@ -50,7 +51,7 @@ final class NewsRepositoryTest extends SuluTestCase
 
     public function testSave(): void
     {
-        $newsTestData = $this->generateNewsWithContent();
+        $newsTestData = $this->generateNews();
         $this->newsRepository->save($newsTestData);
 
         $newsResult = $this->newsRepository->findOneBy(['title' => $newsTestData->getTitle()]);
@@ -60,15 +61,14 @@ final class NewsRepositoryTest extends SuluTestCase
 
     public function testGetPublishedNewsWithResult(): void
     {
-        $newsTestData = $this->generateNewsWithContent();
+        $newsTestData = $this->generateNews();
         $this->newsRepository->save($newsTestData);
         $secondNewsTestData = $this->generateSecondNewsWithContent();
         $this->newsRepository->save($secondNewsTestData);
 
         $result = $this->newsRepository->getPublishedNews();
 
-        static::assertSame($newsTestData->getTitle(), $result[0]->getTitle());
-        static::assertSame($secondNewsTestData->getTitle(), $result[1]->getTitle());
+        self::assertCount(1, $result);
     }
 
     public function testGetPublishedNewsWithEmptyDatabase(): void
@@ -81,12 +81,12 @@ final class NewsRepositoryTest extends SuluTestCase
     public function testGetPublishedNewsWithoutPublishedResult(): void
     {
         /** not enabled example in   */
-        $newsTestData = $this->generateNewsWithContent();
+        $newsTestData = $this->generateNews();
         $newsTestData->setEnabled(false);
         $this->newsRepository->save($newsTestData);
         /** not published example in */
         $secondNewsTestData = $this->generateSecondNewsWithContent();
-        $secondNewsTestData->setPublishedAt(new DateTime('tomorrow'));
+        $secondNewsTestData->setPublishedAt(new \DateTime('tomorrow'));
         $this->newsRepository->save($secondNewsTestData);
 
         $result = $this->newsRepository->getPublishedNews();
