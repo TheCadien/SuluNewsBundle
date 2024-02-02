@@ -10,7 +10,6 @@ services:
 
   TheCadien\Bundle\SuluNewsBundle\Controller\Admin\NewsController:
     arguments:
-      - '@TheCadien\Bundle\SuluNewsBundle\Repository\NewsRepository'
       - '@TheCadien\Bundle\SuluNewsBundle\Service\News\NewsService'
       - '@TheCadien\Bundle\SuluNewsBundle\Common\DoctrineListRepresentationFactory'
       - '@TheCadien\Bundle\SuluNewsBundle\Api\Factory\NewsApiDtoFactory'

@@ -7,15 +7,15 @@ use TheCadien\Bundle\SuluNewsBundle\Entity\News as NewsEntity;
 
 final class NewsApiDtoFactory
 {
-    public function generate(NewsEntity $entity): News
+    public function generate(NewsEntity $entity, string $locale): News
     {
         return new News(
-            $entity->getId(),
-            $entity->getTitle(),
-            $entity->getTeaser(),
-            $entity->getContent(),
-            $entity->isEnabled(),
-            $entity->getPublishedAt(),
+            id: $entity->getId(),
+            title: $entity->getTitle(),
+            teaser: $entity->getTeaser(),
+            content: $entity->getContent(),
+            enabled: $entity->isEnabled(),
+            publishedAt: $entity->getPublishedAt(),
             route: $entity->getRoute()?->getPath(),
             tags: $entity->getTagNameArray(),
             header: [
@@ -25,7 +25,8 @@ final class NewsApiDtoFactory
             created: $entity->getCreated(),
             changed: $entity->getChanged(),
             author: $entity->getCreator()?->getId(),
-            ext: $entity->getSeo()
+            ext: $entity->getSeo(),
+            locale: $locale
         );
     }
 }

@@ -15,9 +15,10 @@ namespace TheCadien\Bundle\SuluNewsBundle\Entity\Factory;
 
 use Sulu\Bundle\ContactBundle\Entity\ContactRepositoryInterface;
 use Sulu\Component\Persistence\RelationTrait;
+use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
-class NewsFactory extends AbstractFactory implements NewsFactoryInterface
+class NewsFactory implements NewsFactoryInterface
 {
     use RelationTrait;
 
@@ -33,34 +34,17 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
      *
      * @throws \Exception
      */
-    public function generateNewsFromRequest(News $news, array $data, string $locale = null, $state = null): News
+    public function generateNewsFromRequest(News $news, NewsApi $data, string $locale = null, $state = null): News
     {
-        if ($this->getProperty($data, 'title')) {
-            $news->setTitle($this->getProperty($data, 'title'));
-        }
+        $news->setTitle($data->title);
+        $news->setTeaser($data->teaser);
+        $news->setHeader($data->header);
+        $news->setPublishedAt($data->publishedAt);
+        $news->setContent($data->content);
+        $news->setSeo($data->ext);
 
-        if ($this->getProperty($data, 'teaser')) {
-            $news->setTeaser($this->getProperty($data, 'teaser'));
-        }
-
-        if ($this->getProperty($data, 'header')) {
-            $news->setHeader($this->mediaFactory->generateMedia($data['header']));
-        }
-
-        if ($this->getProperty($data, 'publishedAt')) {
-            $news->setPublishedAt(new \DateTime($this->getProperty($data, 'publishedAt')));
-        }
-
-        if ($this->getProperty($data, 'content')) {
-            $news->setContent($this->getProperty($data, 'content'));
-        }
-
-        if ($this->getProperty($data, 'ext')) {
-            $news->setSeo($this->getProperty($data['ext'], 'seo'));
-        }
-
-        if ($tags = $this->getProperty($data, 'tags')) {
-            $this->tagFactory->processTags($news, $tags);
+        if ($data->tags) {
+            $this->tagFactory->processTags($news, $data->tags);
         }
 
         if (!$news->getId()) {
@@ -75,13 +59,12 @@ class NewsFactory extends AbstractFactory implements NewsFactoryInterface
             $news->setEnabled($state);
         }
 
-        if ($authored = $this->getProperty($data, 'authored')) {
-            $news->setCreated(new \DateTime($authored));
+        if ($data->authored) {
+            $news->setCreated($data->authored);
         }
 
-        if ($author = $this->getProperty($data, 'author')) {
-            // @var Contact $contact
-            $news->setCreator($this->contactRepository->find($author));
+        if ($data->author) {
+            $news->setCreator($this->contactRepository->find($data->author));
         }
 
         return $news;

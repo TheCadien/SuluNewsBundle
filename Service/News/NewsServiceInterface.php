@@ -13,11 +13,12 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Service\News;
 
+use TheCadien\Bundle\SuluNewsBundle\Api\News as NewsApi;
 use TheCadien\Bundle\SuluNewsBundle\Entity\News;
 
 interface NewsServiceInterface
 {
-    public function saveNewNews(array $data, string $locale): News;
+    public function saveNewNews(NewsApi $data, string $locale): News;
 
-    public function updateNews($data, News $article, string $locale): News;
+    public function updateNews(NewsApi $data, News $article, string $locale): News;
 }

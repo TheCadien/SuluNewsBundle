@@ -13,23 +13,27 @@ declare(strict_types=1);
 
 namespace TheCadien\Bundle\SuluNewsBundle\Api;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 final class News
 {
     public function __construct(
-        public int $id,
-        public ?string $title = null,
-        public ?string $teaser = null,
-        public ?array $content = null,
-        public ?bool $enabled = null,
+        #[Assert\NotBlank(groups: ['edit'])]
+        public ?int $id,
+        public string $title,
+        public ?string $teaser,
+        public ?array $content,
+        public ?bool $enabled,
         public ?\DateTime $publishedAt = null,
-        public ?string $route = null,
-        public ?array $tags = null,
-        public ?array $header = null,
+        public ?string $route,
+        public ?array $tags,
+        public ?array $header,
         public ?\DateTime $authored = null,
         public ?\DateTime $created = null,
         public ?\DateTime $changed = null,
-        public ?int $author = null,
-        public ?string $ext = null
+        public ?int $author,
+        public ?string $ext,
+        public ?string $locale = null
     ) {
     }
 }

@@ -102,9 +102,6 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         $this->enabled = $enabled;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -120,14 +117,11 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         return $this->content ?: [];
     }
 
-    public function setContent($content): void
+    public function setContent(mixed $content): void
     {
         $this->content = $content;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCreated(): ?\DateTime
     {
         return $this->created;
@@ -138,9 +132,6 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         $this->created = $created;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getPublishedAt(): ?\DateTime
     {
         return $this->publishedAt;
@@ -156,7 +147,7 @@ class News implements NewsInterface, AuditableInterface, RoutableInterface
         return $this->teaser;
     }
 
-    public function setTeaser(string $teaser): void
+    public function setTeaser(?string $teaser): void
     {
         $this->teaser = $teaser;
     }
